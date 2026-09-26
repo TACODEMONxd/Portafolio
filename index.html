@@ -1,42 +1,60 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portafolio Digital de Técnicas Didácticas para Estudios Sociales y Educación Cívica (MEP Costa Rica).">
-    <title>Portafolio Didáctico: Estudios Sociales y Cívica (MEP)</title>
+    <meta name="description"
+        content="Portafolio Digital de Técnicas Didácticas para Estudios Sociales y Educación Cívica (MEP Costa Rica).">
+    <title>Portafolio Didáctico: Estudios Sociales y Cívica</title>
     <!-- Framework utilitario Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Hoja de estilos personalizada desacoplada -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-[#09090b] text-zinc-200 font-sans antialiased min-h-screen flex flex-col selection:bg-zinc-100 selection:text-zinc-950">
+
+<body
+    class="bg-[#09090b] text-zinc-200 font-sans antialiased min-h-screen flex flex-col selection:bg-zinc-100 selection:text-zinc-950">
 
     <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
     <header class="bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-900/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 bg-zinc-100 text-zinc-950 flex items-center justify-center font-bold text-sm">■</div>
+                    <div class="w-8 h-8 bg-zinc-100 text-zinc-950 flex items-center justify-center font-bold text-sm">■
+                    </div>
                     <div>
-                        <h1 class="text-xs sm:text-sm font-bold text-white tracking-widest uppercase">Portafolio Digital</h1>
-                        <p class="text-[10px] text-zinc-500 font-mono">Técnicas Didácticas • MEP Costa Rica</p>
+                        <h1 class="text-xs sm:text-sm font-bold text-white tracking-widest uppercase">Portafolio Digital
+                        </h1>
+                        <p class="text-[10px] text-zinc-500 font-mono">Técnicas Didácticas</p>
                     </div>
                 </div>
                 <nav class="hidden md:flex space-x-1" aria-label="Navegación principal">
-                    <a href="#portada" class="px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-100 uppercase tracking-wider">a. Portada</a>
-                    <a href="#introduccion" class="px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-100 uppercase tracking-wider">b. Introducción</a>
-                    <a href="#desarrollo" class="px-3 py-2 text-xs font-mono text-zinc-100 bg-zinc-900 uppercase tracking-wider">c. Desarrollo</a>
-                    <a href="#conclusiones" class="px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-100 uppercase tracking-wider">d. Conclusiones</a>
-                    <a href="#referencias" class="px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-100 uppercase tracking-wider">e. Referencias</a>
+                    <a href="#portada"
+                        class="px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-100 uppercase tracking-wider">a.
+                        Portada</a>
+                    <a href="#introduccion"
+                        class="px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-100 uppercase tracking-wider">b.
+                        Introducción</a>
+                    <a href="#desarrollo"
+                        class="px-3 py-2 text-xs font-mono text-zinc-100 bg-zinc-900 uppercase tracking-wider">c.
+                        Desarrollo</a>
+                    <a href="#conclusiones"
+                        class="px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-100 uppercase tracking-wider">d.
+                        Conclusiones</a>
+                    <a href="#referencias"
+                        class="px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-100 uppercase tracking-wider">e.
+                        Referencias</a>
                 </nav>
             </div>
         </div>
         <!-- Menú de navegación móvil con scroll horizontal -->
-        <div class="md:hidden flex overflow-x-auto bg-[#09090b] text-xs px-2 py-2 space-x-2 font-mono border-t border-zinc-900">
+        <div
+            class="md:hidden flex overflow-x-auto bg-[#09090b] text-xs px-2 py-2 space-x-2 font-mono border-t border-zinc-900">
             <a href="#portada" class="px-3 py-1 bg-zinc-900 text-zinc-300 whitespace-nowrap">a. Portada</a>
             <a href="#introduccion" class="px-3 py-1 bg-zinc-900 text-zinc-300 whitespace-nowrap">b. Introducción</a>
-            <a href="#desarrollo" class="px-3 py-1 bg-zinc-100 text-zinc-950 font-bold whitespace-nowrap">c. Desarrollo</a>
+            <a href="#desarrollo" class="px-3 py-1 bg-zinc-100 text-zinc-950 font-bold whitespace-nowrap">c.
+                Desarrollo</a>
             <a href="#conclusiones" class="px-3 py-1 bg-zinc-900 text-zinc-300 whitespace-nowrap">d. Conclusiones</a>
             <a href="#referencias" class="px-3 py-1 bg-zinc-900 text-zinc-300 whitespace-nowrap">e. Referencias</a>
         </div>
@@ -45,29 +63,37 @@
     <!-- BANNER FOTOGRÁFICO DE PORTADA -->
     <section class="relative w-full bg-zinc-950 overflow-hidden">
         <div class="relative w-full h-80 sm:h-[400px] md:h-[480px] lg:h-[540px]">
-            <img src="images/Autor.jpeg"
-                 alt="Fotografía del autor frente a la Facultad de Ciencias Sociales"
-                 loading="eager"
-                 class="w-full h-full object-cover object-[center_20%] filter grayscale contrast-125 brightness-90 hover:filter-none transition-all duration-1000">
+            <img src="images/Autor.jpeg" alt="Fotografía del autor frente a la Facultad de Ciencias Sociales"
+                loading="eager"
+                class="w-full h-full object-cover object-[center_20%] filter grayscale contrast-125 brightness-90 hover:filter-none transition-all duration-1000">
             <div class="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/60 to-transparent"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-[#09090b]/80 via-transparent to-[#09090b]/80"></div>
-            
+
             <div class="absolute bottom-0 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 space-y-3">
                 <div class="text-zinc-400 text-xs font-mono uppercase tracking-widest flex items-center space-x-2">
                     <span class="inline-block w-2 h-2 bg-zinc-100"></span>
-                    <span>Facultad de Ciencias Sociales • MEP Costa Rica</span>
+                    <span>Facultad de Ciencias Sociales</span>
                 </div>
-                <h2 id="banner-title" class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight uppercase">
+                <h2 id="banner-title"
+                    class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight uppercase">
                     Portafolio Didáctico de Estrategias y Técnicas
                 </h2>
                 <p class="text-zinc-300 font-medium text-sm sm:text-base max-w-3xl">
                     Estudios Sociales y Educación Cívica • Mediación Pedagógica en el Aula de Secundaria
                 </p>
                 <div class="pt-2 flex flex-wrap gap-2 text-xs font-mono">
-                    <span class="bg-zinc-900/90 backdrop-blur-sm text-orange-400 px-3 py-1 font-semibold border border-orange-500/20">HISTORIA (4)</span>
-                    <span class="bg-zinc-900/90 backdrop-blur-sm text-emerald-400 px-3 py-1 font-semibold border border-emerald-500/20">GEOGRAFÍA (4)</span>
-                    <span class="bg-zinc-900/90 backdrop-blur-sm text-cyan-400 px-3 py-1 font-semibold border border-cyan-500/20">CÍVICA (4)</span>
-                    <span class="bg-zinc-900/90 backdrop-blur-sm text-pink-400 px-3 py-1 font-semibold border border-pink-500/20">TRANSVERSAL (4)</span>
+                    <span
+                        class="bg-zinc-900/90 backdrop-blur-sm text-orange-400 px-3 py-1 font-semibold border border-orange-500/20">HISTORIA
+                        (4)</span>
+                    <span
+                        class="bg-zinc-900/90 backdrop-blur-sm text-emerald-400 px-3 py-1 font-semibold border border-emerald-500/20">GEOGRAFÍA
+                        (4)</span>
+                    <span
+                        class="bg-zinc-900/90 backdrop-blur-sm text-cyan-400 px-3 py-1 font-semibold border border-cyan-500/20">CÍVICA
+                        (4)</span>
+                    <span
+                        class="bg-zinc-900/90 backdrop-blur-sm text-pink-400 px-3 py-1 font-semibold border border-pink-500/20">TRANSVERSAL
+                        (4)</span>
                 </div>
             </div>
         </div>
@@ -89,30 +115,40 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm pt-2">
                     <div class="space-y-4">
                         <div class="space-y-1">
-                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Institución / Universidad</span>
-                            <p class="font-semibold text-zinc-100 text-base">Facultad de Ciencias Sociales • Universidad de Costa Rica</p>
+                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Institución /
+                                Universidad</span>
+                            <p class="font-semibold text-zinc-100 text-base">Facultad de Ciencias Sociales • Universidad
+                                de Costa Rica</p>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Curso / Especialidad</span>
-                            <p class="font-semibold text-zinc-100 text-base">Didáctica de los Estudios Sociales y la Educación Cívica</p>
+                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Curso /
+                                Especialidad</span>
+                            <p class="font-semibold text-zinc-100 text-base">Didáctica de los Estudios Sociales y la
+                                Educación Cívica</p>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Nivel Educativo</span>
-                            <p class="font-semibold text-zinc-100 text-base">Tercer Ciclo y Educación Diversificada (MEP)</p>
+                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Nivel
+                                Educativo</span>
+                            <p class="font-semibold text-zinc-100 text-base">Tercer Ciclo y Educación Diversificada
+                                </p>
                         </div>
                     </div>
                     <div class="space-y-4">
                         <div class="space-y-1">
-                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Nombre del Estudiante</span>
+                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Nombre del
+                                Estudiante</span>
                             <p class="font-semibold text-zinc-100 text-base">Pablo Delgado Herrera</p>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Profesor(a) del Curso</span>
+                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Profesor(a) del
+                                Curso</span>
                             <p class="font-semibold text-zinc-100 text-base">[Nombre del Docente del Curso]</p>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Modalidad de Trabajo</span>
-                            <p class="font-semibold text-zinc-100 text-base">Individual • Carrusel Interactivo de Técnicas Didácticas</p>
+                            <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Modalidad de
+                                Trabajo</span>
+                            <p class="font-semibold text-zinc-100 text-base">Individual • Carrusel Interactivo de
+                                Técnicas Didácticas</p>
                         </div>
                     </div>
                 </div>
@@ -125,31 +161,46 @@
         <section id="introduccion" class="scroll-margin-top space-y-8">
             <div class="space-y-8">
                 <div class="border-b border-zinc-900 pb-3">
-                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">// Apartado B</span>
+                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">// Apartado
+                        B</span>
                     <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Introducción</h3>
                 </div>
                 <div class="space-y-4">
-                    <h4 class="font-mono font-bold text-white text-xs uppercase tracking-wider">// Parte 1: Biografía Personal</h4>
-                    <div class="text-xs sm:text-sm text-zinc-300 leading-relaxed min-h-[70px] bg-zinc-950 p-5 border border-zinc-900">
+                    <h4 class="font-mono font-bold text-white text-xs uppercase tracking-wider">// Parte 1: Biografía
+                        Personal</h4>
+                    <div
+                        class="text-xs sm:text-sm text-zinc-300 leading-relaxed min-h-[70px] bg-zinc-950 p-5 border border-zinc-900">
                         <p class="italic text-zinc-400">
-                            [Espacio reservado para la biografía personal: trayectoria académica, motivación por la enseñanza de los Estudios Sociales y la Educación Cívica, y proyecciones en la labor docente en el MEP].
+                            [Espacio reservado para la biografía personal: trayectoria académica, motivación por la
+                            enseñanza de los Estudios Sociales y la Educación Cívica, y proyecciones en la labor docente
+                            .
                         </p>
                     </div>
                 </div>
                 <div class="space-y-6 pt-4">
-                    <h4 class="font-mono font-bold text-white text-xs uppercase tracking-wider">// Parte 2: Presentación del Espacio y Explicación Teórica</h4>
+                    <h4 class="font-mono font-bold text-white text-xs uppercase tracking-wider">// Parte 2: Presentación
+                        del Espacio y Explicación Teórica</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs sm:text-sm">
                         <div class="space-y-2 bg-zinc-950 p-5 border border-zinc-900">
-                            <h5 class="font-mono font-bold text-orange-400 text-xs uppercase tracking-wider">📜 Pensamiento Histórico</h5>
-                            <p class="text-zinc-300 leading-relaxed text-justify">Desarrollo de habilidades de indagación, evaluación de fuentes primarias y secundarias, análisis multicausal, empatía histórica y comprensión de procesos de cambio y continuidad en el tiempo.</p>
+                            <h5 class="font-mono font-bold text-orange-400 text-xs uppercase tracking-wider">📜
+                                Pensamiento Histórico</h5>
+                            <p class="text-zinc-300 leading-relaxed text-justify">Desarrollo de habilidades de
+                                indagación, evaluación de fuentes primarias y secundarias, análisis multicausal, empatía
+                                histórica y comprensión de procesos de cambio y continuidad en el tiempo.</p>
                         </div>
                         <div class="space-y-2 bg-zinc-950 p-5 border border-zinc-900">
-                            <h5 class="font-mono font-bold text-emerald-400 text-xs uppercase tracking-wider">🌍 Pensamiento Espacial</h5>
-                            <p class="text-zinc-300 leading-relaxed text-justify">Comprensión de las interacciones dinámicas entre las sociedades humanas y el territorio, lectura crítica del espacio geográfico, gestión del riesgo y sostenibilidad socioambiental.</p>
+                            <h5 class="font-mono font-bold text-emerald-400 text-xs uppercase tracking-wider">🌍
+                                Pensamiento Espacial</h5>
+                            <p class="text-zinc-300 leading-relaxed text-justify">Comprensión de las interacciones
+                                dinámicas entre las sociedades humanas y el territorio, lectura crítica del espacio
+                                geográfico, gestión del riesgo y sostenibilidad socioambiental.</p>
                         </div>
                         <div class="space-y-2 bg-zinc-950 p-5 border border-zinc-900">
-                            <h5 class="font-mono font-bold text-cyan-400 text-xs uppercase tracking-wider">⚖️ Ciudadanía Cívica</h5>
-                            <p class="text-zinc-300 leading-relaxed text-justify">Formación ética en valores, derechos humanos, deliberación argumentada, participación comunitaria activa y vivencia responsable del marco democrático costarricense.</p>
+                            <h5 class="font-mono font-bold text-cyan-400 text-xs uppercase tracking-wider">⚖️ Ciudadanía
+                                Cívica</h5>
+                            <p class="text-zinc-300 leading-relaxed text-justify">Formación ética en valores, derechos
+                                humanos, deliberación argumentada, participación comunitaria activa y vivencia
+                                responsable del marco democrático costarricense.</p>
                         </div>
                     </div>
                 </div>
@@ -162,40 +213,50 @@
         <section id="desarrollo" class="scroll-margin-top space-y-8">
             <div class="space-y-8">
                 <div class="border-b border-zinc-900 pb-3">
-                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">// Apartado C</span>
-                    <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Desarrollo: Técnicas Didácticas</h3>
+                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">// Apartado
+                        C</span>
+                    <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Desarrollo: Técnicas Didácticas
+                    </h3>
                     <p class="text-zinc-400 text-xs sm:text-sm mt-1">
-                        Seleccione cualquier técnica de la retícula para examinarla en detalle o navegue usando los botones laterales y las flechas del teclado (← / →).
+                        Seleccione cualquier técnica de la retícula para examinarla en detalle o navegue usando los
+                        botones laterales y las flechas del teclado (← / →).
                     </p>
                 </div>
 
                 <!-- Matriz de selección rápida generada por JavaScript -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 py-2" id="panal-index" aria-label="Índice de técnicas didácticas"></div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 py-2" id="panal-index"
+                    aria-label="Índice de técnicas didácticas"></div>
 
                 <!-- Filtros por categoría disciplinar generados por JavaScript -->
-                <div class="flex flex-wrap gap-2 pt-2 border-b border-zinc-900 pb-4" role="group" aria-label="Filtros de categoría" id="filtros-container"></div>
+                <div class="flex flex-wrap gap-2 pt-2 border-b border-zinc-900 pb-4" role="group"
+                    aria-label="Filtros de categoría" id="filtros-container"></div>
 
                 <!-- Escenario del Carrusel -->
                 <div class="space-y-6 pt-4" id="carousel-container">
                     <div class="flex justify-between items-center gap-4">
                         <div class="flex items-center space-x-3">
-                            <span id="slide-counter" aria-live="polite" class="bg-zinc-100 text-zinc-950 font-mono font-bold text-xs px-3 py-1 uppercase">Cargando…</span>
+                            <span id="slide-counter" aria-live="polite"
+                                class="bg-zinc-100 text-zinc-950 font-mono font-bold text-xs px-3 py-1 uppercase">Cargando…</span>
                             <span id="slide-category-label" class="text-zinc-300 text-xs font-mono font-medium"></span>
                         </div>
                     </div>
 
                     <!-- Estructura flanqueada con botones laterales -->
                     <div class="flex items-stretch gap-1 sm:gap-3">
-                        <button type="button" data-action="prev" aria-label="Técnica anterior" class="shrink-0 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-100 border border-zinc-900 w-8 sm:w-10 flex items-center justify-center font-mono text-base sm:text-xl transition-colors duration-300">❮</button>
-                        
+                        <button type="button" data-action="prev" aria-label="Técnica anterior"
+                            class="shrink-0 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-100 border border-zinc-900 w-8 sm:w-10 flex items-center justify-center font-mono text-base sm:text-xl transition-colors duration-300">❮</button>
+
                         <!-- Diapositivas generadas por JavaScript desde data.js -->
-                        <div id="carousel-stage" class="carousel-stage flex-grow bg-zinc-950 p-6 sm:p-8 border border-zinc-900"></div>
-                        
-                        <button type="button" data-action="next" aria-label="Técnica siguiente" class="shrink-0 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-100 border border-zinc-900 w-8 sm:w-10 flex items-center justify-center font-mono text-base sm:text-xl transition-colors duration-300">❯</button>
+                        <div id="carousel-stage"
+                            class="carousel-stage flex-grow bg-zinc-950 p-6 sm:p-8 border border-zinc-900"></div>
+
+                        <button type="button" data-action="next" aria-label="Técnica siguiente"
+                            class="shrink-0 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-100 border border-zinc-900 w-8 sm:w-10 flex items-center justify-center font-mono text-base sm:text-xl transition-colors duration-300">❯</button>
                     </div>
 
                     <!-- Indicadores de puntos (dots) -->
-                    <div class="pt-6 flex flex-wrap justify-center gap-1.5" id="slide-indicators" role="tablist" aria-label="Indicadores de técnicas"></div>
+                    <div class="pt-6 flex flex-wrap justify-center gap-1.5" id="slide-indicators" role="tablist"
+                        aria-label="Indicadores de técnicas"></div>
                 </div>
             </div>
         </section>
@@ -206,8 +267,10 @@
         <section id="conclusiones" class="scroll-margin-top space-y-6">
             <div class="space-y-6">
                 <div class="border-b border-zinc-900 pb-3">
-                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">// Apartado D</span>
-                    <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Conclusiones: Tres Aprendizajes Clave</h3>
+                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">// Apartado
+                        D</span>
+                    <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Conclusiones: Tres Aprendizajes
+                        Clave</h3>
                 </div>
                 <!-- Conclusiones cargadas dinámicamente desde data.js -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2" id="conclusiones-container"></div>
@@ -220,12 +283,14 @@
         <section id="referencias" class="scroll-margin-top space-y-6 pb-12">
             <div class="space-y-6">
                 <div class="border-b border-zinc-900 pb-3">
-                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">// Apartado E</span>
+                    <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-1">// Apartado
+                        E</span>
                     <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Referencias Bibliográficas</h3>
                 </div>
                 <div class="text-xs sm:text-sm text-zinc-300 leading-relaxed space-y-4">
                     <p class="italic text-zinc-400 font-medium">
-                        Compilación general de fuentes bibliográficas, programas de estudio del MEP y referencias didácticas utilizadas:
+                        Compilación general de fuentes bibliográficas, programas de estudio del MEP y referencias
+                        didácticas utilizadas:
                     </p>
                     <!-- Lista de referencias cargada dinámicamente desde data.js -->
                     <ul id="referencias-list" class="list-disc pl-5 space-y-2 text-zinc-400 font-mono text-xs"></ul>
@@ -238,8 +303,9 @@
     <!-- PIE DE PÁGINA -->
     <footer class="bg-[#09090b] text-zinc-500 text-xs py-8 border-t border-zinc-900">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-1 font-mono">
-            <p class="font-semibold text-zinc-400 uppercase">Portafolio Digital de Técnicas Didácticas en Estudios Sociales y Educación Cívica</p>
-            <p class="text-zinc-600">Mediación Pedagógica en el MEP Costa Rica • 2026</p>
+            <p class="font-semibold text-zinc-400 uppercase">Portafolio Digital de Técnicas Didácticas en Estudios
+                Sociales y Educación Cívica</p>
+            <p class="text-zinc-600">Mediación Pedagógica 2026</p>
         </div>
     </footer>
 
@@ -247,4 +313,5 @@
     <script src="js/data.js?v=2026092522" defer></script>
     <script src="js/app.js?v=2026092522" defer></script>
 </body>
+
 </html>
