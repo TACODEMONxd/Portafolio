@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Portafolio Didáctico - Estilos Personalizados
+   Especialidad en Estudios Sociales y Educación Cívica - MEP Costa Rica
+   ========================================================================== */
+
+/* Suavizado de desplazamiento */
+.scroll-margin-top {
+    scroll-margin-top: 5.5rem;
+}
+
+/* Celdas interactivas de la matriz de técnicas */
+.grid-cell {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    background-color: #121215;
+}
+
+.grid-cell:hover {
+    background-color: #1c1c22;
+    transform: translateY(-2px);
+}
+
+.grid-cell.active {
+    background-color: #222228;
+    border-color: #71717a !important;
+    box-shadow: 0 0 0 1px #71717a;
+}
+
+.tech-card {
+    scroll-margin-top: 90px;
+}
+
+/* Escenario continuo del carrusel con apilado Grid */
+.carousel-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    position: relative;
+    min-height: 480px;
+}
+
+.carousel-slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(24px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                visibility 0.6s;
+    pointer-events: none;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* Transiciones suaves en elementos interactivos */
+a, button, input {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Accesibilidad y foco visible por teclado */
+.grid-cell:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #f4f4f5;
+    outline-offset: 2px;
+}
+
+/* Respeto a usuarios con reducción de movimiento activada */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    .grid-cell,
+    .carousel-slide,
+    a,
+    button,
+    input {
+        transition: none !important;
+    }
+}
