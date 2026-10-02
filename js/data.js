@@ -284,8 +284,8 @@ const PORTAFOLIO_DATA = {
       "Recurso didáctico": "Letra impresa de \"Sobreviviendo\" + Guía analítica de 4 preguntas sobre paz, memoria y resiliencia social.",
       "Evidencia visual": "Hoja de la letra con marcados fluorescentes en las estrofas clave y respuestas redactadas al pie.",
       "Insumo PDF": "Insumos/Disco Foro Cívico.pdf",
-      "Video YouTube": "https://www.youtube.com/embed/WV-7bUgqios",
-      "Referencias utilizadas para la técnica": "Naranjo, J. C. (s. f.). Album de tecnicas."
+      "Referencias utilizadas para la técnica": "Naranjo, J. C. (s. f.). Album de tecnicas.",
+      "Video Embed": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/WV-7bUgqios?si=BCjWGUIPqxTX8DRl\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
     },
     {
       "numero": 11,
@@ -313,32 +313,33 @@ const PORTAFOLIO_DATA = {
       "Recurso didáctico": "Video intercalado en Edpuzzle con 3 preguntas de opción múltiple y 2 preguntas de reflexión abierta sobre discriminación indirecta.",
       "Evidencia visual": "Captura de pantalla de la interfaz de Edpuzzle mostrando el reproductor de video con marcas de verificación de preguntas.",
       "Insumo PDF": null,
-      "Referencias utilizadas para la técnica": "Naranjo, J. C. (s. f.). Album de tecnicas. Manual de Estrategias Didacticas (s. f.)."
+      "Referencias utilizadas para la técnica": "Naranjo, J. C. (s. f.). Album de tecnicas. Manual de Estrategias Didacticas (s. f.).",
+      "Video Embed": "<iframe width=\"590\" height=\"475\" src=\"https://edpuzzle.com/embed/media/6abf0cfbdd19aa0f5be1e36e\" frameborder=\"0\" allowfullscreen></iframe>"
     },
     {
       "numero": 12,
       "nombre": "Mediación Aplicada a Tecnologías: Inteligencia Artificial",
       "categoria": "Educación Cívica (Exposición Profesor)",
-      "Descripción": "Estrategia de innovación pedagógica que integra la Inteligencia Artificial Generativa (IAG) como recurso de mediación para el análisis crítico de la información ciudadana. Consiste en la formulación estructurada de instrucciones o \"prompts\" por parte del estudiantado para simular diálogos con actores históricos, generar posturas cívicas o contrastar fuentes de información. El docente define el marco ético de uso, diseña la guía de prompts y orienta la verificación de alucinaciones o sesgos en las respuestas de la IA. Se utiliza para promover el juicio crítico algorítmico y el análisis profundo.",
+      "Descripción": "Estrategia de innovación pedagógica que integra la Inteligencia Artificial Generativa (IAG) como recurso de mediación para el análisis crítico de la participación ciudadana. Consiste en la formulación estructurada de instrucciones o «prompts» por parte del estudiantado para simular diferentes perspectivas ciudadanas ante situaciones de interés público, identificar argumentos y explorar posibles mecanismos de participación. El docente define el marco ético de uso, diseña la guía de prompts y orienta al estudiantado en la identificación de sesgos, generalizaciones y diferencias entre hechos, opiniones y propuestas. Se utiliza para promover el juicio crítico algorítmico, la deliberación democrática y la participación ciudadana informada.",
       "Aplicación de la técnica": [
-        "Paso 1: El docente imparte el encuadre ético del uso de IA en la asignatura y entrega la guía de prompts.",
-        "Paso 2: Los estudiantes interactúan con la plataforma de IA (ChatGPT, Gemini, Claude) introduciendo las variables configuradas.",
-        "Paso 3: Someten la respuesta generada por la IA a una revisión crítica contrastándola con el libro de texto o la legislación.",
-        "Paso 4: Redacción de un informe de validación donde destacan los sesgos o aciertos del modelo."
+        "Paso 1: El docente presenta una situación relacionada con un asunto de interés público y explica el marco ético para el uso de la IA, además de entregar la guía de prompts.",
+        "Paso 2: Los estudiantes interactúan con la plataforma de IA (ChatGPT, Gemini, Claude) introduciendo las variables configuradas para simular diferentes perspectivas ciudadanas.",
+        "Paso 3: Analizan las respuestas generadas por la IA, clasificando los argumentos como hechos, opiniones o propuestas e identificando posibles sesgos, generalizaciones o información que requiera comprobación.",
+        "Paso 4: Elaboran una propuesta de participación ciudadana frente a la situación planteada y redactan una reflexión sobre la utilidad y las limitaciones de la IA como herramienta para comprender diferentes perspectivas."
       ],
-      "Recomendaciones para su ejecución": "Recomendado para 10° y 11° Año. Trabajo en parejas. Tiempo: 80 minutos. Recursos: laboratorios de informática o celulares con internet. Dificultad: aceptación pasiva del texto generado; el docente debe exigir el contraste crítico obligatorio.",
-      "Habilidades o competencias que desarrolla": "Pensamiento crítico, Alfabetización algorítmica, Pensamiento sistémico, Evaluación de fuentes.",
+      "Recomendaciones para su ejecución": "Recomendado para 10° y 11° Año. Trabajo en parejas. Tiempo: 80 minutos. Recursos: laboratorios de informática o celulares con internet. Dificultad: aceptación pasiva de las perspectivas generadas; el docente debe exigir que los estudiantes clasifiquen, cuestionen y fundamenten los argumentos antes de incorporarlos a su trabajo.",
+      "Habilidades o competencias que desarrolla": "Pensamiento crítico, Alfabetización algorítmica, Deliberación democrática, Argumentación, Evaluación de información y Participación ciudadana.",
       "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 11° Año. Unidad 1: La institucionalidad democrática costarricense. Contenido: Mecanismos de participación ciudadana y desarrollo de la Constitución Política de 1949.",
       "Modelaje / Ejemplo de aplicación": {
-        "tema": "Simulación de diálogo con un Constituyente de 1949 mediante Inteligencia Artificial.",
+        "tema": "Simulación de perspectivas ciudadanas mediante Inteligencia Artificial.",
         "nivel": "11° Año.",
-        "objetivo": "Analizar los debates constitucionales sobre el sufragio femenino y la abolición del ejército mediante un prompt simulado.",
-        "instrucciones": "Inserte el prompt diseñado en la IA, formule 3 preguntas sobre la abolición del ejército y evalúe la precisión histórica de las respuestas.",
-        "procedimiento": "Ejecución del prompt, interacción con la herramienta de IA, verificación documental e informe analítico.",
-        "producto_esperado": "Bitácora de diálogo con la IA más tabla de validación de certeza histórica.",
-        "evaluación": "Rúbrica (Calidad de la formulación del prompt, rigor en la verificación de datos e interpretación cívica)."
+        "objetivo": "Analizar diferentes perspectivas y argumentos frente a una situación de interés público, identificando mecanismos de participación ciudadana y construyendo una posición propia fundamentada.",
+        "instrucciones": "Inserte el prompt diseñado en la IA, analice las perspectivas generadas y clasifique los argumentos presentados como hechos, opiniones o propuestas. Posteriormente, identifique un posible sesgo o generalización y proponga un mecanismo de participación ciudadana relacionado con la situación.",
+        "procedimiento": "Ejecución del prompt, interacción con la herramienta de IA, clasificación de argumentos, identificación de sesgos y elaboración de una propuesta de participación ciudadana.",
+        "producto_esperado": "Bitácora de deliberación ciudadana con IA más tabla de clasificación de argumentos y propuesta de participación.",
+        "evaluación": "Rúbrica (Calidad del análisis de los argumentos, identificación de sesgos o generalizaciones, comprensión de los mecanismos de participación ciudadana y fundamentación de la posición propia)."
       },
-      "Recurso didáctico": "Prompt Maestro: \"Actúa como un diputado de la Asamblea Nacional Constituyente de Costa Rica de 1949. Responde con lenguaje formal de la época a mis preguntas sobre la abolición del ejército respaldando tus respuestas en los valores de la época\".",
+      "Recurso didáctico": "Prompt Maestro: «Actúa como un simulador de deliberación ciudadana. Presenta las perspectivas de cuatro actores diferentes ante una situación de interés público: una persona estudiante, una persona vecina, una persona comerciante y una organización comunitaria. Para cada actor, presenta sus principales preocupaciones, dos argumentos que podría utilizar y una propuesta de participación ciudadana. Distingue claramente entre hechos, opiniones y propuestas. No inventes leyes, estadísticas ni datos específicos. Si necesitas información que no está disponible, indícalo.»",
       "Evidencia visual": "Imprimible o captura de pantalla de la ventana de chat con la IA y la tabla de anotaciones en papel al costado.",
       "Insumo PDF": null,
       "Referencias utilizadas para la técnica": "Naranjo, J. C. (s. f.). Album de tecnicas."
@@ -368,7 +369,7 @@ const PORTAFOLIO_DATA = {
       },
       "Recurso didáctico": "Plantilla \"Construyendo mi Storytelling\": Personaje, Conflicto Histórico, Escenario Geográfico, Resolución y Moraleja Cívica.",
       "Evidencia visual": "Texto estructurado en forma de cuento con ilustraciones marginales.",
-      "Insumo PDF": null,
+      "Insumo PDF": "Insumos/storytelling.pdf",
       "Referencias utilizadas para la técnica": "Álvarez Navarro, B., & Solórzano Espinoza, D. (s. f.). Storytelling, narración histórica [Diapositivas de presentación]. Naranjo, J. C. (s. f.). Album de tecnicas. Manual de Estrategias Didacticas (s. f.)."
     },
     {
@@ -396,7 +397,7 @@ const PORTAFOLIO_DATA = {
       },
       "Recurso didáctico": "Libreta \"Diario de Viaje: Explorando el Recurso Hídrico\" con guía paso a paso para las 5 estaciones (Mapeo de la comunidad ficticia \"Río Claro\", tabla de consumo hídrico del hogar y matriz de análisis de actores).",
       "Evidencia visual": "Libreta abierta tipo artesanal con anotaciones manuscritas, esquemas a color, mapas intervenidos con simbología y sellos/pegatinas de estación.",
-      "Insumo PDF": null,
+      "Insumo PDF": "Insumos/Cuaderno de viaje.pdf",
       "Referencias utilizadas para la técnica": "Fajardo Madrigal, D., & Dalolio Monge, D. (2026). Técnica didáctica: Cuaderno de viaje [Diapositivas de presentación]. Facultad de Educación, Universidad de Costa Rica."
     },
     {
@@ -424,7 +425,7 @@ const PORTAFOLIO_DATA = {
       },
       "Recurso didáctico": "Estructura de pauta editorial: Página 1: Portada y Editorial; Página 2: Reportaje sobre la Ley 7600; Página 3: Entrevista a un líder comunal; Página 4: Caricatura y Pasatiempo cívico.",
       "Evidencia visual": "Ejemplar impreso o folleto doblado en dos con formato de revista a color, títulos destacados y columnas de texto.",
-      "Insumo PDF": null,
+      "Insumo PDF": "Insumos/Periódico o Revista .pdf",
       "Referencias utilizadas para la técnica": "Calvo Chaves, M., & Morales Chacón, E. (s. f.). Técnica didáctica: Periódico, revista o blog [Diapositivas de presentación]. Naranjo, J. C. (s. f.). Album de tecnicas. Manual de Estrategias Didacticas (s. f.)."
     },
     {
@@ -452,7 +453,7 @@ const PORTAFOLIO_DATA = {
       },
       "Recurso didáctico": "Guion de Entrevista: 6 Preguntas clave sobre educación, salud, transporte y cambios en la comunidad entre 1950 y la actualidad.",
       "Evidencia visual": "Transcripción mecanografiada de la entrevista con una fotografía adjunta del encuentro y una síntesis cualitativa.",
-      "Insumo PDF": null,
+      "Insumo PDF": "Insumos/Entrevista.pdf",
       "Referencias utilizadas para la técnica": "Baltodano, C., & Díaz, I. (s. f.). La entrevista [Diapositivas de presentación]. Manual de Estrategias Didacticas (s. f.). Naranjo, J. C. (s. f.)."
     }
   ],
@@ -471,6 +472,8 @@ const PORTAFOLIO_DATA = {
     }
   ],
   "referencias_generales": [
+    "Ministerio de Educación Pública. (2009). *Programas de estudios de Educación Cívica: Tercer ciclo de la Educación General Básica y Educación Diversificada*. República de Costa Rica.",
+    "Ministerio de Educación Pública. (2016). *Programas de estudio de Estudios Sociales: Tercer ciclo de la Educación General Básica y Educación Diversificada*. República de Costa Rica.",
     "*Manual de estrategias didácticas*. (s. f.). [Recopilación de estrategias para la educación a distancia].",
     "*Manual de estrategias de enseñanza/aprendizaje*. (s. f.). Servicio Nacional de Aprendizaje (SENA).",
     "Murillo García, J. L. (2020). *Metodologías activas: Recursos para el aula* (3.ª ed.). Independently published.",

@@ -191,9 +191,12 @@
                 aplicacionHTML = `<p class="text-zinc-300 text-xs sm:text-sm leading-relaxed">${escapeHTML(aplicacion)}</p>`;
             }
 
-            // Insumo PDF y Evidencia Visual
+            // Insumo PDF, Video Embed y Evidencia Visual
             const pdfUrl = t['Insumo PDF'] ? encodeURI(t['Insumo PDF']) : null;
-            const youtubeUrl = t['Video YouTube'] || null;
+            const videoEmbed = t['Video Embed'] || (t['Video YouTube'] ? `<iframe width="560" height="315" src="${t['Video YouTube']}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>` : null);
+            const edpuzzleLink = (videoEmbed && videoEmbed.includes('edpuzzle.com/embed/media/')) ? 'https://edpuzzle.com/media/6abf0cfbdd19aa0f5be1e36e' : (t['Enlace Directo'] || null);
+            const youtubeDirectLink = (videoEmbed && videoEmbed.includes('youtube.com/embed/WV-7bUgqios')) ? 'https://youtu.be/WV-7bUgqios' : null;
+            const directLink = edpuzzleLink || youtubeDirectLink;
             const textoEvidencia = (t['Evidencia visual'] || '').replace(/\[RECORDATORIO DOCENTE:[^\]]*\]/gi, '').trim();
             const evidenciaVisualHTML = `
                 <div class="space-y-3 md:col-span-2 bg-zinc-950 p-5 border border-zinc-800">
@@ -201,13 +204,20 @@
                         <div class="flex items-center space-x-2">
                             <span class="font-mono uppercase tracking-wider text-xs block font-bold" style="color: ${color}">// Evidencia visual e Insumo Didáctico</span>
                             ${pdfUrl ? `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono px-2 py-0.5 uppercase">PDF Adjunto</span>` : ''}
-                            ${youtubeUrl ? `<span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[10px] font-mono px-2 py-0.5 uppercase">▶ Video</span>` : ''}
+                            ${videoEmbed ? `<span class="bg-purple-500/10 text-purple-400 border border-purple-500/30 text-[10px] font-mono px-2 py-0.5 uppercase">▶ Recurso Interactivo</span>` : ''}
                         </div>
-                        ${pdfUrl ? `
-                            <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-mono text-zinc-200 hover:text-white bg-zinc-900 hover:bg-zinc-800 px-3 py-1.5 border border-zinc-700 transition-colors">
-                                <span>📄 Abrir Insumo PDF en pestaña nueva ↗</span>
-                            </a>
-                        ` : ''}
+                        <div class="flex items-center space-x-2 flex-wrap gap-2">
+                            ${pdfUrl ? `
+                                <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-mono text-zinc-200 hover:text-white bg-zinc-900 hover:bg-zinc-800 px-3 py-1.5 border border-zinc-700 transition-colors">
+                                    <span>📄 Abrir Insumo PDF en pestaña nueva ↗</span>
+                                </a>
+                            ` : ''}
+                            ${directLink ? `
+                                <a href="${directLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-mono text-purple-300 hover:text-white bg-purple-950/60 hover:bg-purple-900 px-3 py-1.5 border border-purple-700/50 transition-colors">
+                                    <span>🔗 ${edpuzzleLink ? 'Abrir Edpuzzle' : 'Abrir Video'} en pestaña nueva ↗</span>
+                                </a>
+                            ` : ''}
+                        </div>
                     </div>
 
                     ${textoEvidencia ? `
@@ -227,27 +237,31 @@
                         </div>
                     ` : ''}
 
-                    ${youtubeUrl ? (() => {
-                        const videoId = youtubeUrl.split('/embed/')[1]?.split('?')[0] || '';
-                        const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                        const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-                        return `
+                    ${videoEmbed ? `
                         <div class="w-full mt-4 border border-zinc-800 bg-zinc-900 overflow-hidden shadow-2xl">
-                            <div class="flex items-center space-x-2 px-4 py-2 border-b border-zinc-800">
-                                <span class="text-red-500 text-sm">▶</span>
-                                <span class="font-mono text-xs text-zinc-400 uppercase tracking-wider">Video de la canción</span>
-                            </div>
-                            <a href="${watchUrl}" target="_blank" rel="noopener noreferrer" class="block relative group cursor-pointer">
-                                <img src="${thumbUrl}" alt="Miniatura del video" class="w-full object-cover" style="max-height:320px; object-fit:cover;">
-                                <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center group-hover:bg-black/30 transition-all">
-                                    <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
-                                        <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8 ml-1"><path d="M8 5v14l11-7z"/></svg>
-                                    </div>
-                                    <span class="mt-3 text-white font-mono text-xs uppercase tracking-wider bg-black/60 px-3 py-1">Abrir en YouTube ↗</span>
+                            <div class="flex items-center justify-between px-4 py-2 border-b border-zinc-800 flex-wrap gap-2">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-purple-400 text-sm">▶</span>
+                                    <span class="font-mono text-xs text-zinc-400 uppercase tracking-wider">Recurso Audiovisual / Interactivo</span>
                                 </div>
-                            </a>
-                        </div>`;
-                    })() : ''}
+                                ${directLink ? `
+                                    <a href="${directLink}" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-purple-400 hover:text-purple-300 underline">
+                                        Abrir enlace directo ↗
+                                    </a>
+                                ` : ''}
+                            </div>
+                            <div class="w-full flex justify-center bg-black p-2 sm:p-4 overflow-hidden responsive-embed">
+                                ${videoEmbed}
+                            </div>
+                            ${edpuzzleLink ? `
+                                <div class="p-3 text-center border-t border-zinc-800 bg-zinc-950/80">
+                                    <a href="${edpuzzleLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-xs font-mono text-purple-400 hover:text-purple-300 underline font-semibold">
+                                        <span>🔗 Enlace directo a Edpuzzle: https://edpuzzle.com/media/6abf0cfbdd19aa0f5be1e36e ↗</span>
+                                    </a>
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : ''}
                 </div>
             `;
 

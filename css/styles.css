@@ -85,3 +85,9 @@ a:focus-visible {
         transition: none !important;
     }
 }
+
+/* Embeds adaptables */
+.responsive-embed iframe {
+    max-width: 100%;
+}
+
