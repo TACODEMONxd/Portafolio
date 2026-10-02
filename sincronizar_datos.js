@@ -57,6 +57,8 @@ const data = {
   tecnicas: [],
   conclusiones: [],
   referencias_generales: [
+    "Ministerio de Educación Pública. (2009). *Programas de estudios de Educación Cívica: Tercer ciclo de la Educación General Básica y Educación Diversificada*. República de Costa Rica.",
+    "Ministerio de Educación Pública. (2016). *Programas de estudio de Estudios Sociales: Tercer ciclo de la Educación General Básica y Educación Diversificada*. República de Costa Rica.",
     "*Manual de estrategias didácticas*. (s. f.). [Recopilación de estrategias para la educación a distancia].",
     "*Manual de estrategias de enseñanza/aprendizaje*. (s. f.). Servicio Nacional de Aprendizaje (SENA).",
     "Murillo García, J. L. (2020). *Metodologías activas: Recursos para el aula* (3.ª ed.). Independently published.",
@@ -255,6 +257,11 @@ for (let i = 1; i < lines.length; i++) {
     currentTecnica['Insumo PDF'] = line.replace(/^(Insumo PDF|Insumo):\s*/i, '').trim();
     continue;
   }
+  if (line.startsWith('Video Embed:') || line.startsWith('Video HTML:') || line.startsWith('Video YouTube:')) {
+    currentSection = 'video_embed';
+    currentTecnica['Video Embed'] = line.replace(/^(Video Embed|Video HTML|Video YouTube):\s*/i, '').trim();
+    continue;
+  }
   if (line.startsWith('Referencias utilizadas para la técnica:')) {
     currentSection = 'referencias';
     currentTecnica['Referencias utilizadas para la técnica'] = line.replace('Referencias utilizadas para la técnica:', '').trim();
@@ -273,17 +280,32 @@ for (let i = 1; i < lines.length; i++) {
     currentTecnica['Recurso didáctico'] += ' ' + line;
   } else if (currentSection === 'evidencia') {
     currentTecnica['Evidencia visual'] += ' ' + line.replace(/\[RECORDATORIO DOCENTE:[^\]]*\]/gi, '').trim();
+  } else if (currentSection === 'video_embed') {
+    currentTecnica['Video Embed'] += ' ' + line;
   } else if (currentSection === 'referencias') {
     currentTecnica['Referencias utilizadas para la técnica'] += ' ' + line;
   }
 }
 
+const CUSTOM_EMBEDS = {
+  10: `<iframe width="560" height="315" src="https://www.youtube.com/embed/WV-7bUgqios?si=BCjWGUIPqxTX8DRl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+  11: `<iframe width="590" height="475" src="https://edpuzzle.com/embed/media/6abf0cfbdd19aa0f5be1e36e" frameborder="0" allowfullscreen></iframe>`
+};
+
 if (currentTecnica) {
   if (!currentTecnica['Insumo PDF']) {
     currentTecnica['Insumo PDF'] = encontrarPdfParaTecnica(currentTecnica.numero, currentTecnica.nombre);
   }
+  if (!currentTecnica['Video Embed'] && CUSTOM_EMBEDS[currentTecnica.numero]) {
+    currentTecnica['Video Embed'] = CUSTOM_EMBEDS[currentTecnica.numero];
+  }
   data.tecnicas.push(currentTecnica);
 }
+data.tecnicas.forEach(t => {
+  if (!t['Video Embed'] && CUSTOM_EMBEDS[t.numero]) {
+    t['Video Embed'] = CUSTOM_EMBEDS[t.numero];
+  }
+});
 if (currentConclusion) data.conclusiones.push(currentConclusion);
 
 const jsHeader = `/**
