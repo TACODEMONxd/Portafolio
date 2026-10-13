@@ -836,10 +836,14 @@
 
         function actualizar() {
             const franjaY = window.innerHeight * 0.3;
-            let actual = secciones[0].id;
+            let actual = null;
             for (const s of secciones) {
+                // Ignorar secciones colapsadas: sin rectángulos visibles
+                if (s.el.getClientRects().length === 0) continue;
                 if (s.el.getBoundingClientRect().top <= franjaY) actual = s.id;
             }
+            // Si todo quedó oculto (raro), mantener el primero disponible
+            if (!actual) actual = secciones.find(s => s.el.getClientRects().length > 0)?.id || secciones[0].id;
             let activo = null;
             links.forEach(l => {
                 const esActivo = l.getAttribute('href') === '#' + actual;
@@ -961,6 +965,10 @@
 
     const COLLAPSE_KEY = 'portafolio_collapsed_sections';
 
+    // Secciones que inician colapsadas para visitantes nuevos.
+    // El usuario puede abrirlas y su elección queda guardada en localStorage.
+    const SECCIONES_OCULTAS_POR_DEFECTO = ['juegos-content'];
+
     function getSavedCollapsedSections() {
         try {
             const raw = localStorage.getItem(COLLAPSE_KEY);
@@ -984,8 +992,12 @@
             const body = document.getElementById(targetId);
             if (!body) return;
 
-            // Restaurar estado guardado en localStorage
-            const isCollapsed = collapsedMap[targetId] === true;
+            // Estado guardado del usuario; si es su primera visita,
+            // se aplica el estado por defecto de cada sección
+            const tieneEstadoGuardado = Object.prototype.hasOwnProperty.call(collapsedMap, targetId);
+            const isCollapsed = tieneEstadoGuardado
+                ? collapsedMap[targetId] === true
+                : SECCIONES_OCULTAS_POR_DEFECTO.includes(targetId);
             if (isCollapsed) {
                 body.classList.add('is-collapsed');
                 btn.setAttribute('aria-expanded', 'false');
@@ -1000,28 +1012,29 @@
             }
 
             btn.addEventListener('click', () => {
-                const nowCollapsed = body.classList.toggle('is-collapsed');
-                btn.setAttribute('aria-expanded', nowCollapsed ? 'false' : 'true');
-                _updateCollapseLabel(btn, nowCollapsed);
+                const nowCollapsed = !body.classList.contains('is-collapsed');
+                aplicarColapsado(body, nowCollapsed);
+            });
+        });
+    }
 
-                // Actualizar localStorage
-                const map = getSavedCollapsedSections();
-                map[targetId] = nowCollapsed;
-                saveCollapsedSections(map);
-
-                // Si se colapsa una sección con iframes activos, descargarlos
-                if (nowCollapsed) {
-                    body.querySelectorAll('iframe[data-src]').forEach(iframe => {
-                        if (iframe.getAttribute('src') !== 'about:blank') {
-                            iframe.setAttribute('src', 'about:blank');
-                        }
-                    });
-                } else {
-                    // Si se expande, resincronizar iframes activos de esa sección
-                    const stage = body.querySelector('#carousel-stage, #juegos-stage');
-                    if (stage) {
-                        syncActiveIframes('#' + stage.id);
-                    }
+    /**
+     * Navegar desde el menú a una sección colapsada la expande primero,
+     * para que el usuario nunca llegue a un área invisible.
+     */
+    function initNavAutoExpand() {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const id = (link.getAttribute('href') || '').replace('#', '');
+                const section = id ? document.getElementById(id) : null;
+                if (!section) return;
+                // El cuerpo colapsable es descendiente de la sección:
+                // se localiza mediante el botón que lo controla
+                const btn = section.querySelector('.section-collapse-btn');
+                if (!btn) return;
+                const body = document.getElementById(btn.getAttribute('data-target'));
+                if (body && body.classList.contains('is-collapsed')) {
+                    aplicarColapsado(body, false);
                 }
             });
         });
@@ -1032,6 +1045,42 @@
         const textEl = btn.querySelector('.collapse-text');
         if (iconEl) iconEl.textContent = isCollapsed ? '👁️‍🗨️' : '👁️';
         if (textEl) textEl.textContent = isCollapsed ? 'Mostrar' : 'Ocultar';
+    }
+
+    /**
+     * Aplica (o quita) el estado colapsado de una sección: clase CSS,
+     * etiqueta del botón, persistencia en localStorage y descarga o
+     * reactivación de los iframes del carrusel que contiene.
+     */
+    function aplicarColapsado(body, colapsar) {
+        body.classList.toggle('is-collapsed', colapsar);
+
+        // Persistir la elección del usuario
+        const map = getSavedCollapsedSections();
+        map[body.id] = colapsar;
+        saveCollapsedSections(map);
+
+        // Sincronizar el botón que controla esta sección
+        const btn = document.querySelector('.section-collapse-btn[data-target="' + body.id + '"]');
+        if (btn) {
+            btn.setAttribute('aria-expanded', colapsar ? 'false' : 'true');
+            _updateCollapseLabel(btn, colapsar);
+        }
+
+        if (colapsar) {
+            // Descargar iframes activos para detener audio/video de inmediato
+            body.querySelectorAll('iframe[data-src]').forEach(iframe => {
+                if (iframe.getAttribute('src') !== 'about:blank') {
+                    iframe.setAttribute('src', 'about:blank');
+                }
+            });
+        } else {
+            // Al expandir, resincronizar los iframes activos
+            const stage = body.querySelector('#carousel-stage, #juegos-stage');
+            if (stage) {
+                syncActiveIframes('#' + stage.id);
+            }
+        }
     }
 
     /* ==========================================================================
@@ -1092,11 +1141,15 @@
         // 6. Interruptor de tema oscuro/claro
         initThemeToggle();
 
-        // 6b. Resaltar la sección visible en la barra de navegación
-        initNavScrollSpy();
-
-        // 7. Secciones colapsables
+        // 6b. Secciones colapsables (antes del scroll spy, para que la
+        //     navegación ignore correctamente las secciones ocultas)
         initSectionCollapseButtons();
+
+        // 6b2. Expandir secciones colapsadas al navegar a ellas
+        initNavAutoExpand();
+
+        // 6c. Resaltar la sección visible en la barra de navegación
+        initNavScrollSpy();
 
         // 8. Detener reproducción cuando la sección sale de la pantalla o la pestaña se oculta
         if ('IntersectionObserver' in window) {
