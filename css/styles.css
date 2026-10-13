@@ -350,6 +350,7 @@ a:focus-visible {
     table, thead, tbody, tr, td, th,
     .theme-icon-dark,
     .theme-icon-light,
+    .header-logo-oscuro,
     .carousel-stage,
     #conclusiones-container > div {
         transition: none !important;
@@ -711,6 +712,33 @@ html.light .theme-icon-dark {
 html.light .theme-icon-light {
     opacity: 1;
     transform: rotate(0deg) scale(1);
+}
+
+/* ==========================================================================
+   Logo del header — versión blanca (tema oscuro) / negra (tema claro)
+   --------------------------------------------------------------------------
+   Las dos versiones tienen el mismo viewBox, así que la negra se coloca
+   exactamente encima de la blanca y se funde con ella, sincronizado con
+   la transición de tema (mismo sistema que los iconos del interruptor).
+   ========================================================================== */
+.header-logo {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+
+.header-logo-oscuro {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+html.light .header-logo-oscuro {
+    opacity: 1;
 }
 
 /* ==========================================================================
