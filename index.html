@@ -24,7 +24,7 @@
         })();
     </script>
     <!-- Framework utilitario Tailwind CSS (compilado localmente: solo las clases usadas) -->
-    <link rel="stylesheet" href="css/tailwind.min.css?v=20261013m">
+    <link rel="stylesheet" href="css/tailwind.min.css?v=20261013n">
     <!-- Hoja de estilos personalizada desacoplada -->
     <link rel="stylesheet" href="css/styles.css?v=20261013o">
 </head>
@@ -87,11 +87,13 @@
 
     <!-- BANNER FOTOGRÁFICO DE PORTADA -->
     <section class="relative w-full bg-[#09090b]">
-        <!-- Fotografía: ocupa su propio espacio, sin texto encima -->
-        <div class="relative w-full h-[260px] sm:h-[320px] md:h-[360px] lg:h-[400px] overflow-hidden">
+        <!-- Fotografía: ocupa su propio espacio, sin texto encima.
+             Alturas calculadas para que la cara entre completa; object-[35%_top]
+             la mantiene en cuadro (está en el centro-izquierda del encuadre). -->
+        <div class="relative w-full h-[300px] sm:h-[420px] md:h-[480px] lg:h-[520px] overflow-hidden">
             <img src="images/Autor.jpeg" alt="Fotografía del autor frente a la Facultad de Ciencias Sociales"
                 loading="eager" fetchpriority="high" decoding="async"
-                class="w-full h-full object-cover object-[center_20%] filter grayscale contrast-125 brightness-90 hover:filter-none transition-all duration-1000">
+                class="w-full h-full object-cover object-[35%_top] filter grayscale contrast-125 brightness-90 hover:filter-none transition-all duration-1000">
             <!-- Degradados laterales sutiles: enmarcan la foto sin taparla -->
             <div class="absolute inset-0 bg-gradient-to-r from-[#09090b]/60 via-transparent to-[#09090b]/60"></div>
         </div>
