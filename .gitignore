@@ -1,2 +1,6 @@
 # Dependencias de compilación (Tailwind). Se regeneran con `npm install`.
 node_modules/
+
+# Archivos del explorador de Windows
+desktop.ini
+Thumbs.db
