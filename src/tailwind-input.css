@@ -1,0 +1,7 @@
+/* Hoja de entrada para el compilador de Tailwind.
+   Ejecutar:  npm run build:css
+   Genera:    css/tailwind.min.css  (solo las clases realmente usadas) */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

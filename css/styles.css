@@ -1,0 +1,1123 @@
+/* ==========================================================================
+   Portafolio Didáctico - Estilos Personalizados
+   Especialidad en Estudios Sociales y Educación Cívica - MEP Costa Rica
+   ========================================================================== */
+
+/* Suavizado de desplazamiento */
+.scroll-margin-top {
+    scroll-margin-top: 5.5rem;
+}
+
+/* ==========================================================================
+   Variables de elevación (profundidad visual)
+   --------------------------------------------------------------------------
+   Sistema de sombras unificado para ambos temas:
+   - Oscuro: sombra profunda negra + brillo superior sutil (relieve).
+   - Claro:  sombra azulada suave + brillo blanco (tarjeta elevada).
+   Al usar variables, el cruce de tema anima las sombras automáticamente.
+   ========================================================================== */
+:root {
+    /* Radios de esquina (diseño más suave) */
+    --radius-panel: 0.5rem;    /* 8px — paneles, tarjetas y marcos */
+    --radius-small: 0.375rem;  /* 6px — chips, botones y contadores */
+    --shadow-panel: 0 1px 2px rgba(0, 0, 0, 0.5),
+                    0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-panel-hover: 0 2px 6px rgba(0, 0, 0, 0.55),
+                          0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+html.light {
+    --shadow-panel: 0 1px 2px rgba(15, 23, 42, 0.10),
+                    0 2px 8px rgba(15, 23, 42, 0.07);
+    --shadow-panel-hover: 0 2px 6px rgba(15, 23, 42, 0.14),
+                          0 10px 28px rgba(15, 23, 42, 0.12);
+}
+
+/* ==========================================================================
+   Banner Principal (imagen de portada)
+   ========================================================================== */
+
+/* Garantiza que el área de texto del banner mantenga legibilidad
+   en ambos temas sin depender de los filtros de imagen del modo claro. */
+.banner-text-overlay {
+    /* Gradiente de oscurecimiento reforzado en la zona del texto */
+    background: linear-gradient(
+        to top,
+        rgba(9, 9, 11, 0.95) 0%,
+        rgba(9, 9, 11, 0.75) 35%,
+        transparent 100%
+    );
+}
+
+/* Texto del banner: siempre claro independientemente del tema */
+.banner-title {
+    color: #ffffff !important;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.banner-subtitle {
+    color: rgba(255, 255, 255, 0.88) !important;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+}
+
+.banner-breadcrumb {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.banner-breadcrumb .breadcrumb-dot {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Insignias del banner: fondo semitransparente fijo (no invertir en modo claro) */
+.banner-badge {
+    background-color: rgba(9, 9, 11, 0.82) !important;
+    backdrop-filter: blur(4px);
+    border-radius: var(--radius-small);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* ==========================================================================
+   Celdas interactivas de la matriz de técnicas
+   ========================================================================== */
+.grid-cell {
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    background-color: #121215;
+    border-radius: var(--radius-panel);
+    box-shadow: var(--shadow-panel);
+}
+
+/* Estado hover cromático por categoría (asignado vía data-catkey en JS) */
+.grid-cell:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-panel-hover);
+}
+
+/* Historia → naranja suave */
+.grid-cell[data-catkey="historia"]:hover {
+    background-color: rgba(249, 115, 22, 0.12);
+    border-color: rgba(249, 115, 22, 0.35) !important;
+}
+
+/* Geografía → esmeralda suave */
+.grid-cell[data-catkey="geografia"]:hover {
+    background-color: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+/* Cívica → cian suave */
+.grid-cell[data-catkey="civica"]:hover {
+    background-color: rgba(6, 182, 212, 0.12);
+    border-color: rgba(6, 182, 212, 0.35) !important;
+}
+
+/* Transversal → rosa/pink suave */
+.grid-cell[data-catkey="pares"]:hover {
+    background-color: rgba(236, 72, 153, 0.12);
+    border-color: rgba(236, 72, 153, 0.35) !important;
+}
+
+/* Juegos → ámbar suave */
+.grid-cell[data-catkey="juego"]:hover {
+    background-color: rgba(251, 191, 36, 0.12);
+    border-color: rgba(251, 191, 36, 0.35) !important;
+}
+
+/* Estado activo cromático por categoría */
+.grid-cell.active {
+    background-color: #1e1e24;
+    box-shadow: 0 0 0 2px currentColor;
+}
+
+.grid-cell[data-catkey="historia"].active {
+    border-color: rgba(249, 115, 22, 0.7) !important;
+    box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.5), 0 4px 14px rgba(249,115,22,0.15);
+    background-color: rgba(249, 115, 22, 0.07);
+}
+
+.grid-cell[data-catkey="geografia"].active {
+    border-color: rgba(16, 185, 129, 0.7) !important;
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.5), 0 4px 14px rgba(16,185,129,0.15);
+    background-color: rgba(16, 185, 129, 0.07);
+}
+
+.grid-cell[data-catkey="civica"].active {
+    border-color: rgba(6, 182, 212, 0.7) !important;
+    box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.5), 0 4px 14px rgba(6,182,212,0.15);
+    background-color: rgba(6, 182, 212, 0.07);
+}
+
+.grid-cell[data-catkey="pares"].active {
+    border-color: rgba(236, 72, 153, 0.7) !important;
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.5), 0 4px 14px rgba(236,72,153,0.15);
+    background-color: rgba(236, 72, 153, 0.07);
+}
+
+.grid-cell[data-catkey="juego"].active {
+    border-color: rgba(251, 191, 36, 0.7) !important;
+    box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5), 0 4px 14px rgba(251,191,36,0.15);
+    background-color: rgba(251, 191, 36, 0.07);
+}
+
+.tech-card {
+    scroll-margin-top: 90px;
+}
+
+/* ==========================================================================
+   Escenario del carrusel — acento cromático dinámico
+   El borde superior se controla desde JS mediante --accent-color en el stage
+   ========================================================================== */
+.carousel-stage {
+    display: grid;
+    /* minmax(0, 1fr): permite que la columna se encoja hasta el ancho
+       disponible aunque el contenido (p. ej. el iframe del juego a 795px)
+       sea más ancho, evitando el desborde horizontal de la página */
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    position: relative;
+    min-height: 480px;
+    min-width: 0;
+    border-top: 3px solid var(--carousel-accent, #71717a) !important;
+    border-radius: var(--radius-panel);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.4), 0 1px 6px rgba(0,0,0,0.25);
+    /* manipulation: permite scroll vertical y zoom con pinza, pero desactiva
+       el zoom por doble toque para que el doble toque avance el carrusel */
+    touch-action: manipulation;
+    transition: border-color 0.4s ease,
+                background-color 0.4s ease,
+                color 0.4s ease;
+}
+
+.carousel-slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(24px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                visibility 0.6s;
+    pointer-events: none;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* ==========================================================================
+   Móvil (<640px): flechas del carrusel debajo del escenario
+   --------------------------------------------------------------------------
+   En pantallas pequeñas las flechas laterales roban ancho al escenario
+   (la tarjeta quedaba en ~210px útiles). Con CSS Grid se reordena sin
+   cambiar el HTML: escenario a todo el ancho arriba y dos botones
+   grandes debajo — mejor objetivo táctil (mín. 44px de alto).
+   ========================================================================== */
+
+/* Etiquetas de texto de los botones: visibles solo en móvil, donde
+   acompañan al glifo para que la navegación sea evidente */
+.nav-btn-text {
+    display: none;
+}
+
+@media (max-width: 639px) {
+    .carousel-flank {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    /* Escenario a todo el ancho en la primera línea */
+    .carousel-flank > .carousel-stage {
+        order: 1;
+        flex-basis: 100%;
+        width: 100%;
+    }
+
+    /* Los dos botones comparten la segunda línea, mitad y mitad */
+    .carousel-flank > button[data-action="prev"],
+    .carousel-flank > #juegos-prev-btn,
+    .carousel-flank > button[data-action="next"],
+    .carousel-flank > #juegos-next-btn {
+        order: 2;
+        width: calc(50% - 0.375rem);
+        height: 2.75rem;
+        font-size: 1rem;
+    }
+
+    /* En móvil los botones muestran texto junto al glifo */
+    .nav-btn-text {
+        display: inline;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+    }
+
+    /* El glifo "anterior" va antes del texto; el "siguiente", después */
+    .carousel-flank > button[data-action="prev"] .nav-btn-text,
+    .carousel-flank > #juegos-prev-btn .nav-btn-text {
+        margin-left: 0.5rem;
+    }
+
+    .carousel-flank > button[data-action="next"] .nav-btn-text,
+    .carousel-flank > #juegos-next-btn .nav-btn-text {
+        margin-right: 0.5rem;
+    }
+}
+
+/* ==========================================================================
+   Transiciones y accesibilidad
+   ========================================================================== */
+a, button, input {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Transición Suave entre Modo Oscuro y Modo Claro
+   --------------------------------------------------------------------------
+   Cruce de color progresivo (fondo, texto y bordes) sobre los contenedores
+   y elementos de texto, para que el cambio de tema no sea un salto
+   instantáneo.
+
+   Notas de especificidad:
+   - No se incluyen <a>, <button> ni <input>: ya usan "transition: all".
+   - Los elementos con transición propia por clase (.grid-cell,
+     .carousel-slide, .section-collapsible-body, .section-collapse-btn,
+     .theme-switch-btn, .theme-switch-thumb, .theme-icon-*) la conservan,
+     ya que una clase siempre vence a un selector de elemento.
+   - No se anima box-shadow a nivel global: con ~1200 elementos la sombra
+     simultánea provocaba retardos (jank) en el cambio de tema. Las sombras
+     cambian al instante; solo los colores se interpolan.
+   ========================================================================== */
+body,
+header,
+footer,
+main,
+section,
+article,
+aside,
+nav,
+div,
+h1, h2, h3, h4, h5, h6,
+p,
+span,
+li, ul, ol,
+kbd, strong, em, small,
+blockquote, figure, figcaption,
+table, thead, tbody, tr, td, th {
+    transition: background-color 0.35s ease,
+                border-color 0.35s ease,
+                color 0.35s ease;
+}
+
+.grid-cell:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #f4f4f5;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    .grid-cell,
+    .carousel-slide,
+    a,
+    button,
+    input {
+        transition: none !important;
+    }
+
+    /* La transición de tema también se desactiva para respetar
+       la preferencia de movimiento reducido del usuario */
+    body,
+    header,
+    footer,
+    main,
+    section,
+    article,
+    aside,
+    nav,
+    div,
+    h1, h2, h3, h4, h5, h6,
+    p,
+    span,
+    li, ul, ol,
+    kbd, strong, em, small,
+    blockquote, figure, figcaption,
+    table, thead, tbody, tr, td, th,
+    .theme-icon-dark,
+    .theme-icon-light,
+    .carousel-stage,
+    #conclusiones-container > div {
+        transition: none !important;
+    }
+
+    /* Sin animaciones de carga tampoco */
+    .embed-loading::before {
+        animation: none;
+    }
+}
+
+/* Embeds adaptables (video). Los juegos se excluyen: necesitan su ancho
+   de diseño fijo para el escalado proporcional. */
+.responsive-embed iframe:not(.game-iframe) {
+    max-width: 100%;
+}
+
+/* ==========================================================================
+   Marcos embebidos (video y juegos) — reserva estable y carga elegante
+   --------------------------------------------------------------------------
+   - El iframe aparece con fundido cuando su contenido carga (evita el
+     cuadro blanco de about:blank y los saltos de maquetación).
+   - Los juegos de Educaplay se renderizan a su tamaño de diseño (795×690)
+     y se escalan con JS para caber completos en cualquier pantalla, en
+     lugar de recortarse (su maquetación interna no es totalmente fluida).
+   ========================================================================== */
+.embed-frame {
+    position: relative;
+}
+
+/* Iframe invisible hasta que carga; el mensaje cubre el hueco */
+.embed-frame iframe {
+    display: block;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.embed-frame.is-loaded iframe {
+    opacity: 1;
+}
+
+.embed-loading {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #09090b;
+    color: #a1a1aa;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: opacity 0.4s ease;
+}
+
+.embed-loading::before {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    background: currentColor;
+    animation: embed-pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes embed-pulse {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 1; }
+}
+
+.embed-frame.is-loaded .embed-loading {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Video (YouTube/Edpuzzle): 16:9 fluido */
+.embed-frame iframe:not(.game-iframe) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+/* Juegos (Educaplay): escala proporcional al ancho disponible */
+.game-scale {
+    position: relative;
+    width: 100%;
+    /* min-width: 0 evita que el ancho fijo del iframe (795px) desborde
+       el contenedor flex y con él toda la página */
+    min-width: 0;
+    /* Reserva de espacio estable: misma proporción que el diseño 795×690 */
+    aspect-ratio: 795 / 690;
+    overflow: hidden;
+}
+
+.game-iframe {
+    width: 795px;
+    height: 690px;
+    border: 0;
+    transform-origin: top left;
+}
+
+/* Red de seguridad: nada de desbordamiento horizontal en la página */
+body {
+    overflow-x: clip;
+}
+
+/* Referencias bibliográficas: las URLs largas se parten dentro del contenedor
+   en lugar de desbordar la pantalla en móvil */
+#referencias-list {
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   Profundidad: Sombras en contenedores principales
+   ========================================================================== */
+
+/* Contenedor del carrusel de técnicas y juegos.
+   Nota de rendimiento: antes se usaba filter: drop-shadow(...), que fuerza
+   una capa de render propia y provoca repintados al hacer scroll.
+   La profundidad la aporta el box-shadow de .carousel-stage, más eficiente. */
+
+/* --------------------------------------------------------------------------
+   Paneles y tarjetas de contenido
+   Cubre: biografía, tarjetas teóricas, modelaje, evidencia, habilidades,
+   enlaces tipo chip del header, botones del carrusel, etc.
+   Exclusiones deliberadas:
+   - .carousel-stage  → tiene su propia sombra más intensa (ver arriba).
+   - <section> del banner fotográfico (no es un panel elevado).
+   -------------------------------------------------------------------------- */
+div.bg-zinc-950:not(.carousel-stage),
+div.bg-zinc-950\/60,
+div.bg-zinc-950\/80,
+div.bg-zinc-950\/90,
+div.bg-zinc-900\/40,
+div.bg-zinc-900\/60,
+div.bg-zinc-900\/80,
+div.bg-zinc-900\/90,
+a.bg-zinc-900,
+button.bg-zinc-950 {
+    border-radius: var(--radius-panel);
+    box-shadow: var(--shadow-panel);
+}
+
+/* --------------------------------------------------------------------------
+   Marcos de PDF y video embebidos: esquinas redondeadas y SIN sombra exterior.
+   Los marcos ya tienen borde propio; la sombra grande (shadow-2xl) se veía
+   como un halo pesado alrededor del documento.
+   -------------------------------------------------------------------------- */
+div.shadow-2xl {
+    border-radius: var(--radius-panel);
+    box-shadow: none;
+}
+
+/* Tarjetas de conclusiones */
+#conclusiones-container > div {
+    box-shadow: var(--shadow-panel);
+    transition: box-shadow 0.25s ease,
+                background-color 0.4s ease,
+                border-color 0.4s ease,
+                color 0.4s ease;
+}
+
+#conclusiones-container > div:hover {
+    box-shadow: var(--shadow-panel-hover);
+}
+
+/* Header flotante */
+header {
+    box-shadow: 0 1px 12px rgba(0,0,0,0.4);
+}
+
+/* Pie de página: sombra superior para separarlo del contenido */
+footer {
+    box-shadow: 0 -1px 12px rgba(0, 0, 0, 0.35);
+    transition: box-shadow 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
+}
+
+/* ==========================================================================
+   Botones de filtro — respuesta táctil y color por categoría
+   --------------------------------------------------------------------------
+   Cada filtro se comporta como las celdas de la matriz: al pasar el
+   puntero o el dedo se eleva y se tiñe con el color de su categoría, y el
+   filtro activo lo mantiene como estado permanente.
+   Los colores se definen una vez por categoría mediante variables.
+   ========================================================================== */
+.filter-btn {
+    /* Neutro por defecto (Todas) */
+    --cat-text: #d4d4d8;
+    --cat-soft: rgba(161, 161, 170, 0.16);
+    --cat-border: rgba(161, 161, 170, 0.5);
+    --cat-ring: rgba(161, 161, 170, 0.35);
+}
+
+.filter-btn[data-catkey="historia"] {
+    --cat-text: #fdba74;
+    --cat-soft: rgba(249, 115, 22, 0.15);
+    --cat-border: rgba(249, 115, 22, 0.55);
+    --cat-ring: rgba(249, 115, 22, 0.35);
+}
+
+.filter-btn[data-catkey="geografia"] {
+    --cat-text: #6ee7b7;
+    --cat-soft: rgba(16, 185, 129, 0.15);
+    --cat-border: rgba(16, 185, 129, 0.55);
+    --cat-ring: rgba(16, 185, 129, 0.35);
+}
+
+.filter-btn[data-catkey="civica"] {
+    --cat-text: #67e8f9;
+    --cat-soft: rgba(6, 182, 212, 0.15);
+    --cat-border: rgba(6, 182, 212, 0.55);
+    --cat-ring: rgba(6, 182, 212, 0.35);
+}
+
+.filter-btn[data-catkey="pares"] {
+    --cat-text: #f9a8d4;
+    --cat-soft: rgba(236, 72, 153, 0.15);
+    --cat-border: rgba(236, 72, 153, 0.55);
+    --cat-ring: rgba(236, 72, 153, 0.35);
+}
+
+button.filter-btn {
+    border-radius: var(--radius-small);
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-panel);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.2s ease,
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease;
+}
+
+/* Respuesta al puntero/dedo: elevación + tinte de la categoría */
+button.filter-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-panel-hover);
+    color: var(--cat-text);
+    border-color: var(--cat-border);
+}
+
+button.filter-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-panel);
+}
+
+/* Estado activo: la categoría seleccionada se muestra con su color */
+.filter-btn.bg-zinc-100 {
+    background-color: var(--cat-soft) !important;
+    color: var(--cat-text) !important;
+    border-color: var(--cat-border) !important;
+    box-shadow: 0 0 0 1px var(--cat-ring), var(--shadow-panel);
+}
+
+/* "Todas" (sin categoría) conserva el contraste máximo */
+.filter-btn[data-catkey="all"].bg-zinc-100 {
+    background-color: #f4f4f5 !important;
+    color: #18181b !important;
+    border-color: transparent !important;
+    box-shadow: var(--shadow-panel);
+}
+
+/* Distintivos de conteo del carrusel */
+#slide-counter,
+#juegos-slide-counter {
+    border-radius: var(--radius-small);
+    box-shadow: var(--shadow-panel);
+}
+
+/* ==========================================================================
+   Interruptor Deslizante de Modo Oscuro / Claro
+   ========================================================================== */
+.theme-switch-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 3.5rem;
+    height: 1.85rem;
+    padding: 0.2rem;
+    border-radius: 9999px;
+    background-color: #18181b;
+    border: 1px solid #3f3f46;
+    cursor: pointer;
+    /* Pista con profundidad: bisel hundido */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-switch-btn:hover {
+    border-color: #71717a;
+}
+
+.theme-switch-thumb {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 9999px;
+    background-color: #fafafa;
+    color: #09090b;
+    font-size: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    transform: translateX(0);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.3s ease,
+                color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* Estado Modo Claro para el Switch */
+html.light .theme-switch-btn {
+    background-color: #e4e4e7;
+    border-color: #d4d4d8;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.12);
+}
+
+html.light .theme-switch-thumb {
+    transform: translateX(1.65rem);
+    /* Pulgar blanco con sombra: nunca oscuro tras el sol */
+    background-color: #ffffff;
+    color: #b45309;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.28),
+                0 1px 2px rgba(15, 23, 42, 0.14),
+                0 0 0 1px rgba(15, 23, 42, 0.05);
+}
+
+/* Iconos del interruptor: fundido cruzado suave (opacidad + rotación)
+   en lugar de un intercambio instantáneo por display */
+.theme-icon-dark,
+.theme-icon-light {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease,
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Modo oscuro (estado base): visible la luna */
+.theme-icon-dark {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.theme-icon-light {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.4);
+}
+
+/* Modo claro: visible el sol */
+html.light .theme-icon-dark {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.4);
+}
+
+html.light .theme-icon-light {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+/* ==========================================================================
+   Secciones Colapsables (Ocultar/Mostrar Contenido)
+   ========================================================================== */
+.section-collapse-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: rgba(24, 24, 27, 0.6);
+    border: 1px solid #27272a;
+    color: #a1a1aa;
+    border-radius: var(--radius-small);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.section-collapse-btn:hover {
+    background-color: #27272a;
+    color: #f4f4f5;
+    border-color: #52525b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.section-collapsible-body {
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top;
+}
+
+.section-collapsible-body.is-collapsed {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Navegación principal — respuesta háptica y sección activa
+   --------------------------------------------------------------------------
+   Los enlaces reaccionan al puntero/dedo (fondo + sombra + color) y el
+   enlace de la sección visible se marca solo, mediante scroll spy en
+   app.js (initNavScrollSpy), en lugar de dejar uno marcado de forma fija.
+   ========================================================================== */
+.nav-link {
+    border-radius: var(--radius-small);
+    transition: background-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease,
+                transform 0.15s ease;
+}
+
+.nav-link:active {
+    transform: translateY(1px);
+}
+
+/* --- Escritorio: fondo transparente, chip al hover y al activo --- */
+header nav .nav-link {
+    background-color: transparent;
+    color: #a1a1aa;
+}
+
+header nav .nav-link:hover {
+    background-color: rgba(161, 161, 170, 0.14);
+    color: #f4f4f5;
+    box-shadow: inset 0 0 0 1px rgba(161, 161, 170, 0.25);
+}
+
+header nav .nav-link.is-active {
+    background-color: #27272a;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* --- Menú móvil: chips siempre con fondo --- */
+header .md\:hidden .nav-link {
+    background-color: #18181b;
+    color: #d4d4d8;
+}
+
+header .md\:hidden .nav-link:hover {
+    background-color: #27272a;
+    color: #ffffff;
+}
+
+header .md\:hidden .nav-link.is-active {
+    background-color: #f4f4f5;
+    color: #09090b;
+    font-weight: 700;
+}
+
+/* --- Modo claro --- */
+html.light header nav .nav-link {
+    color: #64748b;
+}
+
+html.light header nav .nav-link:hover {
+    background-color: rgba(15, 23, 42, 0.06);
+    color: #0f172a;
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.12);
+}
+
+html.light header nav .nav-link.is-active {
+    background-color: #0f172a;
+    color: #ffffff;
+}
+
+html.light header .md\:hidden .nav-link {
+    background-color: #f1f5f9;
+    color: #334155;
+}
+
+html.light header .md\:hidden .nav-link:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+html.light header .md\:hidden .nav-link.is-active {
+    background-color: #0f172a;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   Reglas Globales para el Modo Claro (html.light)
+   ========================================================================== */
+html {
+    color-scheme: dark;
+}
+
+html.light {
+    color-scheme: light;
+}
+
+html.light body {
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
+}
+
+html.light header {
+    background-color: rgba(255, 255, 255, 0.97) !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.08) !important;
+}
+
+html.light header h1 {
+    color: #0f172a !important;
+}
+
+html.light header p {
+    color: #64748b !important;
+}
+
+/* Los enlaces de navegación se controlan con .nav-link (ver arriba) */
+
+html.light header .md\:hidden {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Banner: NO modificar — colores fijos independientes del tema */
+/* Los textos y overlays del banner usan .banner-title / .banner-text-overlay
+   que aplican colores fijos, nunca invertidos */
+
+/* Paneles, Contenedores y Tarjetas */
+html.light .bg-zinc-950,
+html.light .bg-\[\#09090b\] {
+    background-color: #ffffff !important;
+}
+
+html.light .bg-zinc-900\/40,
+html.light .bg-zinc-900\/60,
+html.light .bg-zinc-900\/80,
+html.light .bg-zinc-900\/90,
+html.light .bg-zinc-900 {
+    background-color: #f1f5f9 !important;
+}
+
+html.light .bg-zinc-950\/80,
+html.light .bg-zinc-950\/60 {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Bordes */
+html.light .border-zinc-900,
+html.light .border-zinc-900\/60,
+html.light .border-zinc-800,
+html.light .border-zinc-700 {
+    border-color: #e2e8f0 !important;
+}
+
+/* Tipografía de texto */
+html.light .text-white,
+html.light .text-zinc-100 {
+    color: #0f172a !important;
+}
+
+html.light .text-zinc-200,
+html.light .text-zinc-300 {
+    color: #334155 !important;
+}
+
+html.light .text-zinc-400 {
+    color: #64748b !important;
+}
+
+html.light .text-zinc-500 {
+    color: #64748b !important;
+}
+
+/* Celdas de cuadrícula modo claro */
+html.light .grid-cell {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: var(--shadow-panel) !important;
+}
+
+html.light .grid-cell[data-catkey="historia"]:hover {
+    background-color: rgba(249, 115, 22, 0.08) !important;
+    border-color: rgba(249, 115, 22, 0.45) !important;
+}
+
+html.light .grid-cell[data-catkey="geografia"]:hover {
+    background-color: rgba(16, 185, 129, 0.08) !important;
+    border-color: rgba(16, 185, 129, 0.45) !important;
+}
+
+html.light .grid-cell[data-catkey="civica"]:hover {
+    background-color: rgba(6, 182, 212, 0.08) !important;
+    border-color: rgba(6, 182, 212, 0.45) !important;
+}
+
+html.light .grid-cell[data-catkey="pares"]:hover {
+    background-color: rgba(236, 72, 153, 0.08) !important;
+    border-color: rgba(236, 72, 153, 0.45) !important;
+}
+
+html.light .grid-cell[data-catkey="juego"]:hover {
+    background-color: rgba(251, 191, 36, 0.08) !important;
+    border-color: rgba(251, 191, 36, 0.45) !important;
+}
+
+html.light .grid-cell[data-catkey="historia"].active {
+    background-color: rgba(249, 115, 22, 0.06) !important;
+    border-color: rgba(249, 115, 22, 0.6) !important;
+    box-shadow: 0 0 0 1px rgba(249,115,22,0.4) !important;
+}
+
+html.light .grid-cell[data-catkey="geografia"].active {
+    background-color: rgba(16, 185, 129, 0.06) !important;
+    border-color: rgba(16, 185, 129, 0.6) !important;
+    box-shadow: 0 0 0 1px rgba(16,185,129,0.4) !important;
+}
+
+html.light .grid-cell[data-catkey="civica"].active {
+    background-color: rgba(6, 182, 212, 0.06) !important;
+    border-color: rgba(6, 182, 212, 0.6) !important;
+    box-shadow: 0 0 0 1px rgba(6,182,212,0.4) !important;
+}
+
+html.light .grid-cell[data-catkey="pares"].active {
+    background-color: rgba(236, 72, 153, 0.06) !important;
+    border-color: rgba(236, 72, 153, 0.6) !important;
+    box-shadow: 0 0 0 1px rgba(236,72,153,0.4) !important;
+}
+
+html.light .grid-cell[data-catkey="juego"].active {
+    background-color: rgba(251, 191, 36, 0.06) !important;
+    border-color: rgba(251, 191, 36, 0.6) !important;
+    box-shadow: 0 0 0 1px rgba(251,191,36,0.4) !important;
+}
+
+/* Profundidad en modo claro (las sombras base usan variables,
+   por lo que el modo claro queda cubierto por la sección anterior) */
+html.light #conclusiones-container > div {
+    box-shadow: var(--shadow-panel) !important;
+}
+
+html.light #conclusiones-container > div:hover {
+    box-shadow: var(--shadow-panel-hover) !important;
+}
+
+/* Carousel stage en modo claro */
+html.light .carousel-stage {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Botones de carrusel */
+html.light button[data-action="prev"],
+html.light button[data-action="next"],
+html.light #juegos-prev-btn,
+html.light #juegos-next-btn {
+    background-color: #ffffff !important;
+    color: #334155 !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07) !important;
+}
+
+html.light button[data-action="prev"]:hover,
+html.light button[data-action="next"]:hover,
+html.light #juegos-prev-btn:hover,
+html.light #juegos-next-btn:hover {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    border-color: #94a3b8 !important;
+    box-shadow: var(--shadow-panel-hover) !important;
+}
+
+/* Filtros — modo claro: misma lógica con colores adaptados a fondo claro */
+html.light .filter-btn {
+    --cat-text: #475569;
+    --cat-soft: #f1f5f9;
+    --cat-border: #cbd5e1;
+    --cat-ring: rgba(100, 116, 139, 0.25);
+    border-color: #cbd5e1;
+}
+
+html.light .filter-btn[data-catkey="historia"] {
+    --cat-text: #c2410c;
+    --cat-soft: #fff7ed;
+    --cat-border: #fdba74;
+    --cat-ring: rgba(249, 115, 22, 0.25);
+}
+
+html.light .filter-btn[data-catkey="geografia"] {
+    --cat-text: #047857;
+    --cat-soft: #ecfdf5;
+    --cat-border: #6ee7b7;
+    --cat-ring: rgba(16, 185, 129, 0.25);
+}
+
+html.light .filter-btn[data-catkey="civica"] {
+    --cat-text: #0e7490;
+    --cat-soft: #ecfeff;
+    --cat-border: #67e8f9;
+    --cat-ring: rgba(6, 182, 212, 0.25);
+}
+
+html.light .filter-btn[data-catkey="pares"] {
+    --cat-text: #be185d;
+    --cat-soft: #fdf2f8;
+    --cat-border: #f9a8d4;
+    --cat-ring: rgba(236, 72, 153, 0.25);
+}
+
+html.light .filter-btn.bg-zinc-900 {
+    background-color: #f1f5f9 !important;
+    color: #334155 !important;
+}
+
+/* Activo con color de categoría también en modo claro */
+html.light .filter-btn.bg-zinc-100 {
+    background-color: var(--cat-soft) !important;
+    color: var(--cat-text) !important;
+    border-color: var(--cat-border) !important;
+    box-shadow: 0 0 0 1px var(--cat-ring), var(--shadow-panel);
+}
+
+html.light .filter-btn[data-catkey="all"].bg-zinc-100 {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: var(--shadow-panel);
+}
+
+/* Contador */
+html.light #slide-counter,
+html.light #juegos-slide-counter {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+}
+
+/* Botón colapsable en modo claro */
+html.light .section-collapse-btn {
+    background-color: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+    color: #475569 !important;
+    box-shadow: var(--shadow-panel) !important;
+}
+
+html.light .section-collapse-btn:hover {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+    border-color: #94a3b8 !important;
+    box-shadow: var(--shadow-panel-hover) !important;
+}
+
+/* Foco visible en modo claro */
+html.light .grid-cell:focus-visible,
+html.light button:focus-visible,
+html.light a:focus-visible {
+    outline-color: #0f172a;
+}
+
+/* Footer */
+html.light footer {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    color: #64748b !important;
+    box-shadow: 0 -2px 12px rgba(15, 23, 42, 0.10) !important;
+}
+
+html.light footer .text-zinc-400 {
+    color: #0f172a !important;
+}
+
+html.light footer .text-zinc-600 {
+    color: #64748b !important;
+}

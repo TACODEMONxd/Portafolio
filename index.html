@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Portafolio Digital de Técnicas Didácticas para Estudios Sociales y Educación Cívica.">
+    <title>Portafolio Didáctico: Estudios Sociales y Cívica</title>
+    <!-- Favicon inline (evita la petición 404 a /favicon.ico) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>">
+    <!-- Script de inicialización de tema para evitar parpadeos -->
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('portafolio_theme');
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (stored === 'light' || (!stored && !prefersDark)) {
+                    document.documentElement.classList.add('light');
+                } else {
+                    document.documentElement.classList.remove('light');
+                }
+            } catch (e) { }
+        })();
+    </script>
+    <!-- Framework utilitario Tailwind CSS (compilado localmente: solo las clases usadas) -->
+    <link rel="stylesheet" href="css/tailwind.min.css?v=20261013g">
+    <!-- Hoja de estilos personalizada desacoplada -->
+    <link rel="stylesheet" href="css/styles.css?v=20261013k">
+</head>
+
+<body
+    class="bg-[#09090b] text-zinc-200 font-sans antialiased min-h-screen flex flex-col selection:bg-zinc-100 selection:text-zinc-950">
+
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
+    <header class="bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-900/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-zinc-100 text-zinc-950 flex items-center justify-center font-bold text-sm">■
+                    </div>
+                    <div>
+                        <h1 class="text-xs sm:text-sm font-bold text-white tracking-widest uppercase">Portafolio Digital
+                        </h1>
+                        <p class="text-[10px] text-zinc-500 font-mono">Técnicas Didácticas</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <nav class="hidden md:flex space-x-1" aria-label="Navegación principal">
+                        <a href="#portada" class="nav-link px-3 py-2 text-xs font-mono uppercase tracking-wider">Portada</a>
+                        <a href="#introduccion" class="nav-link px-3 py-2 text-xs font-mono uppercase tracking-wider">Introducción</a>
+                        <a href="#desarrollo" class="nav-link px-3 py-2 text-xs font-mono uppercase tracking-wider">Desarrollo</a>
+                        <a href="#juegos" class="nav-link px-3 py-2 text-xs font-mono uppercase tracking-wider">Juegos</a>
+                        <a href="#conclusiones" class="nav-link px-3 py-2 text-xs font-mono uppercase tracking-wider">Conclusiones</a>
+                        <a href="#referencias" class="nav-link px-3 py-2 text-xs font-mono uppercase tracking-wider">Referencias</a>
+                    </nav>
+
+                    <!-- Interruptor Deslizante de Modo Oscuro / Modo Claro -->
+                    <div class="flex items-center space-x-2 border-l border-zinc-800 pl-3">
+                        <button type="button" id="theme-toggle-btn" class="theme-switch-btn focus:outline-none focus:ring-2 focus:ring-zinc-400"
+                            role="switch" aria-checked="false" aria-label="Alternar entre modo oscuro y modo claro" title="Cambiar tema">
+                            <span class="sr-only">Cambiar modo de tema</span>
+                            <span class="theme-switch-thumb" aria-hidden="true">
+                                <span class="theme-icon-dark">🌙</span>
+                                <span class="theme-icon-light">🌻</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Menú de navegación móvil con scroll horizontal -->
+        <div
+            class="md:hidden flex overflow-x-auto bg-[#09090b] text-xs px-2 py-2 space-x-2 font-mono border-t border-zinc-900">
+            <a href="#portada" class="nav-link px-3 py-1 whitespace-nowrap">Portada</a>
+            <a href="#introduccion" class="nav-link px-3 py-1 whitespace-nowrap">Introducción</a>
+            <a href="#desarrollo" class="nav-link px-3 py-1 whitespace-nowrap">Desarrollo</a>
+            <a href="#juegos" class="nav-link px-3 py-1 whitespace-nowrap">Juegos</a>
+            <a href="#conclusiones" class="nav-link px-3 py-1 whitespace-nowrap">Conclusiones</a>
+            <a href="#referencias" class="nav-link px-3 py-1 whitespace-nowrap">Referencias</a>
+        </div>
+    </header>
+
+    <!-- BANNER FOTOGRÁFICO DE PORTADA -->
+    <section class="relative w-full bg-zinc-950 overflow-hidden">
+        <div class="relative w-full h-80 sm:h-[400px] md:h-[480px] lg:h-[540px]">
+            <img src="images/Autor.jpeg" alt="Fotografía del autor frente a la Facultad de Ciencias Sociales"
+                loading="eager" fetchpriority="high" decoding="async"
+                class="w-full h-full object-cover object-[center_20%] filter grayscale contrast-125 brightness-90 hover:filter-none transition-all duration-1000">
+            <!-- Overlay izquierda/derecha -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#09090b]/80 via-transparent to-[#09090b]/80"></div>
+            <!-- Overlay principal de texto — clase fija, no afectada por modo claro -->
+            <div class="banner-text-overlay absolute inset-0"></div>
+
+            <div class="absolute bottom-0 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 space-y-3">
+                <div class="banner-breadcrumb text-xs font-mono uppercase tracking-widest flex items-center space-x-2">
+                    <span class="breadcrumb-dot inline-block w-2 h-2"></span>
+                    <span>Facultad de Educación • Escuela de Formación Docente • Universidad de Costa Rica</span>
+                </div>
+                <h2 id="banner-title"
+                    class="banner-title text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight uppercase">
+                    Portafolio Didáctico de Estrategias y Técnicas
+                </h2>
+                <p class="banner-subtitle font-medium text-sm sm:text-base max-w-3xl">
+                    Estudios Sociales y Educación Cívica • Mediación Pedagógica en el Aula de Secundaria
+                </p>
+                <div class="pt-2 flex flex-wrap gap-2 text-xs font-mono">
+                    <span class="banner-badge text-orange-400 px-3 py-1 font-semibold border border-orange-500/30">HISTORIA (4)</span>
+                    <span class="banner-badge text-emerald-400 px-3 py-1 font-semibold border border-emerald-500/30">GEOGRAFÍA (4)</span>
+                    <span class="banner-badge text-cyan-400 px-3 py-1 font-semibold border border-cyan-500/30">CÍVICA (4)</span>
+                    <span class="banner-badge text-pink-400 px-3 py-1 font-semibold border border-pink-500/30">TRANSVERSAL (4)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 sm:space-y-20">
+
+        <!-- ========================================== -->
+        <!-- PORTADA ACADÉMICA                          -->
+        <!-- ========================================== -->
+        <section id="portada" class="scroll-margin-top space-y-6">
+            <div class="space-y-6">
+                <div class="flex flex-wrap justify-between items-center gap-3 border-b border-zinc-900 pb-3">
+                    <div class="flex items-center gap-3">
+                        <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Portada Académica Oficial</h3>
+                        <span class="text-xs font-mono text-zinc-400 uppercase hidden sm:inline">• Ciclo Lectivo 2026</span>
+                    </div>
+                    <button type="button" class="section-collapse-btn" data-target="portada-content" aria-expanded="true" aria-controls="portada-content" aria-label="Ocultar sección Portada Académica">
+                        <span class="collapse-icon">👁️</span> <span class="collapse-text">Ocultar</span>
+                    </button>
+                </div>
+                <div id="portada-content" class="section-collapsible-body">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm pt-2">
+                        <div class="space-y-4">
+                            <div class="space-y-1">
+                                <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Institución /
+                                    Universidad</span>
+                                <p class="font-semibold text-zinc-100 text-base">Facultad de Educación • Escuela de Formación Docente • Universidad de Costa Rica</p>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Curso /
+                                    Especialidad</span>
+                                <p class="font-semibold text-zinc-100 text-base">Didáctica de los Estudios Sociales y la
+                                    Educación Cívica</p>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Nivel
+                                    Educativo</span>
+                                <p class="font-semibold text-zinc-100 text-base">Tercer Año (Tercer Ciclo y Educación Diversificada)
+                                    </p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="space-y-1">
+                                <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Nombre del
+                                    Estudiante</span>
+                                <p class="font-semibold text-zinc-100 text-base">Pablo Delgado Herrera</p>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Profesor(a) del
+                                    Curso</span>
+                                <p class="font-semibold text-zinc-100 text-base">MSc. Juan Carlos Naranjo</p>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-zinc-500 font-mono text-xs uppercase tracking-wider block">Modalidad de
+                                    Trabajo</span>
+                                <p class="font-semibold text-zinc-100 text-base">Individual • Carrusel Interactivo de
+                                    Técnicas Didácticas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- INTRODUCCIÓN                               -->
+        <!-- ========================================== -->
+        <section id="introduccion" class="scroll-margin-top space-y-8">
+            <div class="space-y-8">
+                <div class="flex flex-wrap justify-between items-center gap-3 border-b border-zinc-900 pb-3">
+                    <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Introducción</h3>
+                    <button type="button" class="section-collapse-btn" data-target="introduccion-content" aria-expanded="true" aria-controls="introduccion-content" aria-label="Ocultar sección Introducción">
+                        <span class="collapse-icon">👁️</span> <span class="collapse-text">Ocultar</span>
+                    </button>
+                </div>
+                <div id="introduccion-content" class="section-collapsible-body space-y-8">
+                    <div class="space-y-4">
+                        <h4 class="font-mono font-bold text-white text-xs uppercase tracking-wider">Biografía Personal</h4>
+                        <div class="text-xs sm:text-sm text-zinc-300 leading-relaxed bg-zinc-950 p-5 sm:p-6 border border-zinc-900 space-y-4">
+                            <p class="text-zinc-200">
+                                <strong class="text-white font-semibold">Pablo Delgado Herrera</strong> es educador e historiador en formación de la Universidad de Costa Rica, estudiante de <strong class="text-white font-semibold">Enseñanza de los Estudios Sociales y Educación Cívica e Historia</strong>.
+                            </p>
+                            <p class="text-zinc-300">
+                                Como educador, trabaja en la <strong class="text-zinc-100 font-semibold">enseñanza de la Historia, los Estudios Sociales y la Educación Cívica</strong>, con interés en el pensamiento crítico, el análisis de fuentes, la innovación pedagógica y el uso educativo de la Inteligencia Artificial Generativa.
+                            </p>
+                            <p class="text-zinc-300">
+                                Como historiador, desarrolla investigaciones sobre la <strong class="text-zinc-100 font-semibold">historia política, militar, institucional y de seguridad de Costa Rica desde 1870 hasta la actualidad</strong>, con especial énfasis en los procesos <strong class="text-zinc-100 font-semibold">previos y posteriores a la abolición del Ejército en 1948</strong>. Sus investigaciones abordan las relaciones entre <strong class="text-zinc-100 font-semibold">Estado, fuerzas armadas, cuerpos de seguridad, procesos políticos y sociedad</strong>, con particular interés en el período 1917–1919 y en las transformaciones del aparato de seguridad costarricense durante el siglo XX.
+                            </p>
+                            <p class="text-zinc-300">
+                                Su trabajo busca articular la <strong class="text-zinc-100 font-semibold">investigación histórica, la enseñanza y la divulgación</strong>, acercando el estudio del pasado y de las instituciones costarricenses a nuevas generaciones.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="space-y-6 pt-4">
+                        <h4 class="font-mono font-bold text-white text-xs uppercase tracking-wider">Presentación del Espacio y Explicación Teórica</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs sm:text-sm">
+                            <div class="space-y-2 bg-zinc-950 p-5 border border-zinc-900">
+                                <h5 class="font-mono font-bold text-orange-400 text-xs uppercase tracking-wider">📜
+                                    Pensamiento Histórico</h5>
+                                <p class="text-zinc-300 leading-relaxed text-justify">Desarrollo de habilidades de
+                                    indagación, evaluación de fuentes primarias y secundarias, análisis multicausal, empatía
+                                    histórica y comprensión de procesos de cambio y continuidad en el tiempo.</p>
+                            </div>
+                            <div class="space-y-2 bg-zinc-950 p-5 border border-zinc-900">
+                                <h5 class="font-mono font-bold text-emerald-400 text-xs uppercase tracking-wider">🌍
+                                    Pensamiento Espacial</h5>
+                                <p class="text-zinc-300 leading-relaxed text-justify">Comprensión de las interacciones
+                                    dinámicas entre las sociedades humanas y el territorio, lectura crítica del espacio
+                                    geográfico, gestión del riesgo y sostenibilidad socioambiental.</p>
+                            </div>
+                            <div class="space-y-2 bg-zinc-950 p-5 border border-zinc-900">
+                                <h5 class="font-mono font-bold text-cyan-400 text-xs uppercase tracking-wider">⚖️ Ciudadanía
+                                    Cívica</h5>
+                                <p class="text-zinc-300 leading-relaxed text-justify">Formación ética en valores, derechos
+                                    humanos, deliberación argumentada, participación comunitaria activa y vivencia
+                                    responsable del marco democrático costarricense.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- DESARROLLO (TÉCNICAS DIDÁCTICAS)           -->
+        <!-- ========================================== -->
+        <section id="desarrollo" class="scroll-margin-top space-y-8">
+            <div class="space-y-8">
+                <div class="flex flex-wrap justify-between items-start gap-3 border-b border-zinc-900 pb-3">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Desarrollo: Técnicas Didácticas</h3>
+                        <p class="text-zinc-400 text-xs sm:text-sm mt-1">
+                            Seleccione cualquier técnica de la retícula para examinarla en detalle o navegue usando los
+                            botones laterales y las flechas del teclado (← / →).
+                        </p>
+                    </div>
+                    <button type="button" class="section-collapse-btn shrink-0" data-target="desarrollo-content" aria-expanded="true" aria-controls="desarrollo-content" aria-label="Ocultar sección Técnicas Didácticas">
+                        <span class="collapse-icon">👁️</span> <span class="collapse-text">Ocultar</span>
+                    </button>
+                </div>
+
+                <div id="desarrollo-content" class="section-collapsible-body space-y-8">
+                    <!-- Matriz de selección rápida generada por JavaScript -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 py-2" id="panal-index"
+                        aria-label="Índice de técnicas didácticas"></div>
+
+                    <!-- Filtros por categoría disciplinar generados por JavaScript -->
+                    <div class="flex flex-wrap gap-2 pt-2 border-b border-zinc-900 pb-4" role="group"
+                        aria-label="Filtros de categoría" id="filtros-container"></div>
+
+                    <!-- Escenario del Carrusel -->
+                    <div class="space-y-6 pt-4" id="carousel-container">
+                        <div class="flex justify-between items-center gap-4">
+                            <div class="flex items-center flex-wrap gap-x-3 gap-y-1">
+                                <span id="slide-counter" aria-live="polite"
+                                    class="bg-zinc-100 text-zinc-950 font-mono font-bold text-xs px-3 py-1 uppercase">Cargando…</span>
+                                <span id="slide-category-label" class="text-zinc-300 text-xs font-mono font-medium"></span>
+                            </div>
+                        </div>
+
+                        <!-- Estructura flanqueada con botones laterales (en móvil se reordenan vía CSS) -->
+                        <div class="flex items-stretch gap-1 sm:gap-3 carousel-flank">
+                            <button type="button" data-action="prev" aria-label="Técnica anterior"
+                                class="shrink-0 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-100 border border-zinc-900 w-8 sm:w-10 flex items-center justify-center font-mono text-base sm:text-xl transition-colors duration-300">❮<span class="nav-btn-text">Anterior</span></button>
+
+                            <!-- Diapositivas generadas por JavaScript desde data.js -->
+                            <div id="carousel-stage"
+                                class="carousel-stage flex-grow bg-zinc-950 p-4 sm:p-8 border border-zinc-900"></div>
+
+                            <button type="button" data-action="next" aria-label="Técnica siguiente"
+                                class="shrink-0 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-100 border border-zinc-900 w-8 sm:w-10 flex items-center justify-center font-mono text-base sm:text-xl transition-colors duration-300"><span class="nav-btn-text">Siguiente</span>❯</button>
+                        </div>
+
+                        <!-- Indicadores de puntos (dots) -->
+                        <div class="pt-6 flex flex-wrap justify-center gap-1.5" id="slide-indicators" role="tablist"
+                            aria-label="Indicadores de técnicas"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECCIÓN: JUEGOS INTERACTIVOS               -->
+        <!-- ========================================== -->
+        <section id="juegos" class="scroll-margin-top space-y-8">
+            <div class="space-y-8">
+                <div class="flex flex-wrap justify-between items-start gap-3 border-b border-zinc-900 pb-3">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Juegos Interactivos</h3>
+                        <p class="text-zinc-400 text-xs sm:text-sm mt-1">
+                            Seleccione cualquiera de los juegos interactivos para evaluarse o navegue usando los botones laterales.
+                        </p>
+                    </div>
+                    <button type="button" class="section-collapse-btn shrink-0" data-target="juegos-content" aria-expanded="true" aria-controls="juegos-content" aria-label="Ocultar sección Juegos Interactivos">
+                        <span class="collapse-icon">👁️</span> <span class="collapse-text">Ocultar</span>
+                    </button>
+                </div>
+
+                <div id="juegos-content" class="section-collapsible-body space-y-8">
+                    <!-- Selector de juegos interactivos (reutiliza el estilo de grid-cell) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2" id="juegos-selector"
+                        aria-label="Índice de juegos interactivos"></div>
+
+                    <!-- Escenario del Carrusel de Juegos -->
+                    <div class="space-y-6 pt-2" id="juegos-carousel-container">
+                        <div class="flex justify-between items-center gap-4">
+                            <div class="flex items-center flex-wrap gap-x-3 gap-y-1">
+                                <span id="juegos-slide-counter" aria-live="polite"
+                                    class="bg-zinc-100 text-zinc-950 font-mono font-bold text-xs px-3 py-1 uppercase">Cargando…</span>
+                                <span id="juegos-title-label" class="text-zinc-300 text-xs font-mono font-medium"></span>
+                            </div>
+                        </div>
+
+                        <!-- Estructura flanqueada con botones laterales (en móvil se reordenan vía CSS) -->
+                        <div class="flex items-stretch gap-1 sm:gap-3 carousel-flank">
+                            <button type="button" id="juegos-prev-btn" aria-label="Juego anterior"
+                                class="shrink-0 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-100 border border-zinc-900 w-8 sm:w-10 flex items-center justify-center font-mono text-base sm:text-xl transition-colors duration-300 disabled:opacity-30 disabled:cursor-not-allowed">❮<span class="nav-btn-text">Anterior</span></button>
+
+                            <!-- Diapositivas de juegos generadas dinámicamente -->
+                            <div id="juegos-stage"
+                                class="carousel-stage flex-grow bg-zinc-950 p-4 sm:p-8 border border-zinc-900"></div>
+
+                            <button type="button" id="juegos-next-btn" aria-label="Juego siguiente"
+                                class="shrink-0 bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-100 border border-zinc-900 w-8 sm:w-10 flex items-center justify-center font-mono text-base sm:text-xl transition-colors duration-300 disabled:opacity-30 disabled:cursor-not-allowed"><span class="nav-btn-text">Siguiente</span>❯</button>
+                        </div>
+
+                        <!-- Indicadores de puntos (dots) de juegos -->
+                        <div class="pt-6 flex flex-wrap justify-center gap-1.5" id="juegos-indicators" role="tablist"
+                            aria-label="Indicadores de juegos"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CONCLUSIONES                               -->
+        <!-- ========================================== -->
+        <section id="conclusiones" class="scroll-margin-top space-y-6">
+            <div class="space-y-6">
+                <div class="flex flex-wrap justify-between items-center gap-3 border-b border-zinc-900 pb-3">
+                    <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Conclusiones: Tres Aprendizajes
+                        Clave</h3>
+                    <button type="button" class="section-collapse-btn" data-target="conclusiones-content" aria-expanded="true" aria-controls="conclusiones-content" aria-label="Ocultar sección Conclusiones">
+                        <span class="collapse-icon">👁️</span> <span class="collapse-text">Ocultar</span>
+                    </button>
+                </div>
+                <div id="conclusiones-content" class="section-collapsible-body">
+                    <!-- Conclusiones cargadas dinámicamente desde data.js -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2" id="conclusiones-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- REFERENCIAS BIBLIOGRÁFICAS                 -->
+        <!-- ========================================== -->
+        <section id="referencias" class="scroll-margin-top space-y-6 pb-12">
+            <div class="space-y-6">
+                <div class="flex flex-wrap justify-between items-center gap-3 border-b border-zinc-900 pb-3">
+                    <h3 class="text-2xl font-bold text-white tracking-wide uppercase">Referencias Bibliográficas</h3>
+                    <button type="button" class="section-collapse-btn" data-target="referencias-content" aria-expanded="true" aria-controls="referencias-content" aria-label="Ocultar sección Referencias Bibliográficas">
+                        <span class="collapse-icon">👁️</span> <span class="collapse-text">Ocultar</span>
+                    </button>
+                </div>
+                <div id="referencias-content" class="section-collapsible-body text-xs sm:text-sm text-zinc-300 leading-relaxed space-y-4">
+                    <p class="italic text-zinc-400 font-medium">
+                        Compilación general de fuentes bibliográficas, programas de estudio del MEP y referencias
+                        didácticas utilizadas:
+                    </p>
+                    <!-- Lista de referencias cargada dinámicamente desde data.js -->
+                    <ul id="referencias-list" class="list-disc pl-5 space-y-2 text-zinc-400 font-mono text-xs"></ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-[#09090b] text-zinc-500 text-xs py-8 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-1 font-mono">
+            <p class="font-semibold text-zinc-400 uppercase">Portafolio Digital de Técnicas Didácticas en Estudios
+                Sociales y Educación Cívica</p>
+            <p class="text-zinc-600">Mediación Pedagógica 2026</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS DESACOPLADOS -->
+    <script src="js/data.js?v=20261013c" defer></script>
+    <script src="js/app.js?v=20261013j" defer></script>
+</body>
+
+</html>

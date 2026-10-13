@@ -1,0 +1,17 @@
+{
+  "name": "portafolio_educativo_interactivo_separado",
+  "version": "1.0.0",
+  "description": "**Didáctica de los Estudios Sociales y la Educación Cívica • MEP Costa Rica**",
+  "main": "sincronizar_datos.js",
+  "scripts": {
+    "build:css": "tailwindcss -i src/tailwind-input.css -o css/tailwind.min.css --minify",
+    "watch:css": "tailwindcss -i src/tailwind-input.css -o css/tailwind.min.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
