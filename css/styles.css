@@ -38,14 +38,15 @@ html.light {
    ========================================================================== */
 
 /* Garantiza que el área de texto del banner mantenga legibilidad
-   en ambos temas sin depender de los filtros de imagen del modo claro. */
+   en ambos temas sin depender de los filtros de imagen del modo claro.
+   Degradado suave: la foto se oscurece progresivamente hacia abajo. */
 .banner-text-overlay {
-    /* Gradiente de oscurecimiento reforzado en la zona del texto */
     background: linear-gradient(
         to top,
-        rgba(9, 9, 11, 0.95) 0%,
-        rgba(9, 9, 11, 0.75) 35%,
-        transparent 100%
+        rgba(9, 9, 11, 0.85) 0%,
+        rgba(9, 9, 11, 0.55) 30%,
+        rgba(9, 9, 11, 0.15) 55%,
+        transparent 80%
     );
 }
 
@@ -74,6 +75,33 @@ html.light {
     backdrop-filter: blur(4px);
     border-radius: var(--radius-small);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* Panel de texto del banner: al scrollear sube y cubre la fotografía fija.
+   Fondo oscuro en ambos temas para mantener el texto blanco legible. */
+.banner-panel {
+    position: relative;
+    background-color: #09090b;
+    border-top-left-radius: var(--radius-panel);
+    border-top-right-radius: var(--radius-panel);
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Borde superior degradado: en lugar de cortar en línea recta, la foto se
+   funde progresivamente con el panel mientras este sube al scrollear */
+.banner-panel::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 160px;
+    background: linear-gradient(to bottom,
+            rgba(9, 9, 11, 0) 0%,
+            rgba(9, 9, 11, 0.35) 45%,
+            rgba(9, 9, 11, 0.75) 75%,
+            #09090b 100%);
+    pointer-events: none;
 }
 
 /* Iconos de contacto y redes sociales del banner.
