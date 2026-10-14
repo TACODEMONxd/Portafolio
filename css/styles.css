@@ -78,12 +78,12 @@ html.light {
 }
 
 /* Panel de texto del banner: al scrollear sube y cubre la fotografía fija.
-   Fondo oscuro en ambos temas para mantener el texto blanco legible. */
+   Fondo oscuro en ambos temas para mantener el texto blanco legible.
+   Sin esquinas redondeadas: en móvil asomaban píxeles claros de la foto
+   en las puntas y se perdía la intención del diseño. */
 .banner-panel {
     position: relative;
     background-color: #09090b;
-    border-top-left-radius: var(--radius-panel);
-    border-top-right-radius: var(--radius-panel);
     box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.45);
 }
 
