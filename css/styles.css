@@ -865,6 +865,14 @@ html.light .header-logo-oscuro {
     display: block;
     width: 100%;
     height: auto;
+    background-color: #18181b;
+}
+
+/* Mientras la foto no carga: alto moderado y recortado (el placeholder es
+   cuadrado 1:1 y si no, estiraría el escenario antes de aparecer) */
+.galeria-foto:not(.cargada) {
+    height: 240px;
+    object-fit: cover;
 }
 
 .galeria-pie {

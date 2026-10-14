@@ -729,15 +729,11 @@
                 }
             });
 
-            // Control de estado habilitado/deshabilitado en navegación no circular
+            // Carrusel circular: los botones siempre están habilitados
             const prevBtn = document.getElementById('juegos-prev-btn');
             const nextBtn = document.getElementById('juegos-next-btn');
-            if (prevBtn) {
-                prevBtn.disabled = (currentJuegoIndex === 0);
-            }
-            if (nextBtn) {
-                nextBtn.disabled = (currentJuegoIndex >= juegosData.length - 1);
-            }
+            if (prevBtn) prevBtn.disabled = false;
+            if (nextBtn) nextBtn.disabled = false;
         }
 
         renderJuegosIndicators();
@@ -761,20 +757,15 @@
 
     function nextJuego() {
         if (!juegosData.length) return;
-        // Navegación no circular estricta
-        if (currentJuegoIndex < juegosData.length - 1) {
-            currentJuegoIndex++;
-            updateJuegosView();
-        }
+        // Carrusel circular: al llegar al final continúa por el inicio
+        currentJuegoIndex = (currentJuegoIndex + 1) % juegosData.length;
+        updateJuegosView();
     }
 
     function prevJuego() {
         if (!juegosData.length) return;
-        // Navegación no circular estricta
-        if (currentJuegoIndex > 0) {
-            currentJuegoIndex--;
-            updateJuegosView();
-        }
+        currentJuegoIndex = (currentJuegoIndex - 1 + juegosData.length) % juegosData.length;
+        updateJuegosView();
     }
 
     /* ==========================================================================
@@ -888,6 +879,7 @@
         contenedor.append(contador, stage, dots);
 
         let actual = 0;
+        let timerAuto = null;
 
         // La altura del escenario se adapta a la foto activa (sin saltos)
         function ajustarAltura() {
@@ -895,8 +887,23 @@
             if (activa) stage.style.height = activa.scrollHeight + 'px';
         }
 
+        // Autoavance: pasa solo a la siguiente foto cada 8 segundos,
+        // siempre que el usuario no interactúe (cada interacción reinicia
+        // la cuenta). No avanza si la pestaña está oculta o la sección
+        // colapsada.
+        function programarAuto() {
+            clearTimeout(timerAuto);
+            timerAuto = setTimeout(() => {
+                if (!document.hidden && stage.offsetParent) {
+                    mostrar(actual + 1);
+                }
+                programarAuto();
+            }, 8000);
+        }
+
         function mostrar(idx) {
-            if (idx < 0 || idx >= items.length) return;
+            // Carrusel circular: continúa girando al pasar los extremos
+            idx = ((idx % items.length) + items.length) % items.length;
             actual = idx;
 
             const slides = stage.querySelectorAll('.carousel-slide');
@@ -913,6 +920,7 @@
                         if (img.getAttribute('src') !== destino) img.setAttribute('src', destino);
                     } else if (img.getAttribute('src') !== FOTO_VACIA) {
                         img.setAttribute('src', FOTO_VACIA);
+                        img.classList.remove('cargada');
                     }
                 }
             });
@@ -928,11 +936,16 @@
             });
 
             ajustarAltura();
+            // Toda navegación (manual o automática) reinicia la cuenta de 8s
+            programarAuto();
         }
 
         // Cada foto reajusta la altura cuando termina de cargar
         stage.querySelectorAll('img[data-src]').forEach(img => {
-            img.addEventListener('load', ajustarAltura);
+            img.addEventListener('load', () => {
+                if (img.getAttribute('src') !== FOTO_VACIA) img.classList.add('cargada');
+                ajustarAltura();
+            });
         });
         window.addEventListener('resize', ajustarAltura);
 
