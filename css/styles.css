@@ -487,8 +487,9 @@ a:focus-visible {
     pointer-events: none;
 }
 
-/* Video (YouTube/Edpuzzle): 16:9 fluido */
-.embed-frame iframe:not(.game-iframe) {
+/* Video (YouTube/Edpuzzle): 16:9 fluido. Los PDFs quedan excluidos:
+   conservan su altura fija de diseño. */
+.embed-frame iframe:not(.game-iframe):not(.pdf-iframe) {
     width: 100%;
     aspect-ratio: 16 / 9;
     height: auto;

@@ -280,12 +280,16 @@
 
                     ${pdfUrl ? `
                         <div class="w-full mt-3 border border-zinc-800 bg-zinc-900 overflow-hidden shadow-2xl">
-                            <iframe src="${pdfUrl}#toolbar=1&navpanes=0" class="w-full h-80 sm:h-[500px] border-0" title="Insumo PDF: ${escapeHTML(t.nombre)}">
-                                <div class="p-4 text-xs text-zinc-400">
-                                    Tu navegador no soporta vista previa integrada de PDF. 
-                                    <a href="${pdfUrl}" target="_blank" class="underline text-zinc-200 font-bold">Haz clic aquí para abrir o descargar el archivo PDF</a>.
-                                </div>
-                            </iframe>
+                            <div class="embed-frame w-full flex justify-center bg-black p-2 sm:p-4">
+                                <div class="embed-loading" aria-hidden="true">Cargando documento</div>
+                                <iframe data-src="${pdfUrl}#toolbar=1&navpanes=0" src="about:blank" loading="lazy"
+                                    class="pdf-iframe w-full h-80 sm:h-[500px] border-0" title="Insumo PDF: ${escapeHTML(t.nombre)}">
+                                    <div class="p-4 text-xs text-zinc-400">
+                                        Tu navegador no soporta vista previa integrada de PDF. 
+                                        <a href="${pdfUrl}" target="_blank" class="underline text-zinc-200 font-bold">Haz clic aquí para abrir o descargar el archivo PDF</a>.
+                                    </div>
+                                </iframe>
+                            </div>
                         </div>
                     ` : ''}
 
