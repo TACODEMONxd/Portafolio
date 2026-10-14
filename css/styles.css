@@ -838,12 +838,48 @@ html.light .header-logo-oscuro {
     display: none !important;
 }
 
-/* Foto del autor en la biografía */
+/* Foto del autor en la biografía: ocupa todo el alto del bloque y se funde
+   con el panel de texto mediante un degradado (como el banner de portada) */
 .bio-foto {
-    display: block;
+    position: absolute;
+    inset: 0;
     width: 100%;
-    border-radius: var(--radius-panel);
-    box-shadow: var(--shadow-panel);
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+}
+
+.bio-foto-degradado {
+    position: absolute;
+    inset: 0;
+    /* Escritorio: la foto se degrada desde el borde izquierdo (donde está el texto) */
+    background: linear-gradient(to right,
+            #09090b 0%,
+            rgba(9, 9, 11, 0.72) 12%,
+            rgba(9, 9, 11, 0.15) 38%,
+            rgba(9, 9, 11, 0) 60%);
+}
+
+/* Móvil: la foto va arriba, así que el degradado baja hacia el texto */
+@media (max-width: 767px) {
+    .bio-foto-degradado {
+        background: linear-gradient(to bottom,
+                rgba(9, 9, 11, 0) 45%,
+                rgba(9, 9, 11, 0.65) 72%,
+                #09090b 100%);
+    }
+}
+
+.bio-foto-pie {
+    position: absolute;
+    left: 1rem;
+    bottom: 0.75rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* ==========================================================================
