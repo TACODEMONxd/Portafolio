@@ -507,10 +507,16 @@ a:focus-visible {
 }
 
 .game-iframe {
+    position: absolute;
+    left: 50%;
+    top: 0;
     width: 795px;
     height: 690px;
     border: 0;
-    transform-origin: top left;
+    /* Centrado horizontal + escalado alrededor de su centro, para que el
+       juego quede siempre al medio del escenario (en PC no se escala, pero
+       sí debe centrarse dentro del ancho sobrante) */
+    transform: translateX(-50%) scale(1);
 }
 
 /* Red de seguridad: nada de desbordamiento horizontal en la página */
@@ -838,15 +844,13 @@ html.light .header-logo-oscuro {
     display: none !important;
 }
 
-/* Foto del autor en la biografía: ocupa todo el alto del bloque y se funde
-   con el panel de texto mediante un degradado (como el banner de portada) */
+/* Foto del autor en la biografía: se muestra COMPLETA a su proporción
+   natural (sin recortes) y queda fija al costado mientras se lee */
 .bio-foto {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 22%;
+    height: auto;
 }
 
 .bio-foto-degradado {

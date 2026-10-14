@@ -24,9 +24,9 @@
         })();
     </script>
     <!-- Framework utilitario Tailwind CSS (compilado localmente: solo las clases usadas) -->
-    <link rel="stylesheet" href="css/tailwind.min.css?v=20261013r">
+    <link rel="stylesheet" href="css/tailwind.min.css?v=20261013s">
     <!-- Hoja de estilos personalizada desacoplada -->
-    <link rel="stylesheet" href="css/styles.css?v=20261013x">
+    <link rel="stylesheet" href="css/styles.css?v=20261013y">
 </head>
 
 <body
@@ -218,15 +218,15 @@
                 <div id="introduccion-content" class="section-collapsible-body space-y-8">
                     <div class="space-y-4">
                         <h4 class="font-mono font-bold text-white text-xs uppercase tracking-wider">Biografía Personal</h4>
-                        <div class="grid overflow-hidden rounded-md border border-zinc-900 md:grid-cols-[1fr_320px]">
-                            <!-- Foto del autor: a todo el alto del bloque, degradada hacia el texto -->
-                            <figure class="order-1 relative min-h-[280px] md:order-2 md:min-h-0">
+                        <div class="grid border border-zinc-900 rounded-md bg-[#09090b] md:grid-cols-[1fr_400px]">
+                            <!-- Foto del autor: completa (proporción natural) y fija al costado mientras se lee -->
+                            <figure class="order-1 relative rounded-t-md md:order-2 md:rounded-t-none md:rounded-r-md md:sticky md:top-24 md:self-start">
                                 <img src="images/Autor%202.jpg" alt="Pablo Delgado Herrera" class="bio-foto">
                                 <div class="bio-foto-degradado" aria-hidden="true"></div>
                                 <figcaption class="bio-foto-pie">Pablo Delgado Herrera</figcaption>
                             </figure>
                             <!-- Texto biográfico -->
-                            <div class="order-2 bg-[#09090b] p-5 sm:p-6 space-y-4 text-xs sm:text-sm text-zinc-300 leading-relaxed md:order-1">
+                            <div class="order-2 rounded-b-md bg-[#09090b] p-5 sm:p-6 space-y-4 text-xs sm:text-sm text-zinc-300 leading-relaxed md:order-1 md:rounded-b-none md:rounded-l-md">
                             <p class="text-zinc-200">
                                 <strong class="text-white font-semibold">Pablo Delgado Herrera</strong> es técnico medio en Diseño y Desarrollo Digital, graduado del Colegio Técnico Profesional Dos Cercas, y educador e historiador en formación de la Universidad de Costa Rica (UCR), donde cursa las carreras de Enseñanza de los Estudios Sociales y Educación Cívica e Historia.
                             </p>
@@ -475,7 +475,7 @@
 
     <!-- SCRIPTS DESACOPLADOS -->
     <script src="js/data.js?v=20261013h" defer></script>
-    <script src="js/app.js?v=20261013n" defer></script>
+    <script src="js/app.js?v=20261013o" defer></script>
 </body>
 
 </html>

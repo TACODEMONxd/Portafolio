@@ -789,7 +789,7 @@
                 if (!ancho) return;
                 // Como máximo 1: si hay más espacio que el diseño, no agrandar
                 const escala = Math.min(ancho / 795, 1);
-                iframe.style.transform = 'scale(' + escala + ')';
+                iframe.style.transform = 'translateX(-50%) scale(' + escala + ')';
             });
         };
 
