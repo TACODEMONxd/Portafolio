@@ -838,6 +838,14 @@ html.light .header-logo-oscuro {
     display: none !important;
 }
 
+/* Foto del autor en la biografía */
+.bio-foto {
+    display: block;
+    width: 100%;
+    border-radius: var(--radius-panel);
+    box-shadow: var(--shadow-panel);
+}
+
 /* ==========================================================================
    Galerías de la biografía (fotografía y divulgación) — estilo banner
    --------------------------------------------------------------------------
