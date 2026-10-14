@@ -812,6 +812,153 @@
     }
 
     /* ==========================================================================
+       Galerías de la biografía (fotografía y divulgación)
+       --------------------------------------------------------------------------
+       Carruseles estilo banner: sin marco, la foto ocupa todo el ancho y la
+       altura del escenario se ajusta a la foto activa (transición suave).
+       Carga diferida: cada foto solo se descarga al activar su diapositiva.
+       En móvil: flechas superpuestas sobre la imagen + gesto de deslizar.
+       ========================================================================== */
+
+    // Placeholder 1×1 transparente para liberar la foto al desactivar
+    const FOTO_VACIA = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+    function renderGaleria(contenedorId, items) {
+        const contenedor = document.getElementById(contenedorId);
+        if (!contenedor || !Array.isArray(items) || !items.length) return;
+
+        contenedor.innerHTML = '';
+
+        // Contador
+        const contador = document.createElement('span');
+        contador.className = 'mini-contador';
+        contador.setAttribute('aria-live', 'polite');
+
+        // Escenario sin marco: las fotos se superponen y la altura la fija
+        // el JS según la foto activa
+        const stage = document.createElement('div');
+        stage.className = 'galeria-stage';
+
+        const flecha = (lado, texto, etiqueta) => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'galeria-nav galeria-nav--' + lado;
+            b.setAttribute('aria-label', etiqueta);
+            b.textContent = texto;
+            return b;
+        };
+
+        const btnPrev = flecha('prev', '❮', 'Foto anterior');
+        const btnNext = flecha('next', '❯', 'Foto siguiente');
+
+        // Diapositivas
+        items.forEach((item, i) => {
+            const slide = document.createElement('article');
+            slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
+            slide.dataset.index = String(i);
+            slide.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+            slide.innerHTML = `
+                <figure class="galeria-figura">
+                    <img data-src="${escapeHTML(item.imagen)}" src="${FOTO_VACIA}" alt="${escapeHTML(item.titulo || '')}"
+                        class="galeria-foto" decoding="async">
+                    <figcaption class="galeria-pie">${escapeHTML(item.titulo || '')}</figcaption>
+                </figure>
+            `;
+            stage.appendChild(slide);
+        });
+
+        stage.append(btnPrev, btnNext);
+
+        // Puntos indicadores
+        const dots = document.createElement('div');
+        dots.className = 'pt-4 flex flex-wrap justify-center gap-1.5';
+        items.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-label', `Ir a la foto ${i + 1}`);
+            dot.className = i === 0
+                ? 'h-1.5 w-6 transition-all duration-300 focus:outline-none'
+                : 'h-1.5 w-1.5 bg-zinc-800 hover:bg-zinc-600 transition-all duration-300 focus:outline-none';
+            dot.style.backgroundColor = i === 0 ? '#f4f4f5' : '';
+            dot.addEventListener('click', () => mostrar(i));
+            dots.appendChild(dot);
+        });
+
+        contenedor.append(contador, stage, dots);
+
+        let actual = 0;
+
+        // La altura del escenario se adapta a la foto activa (sin saltos)
+        function ajustarAltura() {
+            const activa = stage.querySelector('.carousel-slide.active');
+            if (activa) stage.style.height = activa.scrollHeight + 'px';
+        }
+
+        function mostrar(idx) {
+            if (idx < 0 || idx >= items.length) return;
+            actual = idx;
+
+            const slides = stage.querySelectorAll('.carousel-slide');
+            slides.forEach((slide, i) => {
+                const activa = i === idx;
+                slide.classList.toggle('active', activa);
+                slide.setAttribute('aria-hidden', activa ? 'false' : 'true');
+
+                // Carga diferida: solo la diapositiva activa descarga su foto
+                const img = slide.querySelector('img[data-src]');
+                if (img) {
+                    const destino = img.getAttribute('data-src');
+                    if (activa) {
+                        if (img.getAttribute('src') !== destino) img.setAttribute('src', destino);
+                    } else if (img.getAttribute('src') !== FOTO_VACIA) {
+                        img.setAttribute('src', FOTO_VACIA);
+                    }
+                }
+            });
+
+            contador.textContent = `Foto ${idx + 1} de ${items.length}`;
+            dots.querySelectorAll('button').forEach((dot, i) => {
+                const esActivo = i === idx;
+                dot.className = esActivo
+                    ? 'h-1.5 w-6 transition-all duration-300 focus:outline-none'
+                    : 'h-1.5 w-1.5 bg-zinc-800 hover:bg-zinc-600 transition-all duration-300 focus:outline-none';
+                dot.style.backgroundColor = esActivo ? '#f4f4f5' : '';
+                dot.setAttribute('aria-selected', esActivo ? 'true' : 'false');
+            });
+
+            ajustarAltura();
+        }
+
+        // Cada foto reajusta la altura cuando termina de cargar
+        stage.querySelectorAll('img[data-src]').forEach(img => {
+            img.addEventListener('load', ajustarAltura);
+        });
+        window.addEventListener('resize', ajustarAltura);
+
+        // Gesto de deslizar (móvil)
+        let startX = 0;
+        let startY = 0;
+        stage.addEventListener('touchstart', (e) => {
+            if (e.touches.length !== 1) return;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+        stage.addEventListener('touchend', (e) => {
+            const t = e.changedTouches[0];
+            const dx = t.clientX - startX;
+            const dy = t.clientY - startY;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                mostrar(actual + (dx < 0 ? 1 : -1));
+            }
+        }, { passive: true });
+
+        btnPrev.addEventListener('click', () => mostrar(actual - 1));
+        btnNext.addEventListener('click', () => mostrar(actual + 1));
+        mostrar(0);
+    }
+
+    /* ==========================================================================
        Navegación: resaltar el enlace de la sección visible (scroll spy)
        --------------------------------------------------------------------------
        Recorre las secciones al hacer scroll (con rAF para no saturar) y marca
@@ -1127,6 +1274,10 @@
                 prevSlide();
             }
         });
+
+        // 4. Galerías de la biografía (fotografía y divulgación)
+        renderGaleria('galeria-fotografia', PORTAFOLIO_DATA.galeriaFotografia);
+        renderGaleria('galeria-divulgacion', PORTAFOLIO_DATA.galeriaDivulgacion);
 
         // 5. Mostrar estado inicial
         updateCarouselView();

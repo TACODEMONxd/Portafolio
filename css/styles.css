@@ -411,6 +411,7 @@ a:focus-visible {
     .theme-icon-light,
     .header-logo-oscuro,
     .carousel-stage,
+    .galeria-stage,
     #conclusiones-container > div {
         transition: none !important;
     }
@@ -835,6 +836,96 @@ html.light .header-logo-oscuro {
 
 .section-collapsible-body.is-collapsed {
     display: none !important;
+}
+
+/* ==========================================================================
+   Galerías de la biografía (fotografía y divulgación) — estilo banner
+   --------------------------------------------------------------------------
+   Sin marco: la foto ocupa todo el ancho como la imagen de portada. La
+   altura del escenario la ajusta el JS a la foto activa, así cada imagen
+   se muestra a su tamaño natural (con transición suave entre fotos).
+   ========================================================================== */
+.galeria-stage {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    transition: height 0.35s ease;
+}
+
+/* Las diapositivas se superponen; solo la activa es visible */
+.galeria-stage .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    grid-area: auto;
+}
+
+.galeria-foto {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.galeria-pie {
+    text-align: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: #a1a1aa;
+    padding: 0.7rem 0.75rem 0;
+}
+
+/* Flechas superpuestas sobre la imagen (cómodas en el teléfono) */
+.galeria-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background-color: rgba(9, 9, 11, 0.6);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.galeria-nav:hover {
+    background-color: rgba(9, 9, 11, 0.85);
+}
+
+.galeria-nav:active {
+    transform: translateY(-50%) scale(0.94);
+}
+
+.galeria-nav--prev {
+    left: 10px;
+}
+
+.galeria-nav--next {
+    right: 10px;
+}
+
+/* Contador compacto de las galerías */
+.mini-contador {
+    display: inline-block;
+    background-color: #f4f4f5;
+    color: #18181b;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-small);
+    box-shadow: var(--shadow-panel);
 }
 
 /* ==========================================================================

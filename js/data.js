@@ -495,6 +495,29 @@ const PORTAFOLIO_DATA = {
       "titulo": "Las guerras mundiales: Primera y Segunda Guerra Mundial",
       "url": "https://www.educaplay.com/game/31039583-las_guerras_mundiales_primera_y_segunda_guerra_mundial.html"
     }
+  ],
+  "galeriaFotografia": [
+    { "titulo": "Fotografía 01", "imagen": "images/fotograf/fotografia%20(1).jpg" },
+    { "titulo": "Fotografía 02", "imagen": "images/fotograf/fotografia%20(2).jpg" },
+    { "titulo": "Fotografía 03", "imagen": "images/fotograf/fotografia%20(3).jpg" },
+    { "titulo": "Fotografía 04", "imagen": "images/fotograf/fotografia%20(4).jpg" },
+    { "titulo": "Fotografía 05", "imagen": "images/fotograf/fotografia%20(5).jpg" },
+    { "titulo": "Fotografía 06", "imagen": "images/fotograf/fotografia%20(6).jpg" },
+    { "titulo": "Fotografía 07", "imagen": "images/fotograf/fotografia%20(7).jpg" },
+    { "titulo": "Fotografía 08", "imagen": "images/fotograf/fotografia%20(8).jpg" },
+    { "titulo": "Fotografía 09", "imagen": "images/fotograf/fotografia%20(9).jpg" },
+    { "titulo": "Fotografía 10", "imagen": "images/fotograf/fotografia%20(10).jpg" },
+    { "titulo": "Fotografía 11", "imagen": "images/fotograf/fotografia%20(11).jpg" },
+    { "titulo": "Fotografía 12", "imagen": "images/fotograf/fotografia%20(12).jpg" },
+    { "titulo": "Fotografía 13", "imagen": "images/fotograf/fotografia%20(13).jpg" },
+    { "titulo": "Fotografía 14", "imagen": "images/fotograf/fotografia%20(14).jpg" },
+    { "titulo": "Fotografía 15", "imagen": "images/fotograf/fotografia%20(15).jpg" },
+    { "titulo": "Fotografía 16", "imagen": "images/fotograf/fotografia%20(16).jpg" },
+    { "titulo": "Fotografía 17", "imagen": "images/fotograf/fotografia%20(17).jpg" }
+  ],
+  "galeriaDivulgacion": [
+    { "titulo": "Actividad de divulgación 1", "imagen": "images/fotograf/Poster.png", "formato": "poster" },
+    { "titulo": "Actividad de divulgación 2", "imagen": "images/fotograf/Poster%202.png", "formato": "poster" }
   ]
 };
 
