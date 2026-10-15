@@ -494,6 +494,11 @@ const PORTAFOLIO_DATA = {
       "numero": 2,
       "titulo": "Las guerras mundiales: Primera y Segunda Guerra Mundial",
       "url": "https://www.educaplay.com/game/31039583-las_guerras_mundiales_primera_y_segunda_guerra_mundial.html"
+    },
+    {
+      "numero": 3,
+      "titulo": "Diccionario electoral",
+      "url": "https://es.educaplay.com/juego/31054213-diccionario_electoral.html"
     }
   ],
   "galeriaFotografia": [
