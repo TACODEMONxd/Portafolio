@@ -499,9 +499,8 @@ a:focus-visible {
 .game-scale {
     position: relative;
     width: 100%;
-    /* min-width: 0 evita que el ancho fijo del iframe (795px) desborde
-       el contenedor flex y con él toda la página */
-    min-width: 0;
+    max-width: 795px;
+    margin: 0 auto;
     /* Reserva de espacio estable: misma proporción que el diseño 795×690 */
     aspect-ratio: 795 / 690;
     overflow: hidden;
@@ -518,6 +517,22 @@ a:focus-visible {
        juego quede siempre al medio del escenario (en PC no se escala, pero
        sí debe centrarse dentro del ancho sobrante) */
     transform: translateX(-50%) scale(1);
+}
+
+/* Móvil: el juego se ajusta al ancho de la pantalla para que no se salga
+   del rango de visión */
+@media (max-width: 767px) {
+    .game-iframe {
+        width: 100%;
+        height: auto;
+        transform: none;
+        left: 0;
+    }
+    .game-scale {
+        width: 100%;
+        max-width: none;
+        aspect-ratio: auto;
+    }
 }
 
 /* Red de seguridad: nada de desbordamiento horizontal en la página */

@@ -499,6 +499,11 @@ const PORTAFOLIO_DATA = {
       "numero": 3,
       "titulo": "Diccionario electoral",
       "url": "https://es.educaplay.com/juego/31054213-diccionario_electoral.html"
+    },
+    {
+      "numero": 4,
+      "titulo": "Las guerras mundiales: términos clave",
+      "url": "https://www.educaplay.com/game/31039475-guerras_mundiales_terminos_clave.html"
     }
   ],
   "galeriaFotografia": [
