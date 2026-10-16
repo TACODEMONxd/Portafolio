@@ -501,8 +501,8 @@ a:focus-visible {
     width: 100%;
     max-width: 795px;
     margin: 0 auto;
-    /* Reserva de espacio estable: misma proporción que el diseño 795×690 */
-    aspect-ratio: 795 / 690;
+    /* Reserva de espacio estable: misma proporción que el diseño 795×690 (690/795 = 86.75%) */
+    padding-top: 86.75%;
     overflow: hidden;
 }
 
@@ -518,11 +518,10 @@ a:focus-visible {
 /* Móvil: el juego ocupa todo el ancho de pantalla, centrado */
 @media (max-width: 767px) {
     .game-scale {
-        width: 100vw;
+        width: 100%;
         max-width: none;
-        margin: 0 calc(50% - 50vw);
-        aspect-ratio: 795 / 690;
-        overflow: hidden;
+        margin: 0;
+        padding-top: 86.75%;
     }
     .game-iframe {
         position: absolute;
