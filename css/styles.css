@@ -508,30 +508,28 @@ a:focus-visible {
 
 .game-iframe {
     position: absolute;
-    left: 50%;
-    top: 0;
-    width: 795px;
-    height: 690px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     border: 0;
-    /* Centrado horizontal + escalado alrededor de su centro, para que el
-       juego quede siempre al medio del escenario (en PC no se escala, pero
-       sí debe centrarse dentro del ancho sobrante) */
-    transform: translateX(-50%) scale(1);
+    transform: none;
 }
 
-/* Móvil: el juego se ajusta al ancho de la pantalla para que no se salga
-   del rango de visión */
+/* Móvil: el juego ocupa todo el ancho de pantalla, centrado */
 @media (max-width: 767px) {
-    .game-iframe {
-        width: 100%;
-        height: auto;
-        transform: none;
-        left: 0;
-    }
     .game-scale {
-        width: 100%;
+        width: 100vw;
         max-width: none;
-        aspect-ratio: auto;
+        margin: 0 calc(50% - 50vw);
+        aspect-ratio: 795 / 690;
+        overflow: hidden;
+    }
+    .game-iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: none;
     }
 }
 
