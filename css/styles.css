@@ -893,12 +893,12 @@ html.light .header-logo-oscuro {
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
-/* Escritorio: foto a la derecha del texto, con un leve zoom (recorte suave)
-   y fija (sticky) para que acompañe la lectura sin dejar espacio vacío. */
+/* Escritorio: foto a la derecha del texto y fija (sticky). El marco tiene la
+   misma proporción que la foto (9:16) para que se vea COMPLETA, sin recorte. */
 @media (min-width: 768px) {
     .bio-container {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 360px;
+        grid-template-columns: minmax(0, 1fr) 400px;
         gap: 2.5rem;
         align-items: start;
     }
@@ -916,7 +916,8 @@ html.light .header-logo-oscuro {
         align-self: start;
         width: 100%;
         max-width: none;
-        height: min(80vh, 780px);
+        aspect-ratio: 9 / 16;
+        max-height: calc(100vh - 8rem);
         margin: 0;
         overflow: hidden;
     }
