@@ -858,8 +858,9 @@ html.light .header-logo-oscuro {
     display: none !important;
 }
 
-/* Biografía: en escritorio la foto va a la derecha y el texto se ajusta
-   a su lado (sin recortes ni zoom); en móvil la foto va arriba, centrada. */
+/* Biografía: en móvil la foto va arriba, centrada, y el texto debajo.
+   En escritorio la foto va a la derecha, algo ampliada (leve recorte) y
+   se mantiene fija mientras se hace scroll para no dejar huecos. */
 .bio-container {
     display: block;
 }
@@ -876,7 +877,7 @@ html.light .header-logo-oscuro {
     display: block;
     width: 100%;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
 }
 
@@ -892,14 +893,39 @@ html.light .header-logo-oscuro {
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
-/* Escritorio: la foto se muestra COMPLETA (sin zoom) a la derecha del
-   texto, y el texto se ajusta a su lado. */
+/* Escritorio: foto a la derecha del texto, con un leve zoom (recorte suave)
+   y fija (sticky) para que acompañe la lectura sin dejar espacio vacío. */
 @media (min-width: 768px) {
+    .bio-container {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: 2.5rem;
+        align-items: start;
+    }
+
+    .bio-texto {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
     .bio-foto-wrapper {
-        float: right;
-        width: 360px;
-        max-width: 42%;
-        margin: 0.25rem 0 1.5rem 2.5rem;
+        grid-column: 2;
+        grid-row: 1;
+        position: sticky;
+        top: 5.5rem;
+        align-self: start;
+        width: 100%;
+        max-width: none;
+        height: min(80vh, 780px);
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .bio-foto {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 }
 
