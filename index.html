@@ -26,7 +26,7 @@
     <!-- Framework utilitario Tailwind CSS (compilado localmente: solo las clases usadas) -->
     <link rel="stylesheet" href="css/tailwind.min.css?v=20261013s">
     <!-- Hoja de estilos personalizada desacoplada -->
-    <link rel="stylesheet" href="css/styles.css?v=20261013z">
+    <link rel="stylesheet" href="css/styles.css?v=20261016c">
 </head>
 
 <body
@@ -218,48 +218,49 @@
                 <div id="introduccion-content" class="section-collapsible-body space-y-8">
                     <div class="space-y-4">
                         <h4 class="font-mono font-bold text-white text-xs uppercase tracking-wider">Biografía Personal</h4>
-                        <div class="bg-zinc-950 p-5 sm:p-6 border border-zinc-900 space-y-4">
-                            <!-- Foto del autor: completa, sin recortes, al ancho disponible -->
-                            <figure class="mb-4">
-                                <img src="images/Autor%202.jpg" alt="Pablo Delgado Herrera" class="bio-foto w-full max-w-[320px] mx-auto">
-                                <figcaption class="text-center text-[10px] font-mono uppercase tracking-wider text-zinc-500 mt-2">Pablo Delgado Herrera</figcaption>
+                        <div class="bg-zinc-950 p-5 sm:p-6 border border-zinc-900 bio-container">
+                            <!-- Foto del autor: a la derecha, a todo el alto del texto -->
+                            <figure class="bio-foto-wrapper">
+                                <img src="images/Autor%202.jpg" alt="Pablo Delgado Herrera" class="bio-foto">
+                                <figcaption class="bio-foto-pie">Pablo Delgado Herrera</figcaption>
                             </figure>
-                            <p class="text-zinc-200">
-                                <strong class="text-white font-semibold">Pablo Delgado Herrera</strong> es técnico medio en Diseño y Desarrollo Digital, graduado del Colegio Técnico Profesional Dos Cercas, y educador e historiador en formación de la Universidad de Costa Rica (UCR), donde cursa las carreras de Enseñanza de los Estudios Sociales y Educación Cívica e Historia.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Su perfil integra la educación, la investigación histórica, el diseño, el desarrollo digital, la fotografía y la divulgación cultural. Desde una perspectiva multidisciplinaria, busca articular el conocimiento histórico, las herramientas tecnológicas y la innovación pedagógica para desarrollar proyectos educativos y culturales que contribuyan a la producción, preservación y democratización del conocimiento.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                En el ámbito educativo, orienta sus intereses hacia el <strong class="text-white font-semibold">desarrollo del pensamiento crítico, la incorporación de nuevas tecnologías y la exploración de enfoques pedagógicos innovadores</strong> para la enseñanza de la Historia, los Estudios Sociales y la Educación Cívica. Se interesa particularmente por la investigación de las posibilidades educativas de los videojuegos como recursos para estimular y reforzar el aprendizaje histórico y geográfico en adolescentes y personas adultas. Su enfoque procura explorar nuevas formas de aproximarse a los procesos históricos y espaciales, fomentar el análisis crítico y aprovechar los entornos digitales para construir experiencias de aprendizaje significativas.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Como historiador en formación, desarrolla investigaciones sobre la <strong class="text-white font-semibold">historia política, militar, institucional y de seguridad de Costa Rica desde 1870 hasta la actualidad</strong>. Sus líneas de investigación comprenden las relaciones entre el Estado, las fuerzas armadas, los cuerpos de seguridad, los procesos políticos y la sociedad costarricense, con especial atención al período 1917–1919 y a las transformaciones del aparato militar y de seguridad antes y después de la abolición del Ejército en 1948.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Sus intereses historiográficos también abarcan la <strong class="text-white font-semibold">historia militar y la historia de la cultura en relación con los conflictos bélicos, tanto en el ámbito nacional como en el regional e internacional</strong>. Entre sus áreas de interés se encuentran la Primera Guerra Mundial, la Segunda Guerra Mundial, la Guerra Fría y otros conflictos que han configurado el panorama internacional contemporáneo. Desde esta perspectiva, se interesa por las dimensiones políticas, sociales, institucionales y culturales de los procesos bélicos, así como por las formas en que las sociedades experimentan, representan, interpretan y recuerdan la guerra.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Dentro de este campo, presta particular atención a la <strong class="text-white font-semibold">participación directa e indirecta de Costa Rica en los conflictos internacionales</strong>, sus implicaciones políticas, diplomáticas, militares, económicas y sociales, y las relaciones del país con las dinámicas geopolíticas mundiales. Le interesa examinar las repercusiones de los conflictos internacionales en el contexto costarricense, así como las distintas formas en que el Estado y la sociedad se han vinculado con estos acontecimientos. De esta manera, aborda la historia militar más allá de las operaciones y las estructuras castrenses, situándola en relación con los procesos culturales, las transformaciones sociales y las dinámicas del poder a escala nacional e internacional.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Ha participado en proyectos de divulgación histórica orientados a la <strong class="text-white font-semibold">democratización del conocimiento histórico y la concientización sobre el pasado</strong>, mediante iniciativas que buscan acercar la historia a públicos diversos y promover una comprensión crítica de los procesos que han configurado la sociedad costarricense. Su interés por la divulgación parte de la convicción de que el conocimiento histórico debe trascender los espacios académicos y contribuir a la formación de una ciudadanía informada, crítica y consciente de su patrimonio cultural.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                En el ámbito del diseño y el desarrollo digital, cuenta con formación técnica para la creación de recursos visuales, contenidos digitales y herramientas web. Esta experiencia le permite integrar criterios de comunicación visual, funcionalidad, accesibilidad y diseño en proyectos educativos, históricos y culturales. Asimismo, explora las posibilidades de las tecnologías contemporáneas para ampliar las formas de producción, presentación y difusión del conocimiento, vinculando sus competencias técnicas con sus intereses académicos y culturales.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Actualmente, participa en el desarrollo de proyectos de <strong class="text-white font-semibold">restauración, recuperación y puesta en valor de materiales históricos y culturales</strong>, con el propósito de facilitar su reposicionamiento en el mercado editorial y en los espacios culturales. Estas iniciativas buscan recuperar materiales conservados durante años en archivos y bibliotecas mediante procesos de restauración, edición y actualización que permitan ponerlos nuevamente a disposición del público con estándares contemporáneos de calidad, presentación y accesibilidad.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Este trabajo se sustenta en una <strong class="text-white font-semibold">experiencia multidisciplinaria desarrollada mediante la práctica y el conocimiento técnico</strong>, que integra sus competencias en historia, diseño y desarrollo digital para responder a los desafíos de la recuperación y difusión del patrimonio documental. Su objetivo es contribuir a que obras y fuentes documentales sean redescubiertas, consultadas y valoradas por nuevas generaciones, favoreciendo el acceso a las fuentes primarias, la circulación del conocimiento y la preservación de la memoria histórica.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Asimismo, cultiva la fotografía como actividad recreativa y se interesa particularmente por la <strong class="text-white font-semibold">fotografía de recreación histórica</strong>, una práctica que combina la composición visual, la representación de contextos históricos y la recreación de indumentarias, personajes y ambientes de época. A través de esta actividad, explora las posibilidades de la imagen para representar e interpretar el pasado y generar nuevas formas de acercamiento visual a la historia.
-                            </p>
-                            <p class="text-zinc-300 text-justify">
-                                Su trabajo busca articular la investigación histórica, la educación, el diseño, las tecnologías digitales, la fotografía y la gestión cultural. Desde una perspectiva multidisciplinaria, procura vincular el rigor histórico con las herramientas técnicas y creativas contemporáneas para contribuir a la preservación del patrimonio, la divulgación del conocimiento y el desarrollo de recursos educativos y culturales accesibles. Su interés transversal reside en explorar nuevas formas de investigar, enseñar, representar y comunicar la historia, favoreciendo el acceso al conocimiento y el redescubrimiento crítico del pasado.
-                            </p>
+                            <div class="bio-texto">
+                                <p class="text-zinc-200">
+                                    <strong class="text-white font-semibold">Pablo Delgado Herrera</strong> es técnico medio en Diseño y Desarrollo Digital, graduado del Colegio Técnico Profesional Dos Cercas, y educador e historiador en formación de la Universidad de Costa Rica (UCR), donde cursa las carreras de Enseñanza de los Estudios Sociales y Educación Cívica e Historia.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Su perfil integra la educación, la investigación histórica, el diseño, el desarrollo digital, la fotografía y la divulgación cultural. Desde una perspectiva multidisciplinaria, busca articular el conocimiento histórico, las herramientas tecnológicas y la innovación pedagógica para desarrollar proyectos educativos y culturales que contribuyan a la producción, preservación y democratización del conocimiento.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    En el ámbito educativo, orienta sus intereses hacia el <strong class="text-white font-semibold">desarrollo del pensamiento crítico, la incorporación de nuevas tecnologías y la exploración de enfoques pedagógicos innovadores</strong> para la enseñanza de la Historia, los Estudios Sociales y la Educación Cívica. Se interesa particularmente por la investigación de las posibilidades educativas de los videojuegos como recursos para estimular y reforzar el aprendizaje histórico y geográfico en adolescentes y personas adultas. Su enfoque procura explorar nuevas formas de aproximarse a los procesos históricos y espaciales, fomentar el análisis crítico y aprovechar los entornos digitales para construir experiencias de aprendizaje significativas.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Como historiador en formación, desarrolla investigaciones sobre la <strong class="text-white font-semibold">historia política, militar, institucional y de seguridad de Costa Rica desde 1870 hasta la actualidad</strong>. Sus líneas de investigación comprenden las relaciones entre el Estado, las fuerzas armadas, los cuerpos de seguridad, los procesos políticos y la sociedad costarricense, con especial atención al período 1917–1919 y a las transformaciones del aparato militar y de seguridad antes y después de la abolición del Ejército en 1948.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Sus intereses historiográficos también abarcan la <strong class="text-white font-semibold">historia militar y la historia de la cultura en relación con los conflictos bélicos, tanto en el ámbito nacional como en el regional e internacional</strong>. Entre sus áreas de interés se encuentran la Primera Guerra Mundial, la Segunda Guerra Mundial, la Guerra Fría y otros conflictos que han configurado el panorama internacional contemporáneo. Desde esta perspectiva, se interesa por las dimensiones políticas, sociales, institucionales y culturales de los procesos bélicos, así como por las formas en que las sociedades experimentan, representan, interpretan y recuerdan la guerra.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Dentro de este campo, presta particular atención a la <strong class="text-white font-semibold">participación directa e indirecta de Costa Rica en los conflictos internacionales</strong>, sus implicaciones políticas, diplomáticas, militares, económicas y sociales, y las relaciones del país con las dinámicas geopolíticas mundiales. Le interesa examinar las repercusiones de los conflictos internacionales en el contexto costarricense, así como las distintas formas en que el Estado y la sociedad se han vinculado con estos acontecimientos. De esta manera, aborda la historia militar más allá de las operaciones y las estructuras castrenses, situándola en relación con los procesos culturales, las transformaciones sociales y las dinámicas del poder a escala nacional e internacional.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Ha participado en proyectos de divulgación histórica orientados a la <strong class="text-white font-semibold">democratización del conocimiento histórico y la concientización sobre el pasado</strong>, mediante iniciativas que buscan acercar la historia a públicos diversos y promover una comprensión crítica de los procesos que han configurado la sociedad costarricense. Su interés por la divulgación parte de la convicción de que el conocimiento histórico debe trascender los espacios académicos y contribuir a la formación de una ciudadanía informada, crítica y consciente de su patrimonio cultural.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    En el ámbito del diseño y el desarrollo digital, cuenta con formación técnica para la creación de recursos visuales, contenidos digitales y herramientas web. Esta experiencia le permite integrar criterios de comunicación visual, funcionalidad, accesibilidad y diseño en proyectos educativos, históricos y culturales. Asimismo, explora las posibilidades de las tecnologías contemporáneas para ampliar las formas de producción, presentación y difusión del conocimiento, vinculando sus competencias técnicas con sus intereses académicos y culturales.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Actualmente, participa en el desarrollo de proyectos de <strong class="text-white font-semibold">restauración, recuperación y puesta en valor de materiales históricos y culturales</strong>, con el propósito de facilitar su reposicionamiento en el mercado editorial y en los espacios culturales. Estas iniciativas buscan recuperar materiales conservados durante años en archivos y bibliotecas mediante procesos de restauración, edición y actualización que permitan ponerlos nuevamente a disposición del público con estándares contemporáneos de calidad, presentación y accesibilidad.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Este trabajo se sustenta en una <strong class="text-white font-semibold">experiencia multidisciplinaria desarrollada mediante la práctica y el conocimiento técnico</strong>, que integra sus competencias en historia, diseño y desarrollo digital para responder a los desafíos de la recuperación y difusión del patrimonio documental. Su objetivo es contribuir a que obras y fuentes documentales sean redescubiertas, consultadas y valoradas por nuevas generaciones, favoreciendo el acceso a las fuentes primarias, la circulación del conocimiento y la preservación de la memoria histórica.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Asimismo, cultiva la fotografía como actividad recreativa y se interesa particularmente por la <strong class="text-white font-semibold">fotografía de recreación histórica</strong>, una práctica que combina la composición visual, la representación de contextos históricos y la recreación de indumentarias, personajes y ambientes de época. A través de esta actividad, explora las posibilidades de la imagen para representar e interpretar el pasado y generar nuevas formas de acercamiento visual a la historia.
+                                </p>
+                                <p class="text-zinc-300 text-justify">
+                                    Su trabajo busca articular la investigación histórica, la educación, el diseño, las tecnologías digitales, la fotografía y la gestión cultural. Desde una perspectiva multidisciplinaria, procura vincular el rigor histórico con las herramientas técnicas y creativas contemporáneas para contribuir a la preservación del patrimonio, la divulgación del conocimiento y el desarrollo de recursos educativos y culturales accesibles. Su interés transversal reside en explorar nuevas formas de investigar, enseñar, representar y comunicar la historia, favoreciendo el acceso al conocimiento y el redescubrimiento crítico del pasado.
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -858,46 +858,49 @@ html.light .header-logo-oscuro {
     display: none !important;
 }
 
-/* Foto del autor en la biografía: se muestra COMPLETA a su proporción
-   natural (sin recortes) y queda fija al costado mientras se lee */
-.bio-foto {
+/* Biografía: en escritorio la foto va a la derecha y el texto se ajusta
+   a su lado (sin recortes ni zoom); en móvil la foto va arriba, centrada. */
+.bio-container {
+    display: block;
+}
+
+.bio-foto-wrapper {
     position: relative;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto 1.25rem;
+    overflow: hidden;
+}
+
+.bio-foto {
     display: block;
     width: 100%;
     height: auto;
-}
-
-.bio-foto-degradado {
-    position: absolute;
-    inset: 0;
-    /* Escritorio: la foto se degrada desde el borde izquierdo (donde está el texto) */
-    background: linear-gradient(to right,
-            #09090b 0%,
-            rgba(9, 9, 11, 0.72) 12%,
-            rgba(9, 9, 11, 0.15) 38%,
-            rgba(9, 9, 11, 0) 60%);
-}
-
-/* Móvil: la foto va arriba, así que el degradado baja hacia el texto */
-@media (max-width: 767px) {
-    .bio-foto-degradado {
-        background: linear-gradient(to bottom,
-                rgba(9, 9, 11, 0) 45%,
-                rgba(9, 9, 11, 0.65) 72%,
-                #09090b 100%);
-    }
+    object-fit: contain;
+    object-position: center;
 }
 
 .bio-foto-pie {
     position: absolute;
-    left: 1rem;
-    bottom: 0.75rem;
+    left: 0.75rem;
+    bottom: 0.6rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.85);
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Escritorio: la foto se muestra COMPLETA (sin zoom) a la derecha del
+   texto, y el texto se ajusta a su lado. */
+@media (min-width: 768px) {
+    .bio-foto-wrapper {
+        float: right;
+        width: 360px;
+        max-width: 42%;
+        margin: 0.25rem 0 1.5rem 2.5rem;
+    }
 }
 
 /* ==========================================================================
