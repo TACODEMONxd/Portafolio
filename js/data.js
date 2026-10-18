@@ -19,7 +19,7 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para III Ciclo y Educación Diversificada. Grupos de 3 a 4 estudiantes. Tiempo estimado: 80 minutos. Recursos: papelógrafos, reglas, marcadores, recortes o herramientas digitales como Canva o TimelineJS. Dificultades: mala selección de escala o saturación de datos; el docente debe monitorear la síntesis de información.",
       "Habilidades o competencias que desarrolla": "Pensamiento histórico (Temporalidad, Causalidad, Cambio y continuidad).",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 10° Año. Unidad: Las transformaciones sociales, económicas y políticas del mundo contemporáneo desde mediados del siglo XIX hasta el siglo XXI. Contenido: Los procesos de tensión diplomática y el desarrollo de las Guerras Mundiales (1914-1945).",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 10° Año. Unidad: El mundo en guerra: transformaciones sociales, económicas y políticas durante la primera mitad del siglo XX. Contenido: Primera Guerra Mundial, período de entreguerras, Segunda Guerra Mundial, causas, desarrollo y consecuencias.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Antecedentes y desarrollo de la Segunda Guerra Mundial.",
         "nivel": "10° Año.",
@@ -47,7 +47,7 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para 7° y 8° Año. Trabajo individual o en parejas. Tiempo: 80 minutos. Recursos: textos narrativos, imágenes de época, mapas de ruta. Dificultad: anacronismos en los textos estudiantiles; el docente debe brindar pautas históricas claras.",
       "Habilidades o competencias que desarrolla": "Pensamiento histórico (Empatía histórica, Contextualización, Interpretación).",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 7° Año. Unidad: Las sociedades antiguas y medievales. Contenido: Las sociedades autóctonas del actual territorio costarricense previo a la llegada de los españoles.",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 7° Año. Unidad: Sociedades complejas y sociedades autóctonas de lo que hoy es América y Costa Rica. Contenido: Sociedades indígenas, organización sociocultural, ocupación del espacio y formas de subsistencia anteriores a la llegada de los europeos.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Rutas comerciales y vida cotidiana de las sociedades autóctonas costarricenses.",
         "nivel": "7° Año.",
@@ -75,7 +75,7 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para Secundaria (8° a 11°). Trabajo individual inicial y luego plenaria grupal. Tiempo: 60 minutos. Recursos: fotocopias de esquemas, papel de colores, marcadores. Dificultad: confusión entre causas e impactos; requiere guía docente activa.",
       "Habilidades o competencias que desarrolla": "Pensamiento crítico, Resolución de problemas, Causalidad histórica.",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 9° Año. Unidad: Las transformaciones sociales, económicas y políticas del mundo contemporáneo desde mediados del siglo XIX hasta el siglo XXI. Contenido: La Revolución Industrial y sus impactos territoriales, demográficos y sociales en la sociedad occidental.",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 9° Año. Unidad: La Revolución Industrial durante el siglo XIX. Contenido: Industrialización, transformaciones tecnológicas y económicas, urbanización, condiciones laborales, movimientos obreros y consecuencias sociales y ambientales.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "La cuestión social durante la Primera Revolución Industrial.",
         "nivel": "9° Año.",
@@ -103,7 +103,7 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para 10° y 11° Año. En parejas o tríos. Tiempo: 90 minutos. Recursos: cartulinas, periódicos viejos, marcadores, tijeras o Canva/Word. Dificultad: exceso de texto no periodístico; enfatizar el formato de síntesis informativa.",
       "Habilidades o competencias que desarrolla": "Manejo de la información, Creatividad e innovación, Sintesis histórica.",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 10° Año. Unidad: Geopolítica del mundo contemporáneo desde la segunda mitad del siglo XX a la actualidad. Contenido: La bipolaridad de la Guerra Fría y el colapso del Bloque Socialista (caída del Muro de Berlín y disolución de la URSS).",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 10° Año. Unidad: Transformaciones sociales, económicas y políticas del mundo durante la Guerra Fría. Contenido: Bipolaridad, rivalidad entre Estados Unidos y la Unión Soviética, conflictos indirectos y transformaciones geopolíticas.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "La Caída del Muro de Berlín en 1989.",
         "nivel": "10° Año.",
@@ -131,17 +131,17 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para 8° y 9° Año. Trabajo individual. Tiempo: 80 minutos. Recursos: mapas físicos y temáticos, fotografías geográficas. Dificultad: descripción superficial sin análisis espacial; instar a relacionar clima con actividades humanas.",
       "Habilidades o competencias que desarrolla": "Pensamiento geográfico (Análisis espacial, Ubicación espacial, Relación sociedad-territorio).",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 8° Año. Unidad: Las regiones geográficas de Costa Rica. Contenido: Características físicas y socioeconómicas de las regiones socioeconómicas de Costa Rica (Región Huetar Norte).",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 8° Año. Unidad: El recurso hídrico en el planeta: distribución espacial y desafíos para garantizar su sostenibilidad. Contenido: Características territoriales de la Región Huetar Norte, relaciones entre población y ambiente, uso del agua y sostenibilidad de los recursos hídricos.",
       "Modelaje / Ejemplo de aplicación": {
-        "tema": "Recorrido geográfico por la Región Huetar Norte de Costa Rica.",
+        "tema": "El recurso hídrico en la Región Huetar Norte: recorrido de Ciudad Quesada a Los Chiles.",
         "nivel": "8° Año.",
-        "objetivo": "Reconocer el impacto de las características físicas en las actividades productivas de la Región Huetar Norte.",
-        "instrucciones": "Complete el itinerario desde Ciudad Quesada hasta Los Chiles, describiendo relieve, clima y uso de la tierra.",
-        "procedimiento": "Observación de mapas temáticos, lectura de la narrativa base y redacción analítica de las paradas.",
+        "objetivo": "Reconocer el uso y la distribución del recurso hídrico en la Región Huetar Norte y su relación con las actividades humanas y la sostenibilidad.",
+        "instrucciones": "Complete el itinerario desde Ciudad Quesada hasta Los Chiles, describiendo relieve, clima, fuentes de agua y uso del recurso hídrico en cada parada.",
+        "procedimiento": "Observación de mapas temáticos (relieve, clima y recurso hídrico), lectura de la narrativa base y redacción analítica de las paradas.",
         "producto_esperado": "Bitácora completada del itinerario geográfico.",
         "evaluación": "Lista de cotejo (Uso de términos geográficos, ubicación correcta, análisis sociedad-naturaleza)."
       },
-      "Recurso didáctico": "Mapa regional de la Región Huetar Norte más guía descriptiva de paradas (Paso de montaña, llanura aluvial, zona agroexportadora).",
+      "Recurso didáctico": "Mapa regional de la Región Huetar Norte con capas de relieve, clima y recurso hídrico, más guía descriptiva de paradas (paso de montaña, llanura aluvial, zona agroexportadora y fuentes de agua).",
       "Evidencia visual": "Mapa impreso con línea de ruta marcada y fichas descriptivas del paisaje a un costado.",
       "Insumo PDF": "Insumos/Itinerario Geográfico.pdf",
       "Referencias utilizadas para la técnica": "Naranjo, J. C. (s. f.). Album de tecnicas."
@@ -159,12 +159,12 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para todos los niveles de Secundaria. Trabajo individual o en parejas. Tiempo: 45 a 60 minutos. Recursos: cuadernos, marcadores, hojas blancas. Dificultad: jerarquización incorrecta; el docente debe modelar un ejemplo en la pizarra.",
       "Habilidades o competencias que desarrolla": "Pensamiento geográfico (Análisis espacial, Sintesis territorial, Jerarquización).",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 10° Año. Unidad: Adaptación y mitigación ante el cambio climático a nivel global y nacional. Contenido: Tipos y clasificación de amenazas geográficas (sismológicas, hidrometeorológicas y antrópicas) en Costa Rica.",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 8° Año. Unidad: La dinámica de la superficie terrestre: adaptación y mitigación ante los eventos sísmicos y volcánicos. Contenido: Amenazas naturales, distribución espacial, vulnerabilidad territorial, prevención y gestión del riesgo.",
       "Modelaje / Ejemplo de aplicación": {
-        "tema": "Amenazas de origen natural y antrópico en Costa Rica.",
-        "nivel": "10° Año.",
-        "objetivo": "Categorizar las diferentes amenazas naturales según su origen mediante un mapa cognitivo de telaraña.",
-        "instrucciones": "Diseñe un mapa de telaraña colocando \"Amenazas Geográficas\" al centro y ramificando en sismológicas, hidrometeorológicas y antrópicas.",
+        "tema": "Amenazas naturales en Costa Rica, con énfasis en las de origen sísmico y volcánico.",
+        "nivel": "8° Año.",
+        "objetivo": "Categorizar las amenazas naturales que afectan el territorio costarricense, con énfasis en las de origen sísmico y volcánico, mediante un mapa cognitivo de telaraña.",
+        "instrucciones": "Diseñe un mapa de telaraña colocando \"Amenazas Geográficas\" al centro y ramificando en sismológicas, volcánicas, hidrometeorológicas y antrópicas, e incluya medidas de prevención y gestión del riesgo.",
         "procedimiento": "Lectura del documento institucional de la CNE, extracción de categorías y diagramación gráfica.",
         "producto_esperado": "Mapa de telaraña gráfico finalizado.",
         "evaluación": "Rúbrica (Jerarquización lógica, uso de conceptos geográficos, claridad de enlaces y pulcritud)."
@@ -187,10 +187,10 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para 10° y 11° Año. Grupos de 3 a 4 estudiantes. Tiempo: 90 minutos. Recursos: lecturas de casos, mapas del territorio, gráficos de impacto. Dificultad: polarización sin base técnica; exigir el uso de datos del expediente.",
       "Habilidades o competencias que desarrolla": "Pensamiento geográfico (Análisis territorial, Toma de decisiones, Resolución de conflictos socioambientales).",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 11° Año. Unidad: Modelos de desarrollo y uso del espacio en Costa Rica. Contenido: Conflictos socioambientales por el uso del suelo, actividades agroexportadoras de monocultivo y protección de fuentes hídricas.",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 8° Año. Unidad: El recurso hídrico en el planeta: distribución espacial y desafíos para garantizar su sostenibilidad. Contenido: Acceso y distribución del agua, actividades productivas, impactos ambientales, conflictos territoriales y gestión sostenible.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Expansión agrícola vs. Conservación hídrica en la comunidad ficticia \"Río Claro\".",
-        "nivel": "11° Año.",
+        "nivel": "8° Año.",
         "objetivo": "Evaluar los conflictos por el uso del suelo y la contaminación de acuíferos propiciados por monocultivos.",
         "instrucciones": "Analice el expediente del caso \"Río Claro\", identifique los actores y elabore una propuesta de ordenamiento territorial.",
         "procedimiento": "Lectura del expediente, interpretación del mapa adjunto, matriz de actores e informe de solución.",
@@ -215,11 +215,11 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para 8° a 11° Año. Trabajo socio-individual. Tiempo: 60 minutos. Recursos: casos biográficos, imágenes de entornos geográficos. Dificultad: caer en estereotipos; se debe basar en datos geográficos reales.",
       "Habilidades o competencias que desarrolla": "Pensamiento geográfico (Espacio vivido, Empatía espacial, Sensibilidad territorial).",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 10° Año. Unidad: Movilidad humana, migraciones y desplazamientos de población a escala global. Contenido: Las migraciones ambientales y refugiados climáticos producto del deterioro del entorno natural.",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 10° Año. Unidad: La movilidad espacial interna e internacional en un mundo global. Contenido: Migraciones, desplazamientos de población, factores ambientales, vulnerabilidad y consecuencias sociales de la movilidad humana.",
       "Modelaje / Ejemplo de aplicación": {
-        "tema": "Los refugiados climáticos producto del aumento del nivel del mar en Oceanía.",
+        "tema": "El desplazamiento ambiental por el aumento del nivel del mar en Oceanía (caso de Tuvalu).",
         "nivel": "10° Año.",
-        "objetivo": "Comprender el impacto del cambio climático en el desplazamiento forzado de comunidades insulares.",
+        "objetivo": "Comprender el impacto del cambio climático en el desplazamiento de comunidades insulares y distinguir el desplazamiento ambiental de la condición jurídica de refugiado.",
         "instrucciones": "Lea el testimonio de un habitante de Tuvalu y responda a la guía de adopción de rol sobre la pérdida de su territorio natal.",
         "procedimiento": "Lectura introspectiva, redacción de carta de respuesta asumida y puesta en común reflexiva.",
         "producto_esperado": "Carta de respuesta desde la perspectiva del habitante insular.",
@@ -243,7 +243,7 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para todo III Ciclo y Diversificada. Grupos de 4 a 6 personas para debate. Tiempo: 80 minutos. Recursos: proyección de imágenes, fotocopias con dilemas. Dificultad: ataques personales o falacias; el docente debe establecer reglas de convivencia del debate.",
       "Habilidades o competencias que desarrolla": "Ciudadanía (Pensamiento crítico, Argumentación, Juicio moral, Escucha activa, Empatía).",
-      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 11° Año. Unidad 2: Las políticas públicas inclusivas para la promoción de la igualdad de oportunidades. Contenido: El acceso a los servicios públicos, derecho al trabajo, ambiente sano y justicia distributiva.",
+      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 11° Año. Tema: Costa Rica: políticas públicas inclusivas. Contenido: Igualdad de oportunidades, inclusión, políticas públicas, distribución de recursos y responsabilidad del Estado.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Contaminación industrial vs. Empleo local (Dilema Moral Ambiental).",
         "nivel": "11° Año. (Ajustado para coincidir con el contenido de Cívica de 11°).",
@@ -271,7 +271,7 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para Secundaria. Grupos de 3 a 4 estudiantes o trabajo plenario. Tiempo: 45 a 60 minutos. Recursos: reproductor de audio, parlantes, impresiones de la letra. Dificultad: distracción por el ritmo musical; enfocar en el análisis lírico.",
       "Habilidades o competencias que desarrolla": "Ciudadanía (Pensamiento crítico, Sensibilidad social, Comunicación, Análisis de la realidad).",
-      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 11° Año. Unidad 3: Actitudes y prácticas democráticas de la ciudadanía costarricense. Contenido: Cultura de paz, rechazo al autoritarismo, la violencia y fortalecimiento de los Derechos Humanos.",
+      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 11° Año. Tema: Costa Rica: actitudes y prácticas democráticas. Contenido: Cultura de paz, convivencia democrática, respeto a los derechos humanos, rechazo de la violencia y participación ciudadana.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Derechos humanos y cultura de paz en América Latina.",
         "nivel": "11° Año.",
@@ -300,7 +300,7 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para III Ciclo y Diversificada. Modalidad individual o en parejas. Tiempo: 40 minutos. Recursos: dispositivos con acceso a internet, audífonos, plataforma Edpuzzle. Dificultad: brecha de conectividad; se puede trabajar de forma proyectada colectiva si no hay dispositivos suficientes.",
       "Habilidades o competencias que desarrolla": "Competencia digital, Pensamiento crítico, Autorregulación del aprendizaje.",
-      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 8° Año. Unidad 2: Identidades de género. Contenido: Equidad e igualdad de género, prevención del sexismo, estereotipos y convivencia democrática.",
+      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 8° Año. Tema: Identidad de género. Contenido: Identidad, estereotipos de género, respeto a la diversidad, igualdad y convivencia.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Prevención de la discriminación e igualdad de género.",
         "nivel": "8° Año.",
@@ -329,10 +329,10 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para 10° y 11° Año. Trabajo en parejas. Tiempo: 80 minutos. Recursos: laboratorios de informática o celulares con internet. Dificultad: aceptación pasiva de las perspectivas generadas; el docente debe exigir que los estudiantes clasifiquen, cuestionen y fundamenten los argumentos antes de incorporarlos a su trabajo.",
       "Habilidades o competencias que desarrolla": "Pensamiento crítico, Alfabetización algorítmica, Deliberación democrática, Argumentación, Evaluación de información y Participación ciudadana.",
-      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 11° Año. Unidad 1: La institucionalidad democrática costarricense. Contenido: Mecanismos de participación ciudadana y desarrollo de la Constitución Política de 1949.",
+      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 10° Año. Tema: Régimen político costarricense. Contenido: Instituciones públicas, funcionamiento del régimen político, participación ciudadana, democracia y análisis crítico de la información.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Simulación de perspectivas ciudadanas mediante Inteligencia Artificial.",
-        "nivel": "11° Año.",
+        "nivel": "10° Año.",
         "objetivo": "Analizar diferentes perspectivas y argumentos frente a una situación de interés público, identificando mecanismos de participación ciudadana y construyendo una posición propia fundamentada.",
         "instrucciones": "Inserte el prompt diseñado en la IA, analice las perspectivas generadas y clasifique los argumentos presentados como hechos, opiniones o propuestas. Posteriormente, identifique un posible sesgo o generalización y proponga un mecanismo de participación ciudadana relacionado con la situación.",
         "procedimiento": "Ejecución del prompt, interacción con la herramienta de IA, clasificación de argumentos, identificación de sesgos y elaboración de una propuesta de participación ciudadana.",
@@ -357,10 +357,10 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para 7°, 8° y 9° Año. Grupos de 3 personas. Tiempo: 90 minutos. Recursos: hojas de borrador, elementos de caracterización opcionales, dispositivos de grabación. Dificultad: prioridad al drama sobre el contenido real; supervisar que el proceso sea el eje central.",
       "Habilidades o competencias que desarrolla": "Comunicación, Empatía histórica/espacial, Creatividad e innovación, Sintesis conceptual.",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 8° Año. Unidad: La era de los descubrimientos e intercambios mundiales (siglos XV y XVI). Contenido: El impacto del contacto entre Europa y las sociedades autóctonas de América en el marco del intercambio colombino.",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 9° Año. Unidad: Exploración marítima europea y expansión del imperio español durante los siglos XV y XVI. Contenido: Exploraciones marítimas, contacto entre Europa y América e intercambio de personas, productos, conocimientos, especies y enfermedades.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "La travesía trasatlántica y el encuentro de dos mundos en el siglo XVI.",
-        "nivel": "8° Año.",
+        "nivel": "9° Año.",
         "objetivo": "Narrar los impactos socioambientales del intercambio colombino desde la perspectiva de dos tripulantes del siglo XVI.",
         "instrucciones": "Escriba un relato de Storytelling en primera persona personificando a un marinero o a un habitante local durante 1492.",
         "procedimiento": "Esquematización del arco narrativo, incorporación de datos históricos y narración compartida.",
@@ -385,10 +385,10 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para III Ciclo y Educación Diversificada. Grupos de 4 personas o trabajo socio-familiar itinerante. Tiempo: Proyecto desarrollado en 3 a 4 semanas o en sesiones de taller. Recursos: libretas de bocetos, acuarelas, recortes, mapas base impresos. Dificultad: abandono del cuaderno; establecer fechas de revisión por estaciones.",
       "Habilidades o competencias que desarrolla": "Pensamiento espacial, Análisis temporal, Comprensión lectora, Ciudadanía activa, Colaboración.",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 9° Año / Educación Cívica, 7° Año. Unidad 1: Construyamos comunidades seguras / Gestión del recurso hídrico y desarrollo comunitario sostenible.",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 8° Año. Unidad: El recurso hídrico en el planeta: distribución espacial y desafíos para garantizar su sostenibilidad. Contenido: Acceso al agua, distribución, consumo, conflictos, gestión y sostenibilidad. Educación Cívica, 7° Año. Unidad: Construyamos comunidades seguras. Contenido: Participación ciudadana y desarrollo comunitario sostenible.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Misión: Agua para el Futuro - Exploración y conservación del recurso hídrico.",
-        "nivel": "9° Año.",
+        "nivel": "8° Año.",
         "objetivo": "Proponer alternativas sostenibles para la gestión comunitaria del agua mediante un recorrido por estaciones.",
         "instrucciones": "Recorra las 5 estaciones asignadas (Mi huella hídrica, Mi territorio, La historia del agua, El conflicto del agua y Agua para el futuro) y registre sus análisis en el Cuaderno de Viaje.",
         "procedimiento": "Asignación de roles, intervención del mapa de la comunidad, análisis del dilema hídrico e informe de propuestas.",
@@ -413,10 +413,10 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para 10° y 11° Año. Grupos de 4 a 5 estudiantes. Tiempo: 2 a 3 semanas de trabajo guiado. Recursos: software de diseño o papelógrafo, impresoras, computadoras. Dificultad: desorganización en los entregables; establecer un cronograma estricto de revisiones.",
       "Habilidades o competencias que desarrolla": "Ciudadanía (Expresión escrita, Investigación, Trabajo en equipo, Juicio crítico, Análisis de la realidad).",
-      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 10° Año. Unidad 1: El Estado costarricense garante de los Derechos Humanos. Contenido: Mecanismos institucionales y norma jurídica para la protección e inclusión de grupos vulnerables.",
+      "Contenido de Estudios Sociales o Cívica": "Educación Cívica, 9° Año. Tema: Derechos humanos. Contenido: Derechos humanos, mecanismos de protección, igualdad, inclusión social y garantías de los derechos.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Revista Cívica: \"Voz Democrática - Los Derechos de las Minorías\".",
-        "nivel": "10° Año.",
+        "nivel": "9° Año.",
         "objetivo": "Elaborar una edición escolar enfocada en la promoción de los derechos de las personas adultas mayores y con discapacidad.",
         "instrucciones": "En equipos editoriales, diseñen una revista cívica de 4 páginas que contenga un editorial, un reportaje, una entrevista y una caricatura.",
         "procedimiento": "Distribución de funciones, investigación, redacción, corrección de estilo y diagramación gráfica.",
@@ -441,10 +441,10 @@ const PORTAFOLIO_DATA = {
       ],
       "Recomendaciones para su ejecución": "Recomendado para todo III Ciclo y Educación Diversificada. Trabajo en parejas o tríos. Tiempo: 1 a 2 semanas para la ejecución del trabajo de campo. Recursos: dispositivos de grabación (celulares), cuadernos de notas, guion impreso. Dificultad: preguntas cerradas (\"sí/no\"); el docente debe revisar que todas las preguntas sean abiertas y explicativas.",
       "Habilidades o competencias que desarrolla": "Fuentes orales, Perspectiva histórica, Espacio vivido, Escucha activa, Comunicación interpersonal, Análisis cualitativo.",
-      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 9° Año / Educación Cívica, 11° Año. Unidad 3: Actitudes y prácticas democráticas de la ciudadanía costarricense. Contenido: Transformaciones socioculturales del siglo XX y espacios de participación comunitaria.",
+      "Contenido de Estudios Sociales o Cívica": "Estudios Sociales, 11° Año. Unidad: La sociedad costarricense de 1950 a 1980. Contenido: Transformaciones políticas, económicas, sociales y culturales, industrialización, instituciones y cambios en la sociedad costarricense. Educación Cívica, 11° Año. Unidad: Actitudes y prácticas democráticas de la ciudadanía costarricense. Contenido: Espacios de participación comunitaria y ejercicio de la ciudadanía.",
       "Modelaje / Ejemplo de aplicación": {
         "tema": "Transformaciones en el espacio rural/urbano y la vida cotidiana en Costa Rica (1950-1980).",
-        "nivel": "9° Año.",
+        "nivel": "11° Año.",
         "objetivo": "Analizar los cambios económicos y sociales de la Costa Rica del siglo XX mediante el rescate de la memoria oral comunitaria.",
         "instrucciones": "Entreviste a una persona mayor de 65 años de su comunidad utilizando el guion diseñado de 6 preguntas abiertas.",
         "procedimiento": "Elaboración de la guía, contacto con el entrevistado, aplicación, sistematización de respuestas y reporte escrito.",
@@ -507,27 +507,86 @@ const PORTAFOLIO_DATA = {
     }
   ],
   "galeriaFotografia": [
-    { "titulo": "Fotografía 01", "imagen": "images/fotograf/fotografia%20(1).jpg" },
-    { "titulo": "Fotografía 02", "imagen": "images/fotograf/fotografia%20(2).jpg" },
-    { "titulo": "Fotografía 03", "imagen": "images/fotograf/fotografia%20(3).jpg" },
-    { "titulo": "Fotografía 04", "imagen": "images/fotograf/fotografia%20(4).jpg" },
-    { "titulo": "Fotografía 05", "imagen": "images/fotograf/fotografia%20(5).jpg" },
-    { "titulo": "Fotografía 06", "imagen": "images/fotograf/fotografia%20(6).jpg" },
-    { "titulo": "Fotografía 07", "imagen": "images/fotograf/fotografia%20(7).jpg" },
-    { "titulo": "Fotografía 08", "imagen": "images/fotograf/fotografia%20(8).jpg" },
-    { "titulo": "Fotografía 09", "imagen": "images/fotograf/fotografia%20(9).jpg" },
-    { "titulo": "Fotografía 10", "imagen": "images/fotograf/fotografia%20(10).jpg" },
-    { "titulo": "Fotografía 11", "imagen": "images/fotograf/fotografia%20(11).jpg" },
-    { "titulo": "Fotografía 12", "imagen": "images/fotograf/fotografia%20(12).jpg" },
-    { "titulo": "Fotografía 13", "imagen": "images/fotograf/fotografia%20(13).jpg" },
-    { "titulo": "Fotografía 14", "imagen": "images/fotograf/fotografia%20(14).jpg" },
-    { "titulo": "Fotografía 15", "imagen": "images/fotograf/fotografia%20(15).jpg" },
-    { "titulo": "Fotografía 16", "imagen": "images/fotograf/fotografia%20(16).jpg" },
-    { "titulo": "Fotografía 17", "imagen": "images/fotograf/fotografia%20(17).jpg" }
+    {
+      "titulo": "Fotografía 01",
+      "imagen": "images/fotograf/fotografia%20(1).jpg"
+    },
+    {
+      "titulo": "Fotografía 02",
+      "imagen": "images/fotograf/fotografia%20(2).jpg"
+    },
+    {
+      "titulo": "Fotografía 03",
+      "imagen": "images/fotograf/fotografia%20(3).jpg"
+    },
+    {
+      "titulo": "Fotografía 04",
+      "imagen": "images/fotograf/fotografia%20(4).jpg"
+    },
+    {
+      "titulo": "Fotografía 05",
+      "imagen": "images/fotograf/fotografia%20(5).jpg"
+    },
+    {
+      "titulo": "Fotografía 06",
+      "imagen": "images/fotograf/fotografia%20(6).jpg"
+    },
+    {
+      "titulo": "Fotografía 07",
+      "imagen": "images/fotograf/fotografia%20(7).jpg"
+    },
+    {
+      "titulo": "Fotografía 08",
+      "imagen": "images/fotograf/fotografia%20(8).jpg"
+    },
+    {
+      "titulo": "Fotografía 09",
+      "imagen": "images/fotograf/fotografia%20(9).jpg"
+    },
+    {
+      "titulo": "Fotografía 10",
+      "imagen": "images/fotograf/fotografia%20(10).jpg"
+    },
+    {
+      "titulo": "Fotografía 11",
+      "imagen": "images/fotograf/fotografia%20(11).jpg"
+    },
+    {
+      "titulo": "Fotografía 12",
+      "imagen": "images/fotograf/fotografia%20(12).jpg"
+    },
+    {
+      "titulo": "Fotografía 13",
+      "imagen": "images/fotograf/fotografia%20(13).jpg"
+    },
+    {
+      "titulo": "Fotografía 14",
+      "imagen": "images/fotograf/fotografia%20(14).jpg"
+    },
+    {
+      "titulo": "Fotografía 15",
+      "imagen": "images/fotograf/fotografia%20(15).jpg"
+    },
+    {
+      "titulo": "Fotografía 16",
+      "imagen": "images/fotograf/fotografia%20(16).jpg"
+    },
+    {
+      "titulo": "Fotografía 17",
+      "imagen": "images/fotograf/fotografia%20(17).jpg"
+    }
   ],
   "galeriaDivulgacion": [
-    { "titulo": "Actividad de divulgación 1", "imagen": "images/fotograf/Poster.png", "formato": "poster" },
-    { "titulo": "Actividad de divulgación 2", "imagen": "images/fotograf/Poster%202.png", "formato": "poster" }
+    {
+      "titulo": "Actividad de divulgación 1",
+      "imagen": "images/fotograf/Poster.png",
+      "formato": "poster"
+    },
+    {
+      "titulo": "Actividad de divulgación 2",
+      "imagen": "images/fotograf/Poster%202.png",
+      "formato": "poster"
+    }
   ]
 };
 

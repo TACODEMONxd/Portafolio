@@ -320,6 +320,30 @@ data.tecnicas.forEach(t => {
 });
 if (currentConclusion) data.conclusiones.push(currentConclusion);
 
+// Preservar los datos que NO se generan desde el txt (galerías de fotografías y
+// de divulgación) y fusionar los juegos ya existentes, para que regenerar el
+// archivo no provoque pérdida de información.
+if (fs.existsSync(targetFile)) {
+  try {
+    const prevRaw = fs.readFileSync(targetFile, 'utf8');
+    const ini = prevRaw.indexOf('{');
+    const fin = prevRaw.lastIndexOf('}');
+    if (ini !== -1 && fin > ini) {
+      const prev = JSON.parse(prevRaw.slice(ini, fin + 1));
+      if (Array.isArray(prev.galeriaFotografia)) data.galeriaFotografia = prev.galeriaFotografia;
+      if (Array.isArray(prev.galeriaDivulgacion)) data.galeriaDivulgacion = prev.galeriaDivulgacion;
+      if (Array.isArray(prev.juegos)) {
+        const porNumero = new Map();
+        prev.juegos.forEach(j => porNumero.set(j.numero, j));
+        (data.juegos || []).forEach(j => porNumero.set(j.numero, j));
+        data.juegos = [...porNumero.values()].sort((a, b) => a.numero - b.numero);
+      }
+    }
+  } catch (e) {
+    console.warn('[AVISO] No se pudieron preservar galerías/juegos previos:', e.message);
+  }
+}
+
 const jsHeader = `/**
  * Portafolio Didáctico - Base de Datos Curricular Actualizada
  * Generada a partir de 'datos de tecnicas.txt' y 'Insumos/'

@@ -18,7 +18,7 @@ Recomendaciones para su ejecución: Recomendado para III Ciclo y Educación Dive
 
 Habilidades o competencias que desarrolla: Pensamiento histórico (Temporalidad, Causalidad, Cambio y continuidad).
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 10° Año. Unidad: Las transformaciones sociales, económicas y políticas del mundo contemporáneo desde mediados del siglo XIX hasta el siglo XXI. Contenido: Los procesos de tensión diplomática y el desarrollo de las Guerras Mundiales (1914-1945).
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 10° Año. Unidad: El mundo en guerra: transformaciones sociales, económicas y políticas durante la primera mitad del siglo XX. Contenido: Primera Guerra Mundial, período de entreguerras, Segunda Guerra Mundial, causas, desarrollo y consecuencias.
 
 Modelaje / Ejemplo de aplicación:
 
@@ -60,7 +60,7 @@ Recomendaciones para su ejecución: Recomendado para 7° y 8° Año. Trabajo ind
 
 Habilidades o competencias que desarrolla: Pensamiento histórico (Empatía histórica, Contextualización, Interpretación).
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 7° Año. Unidad: Las sociedades antiguas y medievales. Contenido: Las sociedades autóctonas del actual territorio costarricense previo a la llegada de los españoles.
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 7° Año. Unidad: Sociedades complejas y sociedades autóctonas de lo que hoy es América y Costa Rica. Contenido: Sociedades indígenas, organización sociocultural, ocupación del espacio y formas de subsistencia anteriores a la llegada de los europeos.
 
 Modelaje / Ejemplo de aplicación:
 
@@ -102,7 +102,7 @@ Recomendaciones para su ejecución: Recomendado para Secundaria (8° a 11°). Tr
 
 Habilidades o competencias que desarrolla: Pensamiento crítico, Resolución de problemas, Causalidad histórica.
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 9° Año. Unidad: Las transformaciones sociales, económicas y políticas del mundo contemporáneo desde mediados del siglo XIX hasta el siglo XXI. Contenido: La Revolución Industrial y sus impactos territoriales, demográficos y sociales en la sociedad occidental.
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 9° Año. Unidad: La Revolución Industrial durante el siglo XIX. Contenido: Industrialización, transformaciones tecnológicas y económicas, urbanización, condiciones laborales, movimientos obreros y consecuencias sociales y ambientales.
 
 Modelaje / Ejemplo de aplicación:
 
@@ -144,7 +144,7 @@ Recomendaciones para su ejecución: Recomendado para 10° y 11° Año. En pareja
 
 Habilidades o competencias que desarrolla: Manejo de la información, Creatividad e innovación, Sintesis histórica.
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 10° Año. Unidad: Geopolítica del mundo contemporáneo desde la segunda mitad del siglo XX a la actualidad. Contenido: La bipolaridad de la Guerra Fría y el colapso del Bloque Socialista (caída del Muro de Berlín y disolución de la URSS).
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 10° Año. Unidad: Transformaciones sociales, económicas y políticas del mundo durante la Guerra Fría. Contenido: Bipolaridad, rivalidad entre Estados Unidos y la Unión Soviética, conflictos indirectos y transformaciones geopolíticas.
 
 Modelaje / Ejemplo de aplicación:
 
@@ -187,25 +187,25 @@ Recomendaciones para su ejecución: Recomendado para 8° y 9° Año. Trabajo ind
 
 Habilidades o competencias que desarrolla: Pensamiento geográfico (Análisis espacial, Ubicación espacial, Relación sociedad-territorio).
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 8° Año. Unidad: Las regiones geográficas de Costa Rica. Contenido: Características físicas y socioeconómicas de las regiones socioeconómicas de Costa Rica (Región Huetar Norte).
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 8° Año. Unidad: El recurso hídrico en el planeta: distribución espacial y desafíos para garantizar su sostenibilidad. Contenido: Características territoriales de la Región Huetar Norte, relaciones entre población y ambiente, uso del agua y sostenibilidad de los recursos hídricos.
 
 Modelaje / Ejemplo de aplicación:
 
-Tema: Recorrido geográfico por la Región Huetar Norte de Costa Rica.
+Tema: El recurso hídrico en la Región Huetar Norte: recorrido de Ciudad Quesada a Los Chiles.
 
 Nivel: 8° Año.
 
-Objetivo: Reconocer el impacto de las características físicas en las actividades productivas de la Región Huetar Norte.
+Objetivo: Reconocer el uso y la distribución del recurso hídrico en la Región Huetar Norte y su relación con las actividades humanas y la sostenibilidad.
 
-Instrucciones: Complete el itinerario desde Ciudad Quesada hasta Los Chiles, describiendo relieve, clima y uso de la tierra.
+Instrucciones: Complete el itinerario desde Ciudad Quesada hasta Los Chiles, describiendo relieve, clima, fuentes de agua y uso del recurso hídrico en cada parada.
 
-Procedimiento: Observación de mapas temáticos, lectura de la narrativa base y redacción analítica de las paradas.
+Procedimiento: Observación de mapas temáticos (relieve, clima y recurso hídrico), lectura de la narrativa base y redacción analítica de las paradas.
 
 Producto esperado: Bitácora completada del itinerario geográfico.
 
 Evaluación: Lista de cotejo (Uso de términos geográficos, ubicación correcta, análisis sociedad-naturaleza).
 
-Recurso didáctico: Mapa regional de la Región Huetar Norte más guía descriptiva de paradas (Paso de montaña, llanura aluvial, zona agroexportadora).
+Recurso didáctico: Mapa regional de la Región Huetar Norte con capas de relieve, clima y recurso hídrico, más guía descriptiva de paradas (paso de montaña, llanura aluvial, zona agroexportadora y fuentes de agua).
 
 Evidencia visual: Mapa impreso con línea de ruta marcada y fichas descriptivas del paisaje a un costado. [RECORDATORIO DOCENTE: Adjuntar aquí la imagen/captura/fotografía del producto terminado o archivo digital generado]
 
@@ -229,17 +229,17 @@ Recomendaciones para su ejecución: Recomendado para todos los niveles de Secund
 
 Habilidades o competencias que desarrolla: Pensamiento geográfico (Análisis espacial, Sintesis territorial, Jerarquización).
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 10° Año. Unidad: Adaptación y mitigación ante el cambio climático a nivel global y nacional. Contenido: Tipos y clasificación de amenazas geográficas (sismológicas, hidrometeorológicas y antrópicas) en Costa Rica.
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 8° Año. Unidad: La dinámica de la superficie terrestre: adaptación y mitigación ante los eventos sísmicos y volcánicos. Contenido: Amenazas naturales, distribución espacial, vulnerabilidad territorial, prevención y gestión del riesgo.
 
 Modelaje / Ejemplo de aplicación:
 
-Tema: Amenazas de origen natural y antrópico en Costa Rica.
+Tema: Amenazas naturales en Costa Rica, con énfasis en las de origen sísmico y volcánico.
 
-Nivel: 10° Año.
+Nivel: 8° Año.
 
-Objetivo: Categorizar las diferentes amenazas naturales según su origen mediante un mapa cognitivo de telaraña.
+Objetivo: Categorizar las amenazas naturales que afectan el territorio costarricense, con énfasis en las de origen sísmico y volcánico, mediante un mapa cognitivo de telaraña.
 
-Instrucciones: Diseñe un mapa de telaraña colocando "Amenazas Geográficas" al centro y ramificando en sismológicas, hidrometeorológicas y antrópicas.
+Instrucciones: Diseñe un mapa de telaraña colocando "Amenazas Geográficas" al centro y ramificando en sismológicas, volcánicas, hidrometeorológicas y antrópicas, e incluya medidas de prevención y gestión del riesgo.
 
 Procedimiento: Lectura del documento institucional de la CNE, extracción de categorías y diagramación gráfica.
 
@@ -271,13 +271,13 @@ Recomendaciones para su ejecución: Recomendado para 10° y 11° Año. Grupos de
 
 Habilidades o competencias que desarrolla: Pensamiento geográfico (Análisis territorial, Toma de decisiones, Resolución de conflictos socioambientales).
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 11° Año. Unidad: Modelos de desarrollo y uso del espacio en Costa Rica. Contenido: Conflictos socioambientales por el uso del suelo, actividades agroexportadoras de monocultivo y protección de fuentes hídricas.
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 8° Año. Unidad: El recurso hídrico en el planeta: distribución espacial y desafíos para garantizar su sostenibilidad. Contenido: Acceso y distribución del agua, actividades productivas, impactos ambientales, conflictos territoriales y gestión sostenible.
 
 Modelaje / Ejemplo de aplicación:
 
 Tema: Expansión agrícola vs. Conservación hídrica en la comunidad ficticia "Río Claro".
 
-Nivel: 11° Año.
+Nivel: 8° Año.
 
 Objetivo: Evaluar los conflictos por el uso del suelo y la contaminación de acuíferos propiciados por monocultivos.
 
@@ -313,15 +313,15 @@ Recomendaciones para su ejecución: Recomendado para 8° a 11° Año. Trabajo so
 
 Habilidades o competencias que desarrolla: Pensamiento geográfico (Espacio vivido, Empatía espacial, Sensibilidad territorial).
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 10° Año. Unidad: Movilidad humana, migraciones y desplazamientos de población a escala global. Contenido: Las migraciones ambientales y refugiados climáticos producto del deterioro del entorno natural.
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 10° Año. Unidad: La movilidad espacial interna e internacional en un mundo global. Contenido: Migraciones, desplazamientos de población, factores ambientales, vulnerabilidad y consecuencias sociales de la movilidad humana.
 
 Modelaje / Ejemplo de aplicación:
 
-Tema: Los refugiados climáticos producto del aumento del nivel del mar en Oceanía.
+Tema: El desplazamiento ambiental por el aumento del nivel del mar en Oceanía (caso de Tuvalu).
 
 Nivel: 10° Año.
 
-Objetivo: Comprender el impacto del cambio climático en el desplazamiento forzado de comunidades insulares.
+Objetivo: Comprender el impacto del cambio climático en el desplazamiento de comunidades insulares y distinguir el desplazamiento ambiental de la condición jurídica de refugiado.
 
 Instrucciones: Lea el testimonio de un habitante de Tuvalu y responda a la guía de adopción de rol sobre la pérdida de su territorio natal.
 
@@ -356,7 +356,7 @@ Recomendaciones para su ejecución: Recomendado para todo III Ciclo y Diversific
 
 Habilidades o competencias que desarrolla: Ciudadanía (Pensamiento crítico, Argumentación, Juicio moral, Escucha activa, Empatía).
 
-Contenido de Estudios Sociales o Cívica: Educación Cívica, 11° Año. Unidad 2: Las políticas públicas inclusivas para la promoción de la igualdad de oportunidades. Contenido: El acceso a los servicios públicos, derecho al trabajo, ambiente sano y justicia distributiva.
+Contenido de Estudios Sociales o Cívica: Educación Cívica, 11° Año. Tema: Costa Rica: políticas públicas inclusivas. Contenido: Igualdad de oportunidades, inclusión, políticas públicas, distribución de recursos y responsabilidad del Estado.
 
 Modelaje / Ejemplo de aplicación:
 
@@ -398,7 +398,7 @@ Recomendaciones para su ejecución: Recomendado para Secundaria. Grupos de 3 a 4
 
 Habilidades o competencias que desarrolla: Ciudadanía (Pensamiento crítico, Sensibilidad social, Comunicación, Análisis de la realidad).
 
-Contenido de Estudios Sociales o Cívica: Educación Cívica, 11° Año. Unidad 3: Actitudes y prácticas democráticas de la ciudadanía costarricense. Contenido: Cultura de paz, rechazo al autoritarismo, la violencia y fortalecimiento de los Derechos Humanos.
+Contenido de Estudios Sociales o Cívica: Educación Cívica, 11° Año. Tema: Costa Rica: actitudes y prácticas democráticas. Contenido: Cultura de paz, convivencia democrática, respeto a los derechos humanos, rechazo de la violencia y participación ciudadana.
 
 Modelaje / Ejemplo de aplicación:
 
@@ -440,7 +440,7 @@ Recomendaciones para su ejecución: Recomendado para III Ciclo y Diversificada. 
 
 Habilidades o competencias que desarrolla: Competencia digital, Pensamiento crítico, Autorregulación del aprendizaje.
 
-Contenido de Estudios Sociales o Cívica: Educación Cívica, 8° Año. Unidad 2: Identidades de género. Contenido: Equidad e igualdad de género, prevención del sexismo, estereotipos y convivencia democrática.
+Contenido de Estudios Sociales o Cívica: Educación Cívica, 8° Año. Tema: Identidad de género. Contenido: Identidad, estereotipos de género, respeto a la diversidad, igualdad y convivencia.
 
 Modelaje / Ejemplo de aplicación:
 
@@ -482,13 +482,13 @@ Recomendaciones para su ejecución: Recomendado para 10° y 11° Año. Trabajo e
 
 Habilidades o competencias que desarrolla: Pensamiento crítico, Alfabetización algorítmica, Deliberación democrática, Argumentación, Evaluación de información y Participación ciudadana.
 
-Contenido de Estudios Sociales o Cívica: Educación Cívica, 11° Año. Unidad 1: La institucionalidad democrática costarricense. Contenido: Mecanismos de participación ciudadana y desarrollo de la Constitución Política de 1949.
+Contenido de Estudios Sociales o Cívica: Educación Cívica, 10° Año. Tema: Régimen político costarricense. Contenido: Instituciones públicas, funcionamiento del régimen político, participación ciudadana, democracia y análisis crítico de la información.
 
 Modelaje / Ejemplo de aplicación:
 
 Tema: Simulación de perspectivas ciudadanas mediante Inteligencia Artificial.
 
-Nivel: 11° Año.
+Nivel: 10° Año.
 
 Objetivo: Analizar diferentes perspectivas y argumentos frente a una situación de interés público, identificando mecanismos de participación ciudadana y construyendo una posición propia fundamentada.
 
@@ -525,13 +525,13 @@ Recomendaciones para su ejecución: Recomendado para 7°, 8° y 9° Año. Grupos
 
 Habilidades o competencias que desarrolla: Comunicación, Empatía histórica/espacial, Creatividad e innovación, Sintesis conceptual.
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 8° Año. Unidad: La era de los descubrimientos e intercambios mundiales (siglos XV y XVI). Contenido: El impacto del contacto entre Europa y las sociedades autóctonas de América en el marco del intercambio colombino.
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 9° Año. Unidad: Exploración marítima europea y expansión del imperio español durante los siglos XV y XVI. Contenido: Exploraciones marítimas, contacto entre Europa y América e intercambio de personas, productos, conocimientos, especies y enfermedades.
 
 Modelaje / Ejemplo de aplicación:
 
 Tema: La travesía trasatlántica y el encuentro de dos mundos en el siglo XVI.
 
-Nivel: 8° Año.
+Nivel: 9° Año.
 
 Objetivo: Narrar los impactos socioambientales del intercambio colombino desde la perspectiva de dos tripulantes del siglo XVI.
 
@@ -567,13 +567,13 @@ Recomendaciones para su ejecución: Recomendado para III Ciclo y Educación Dive
 
 Habilidades o competencias que desarrolla: Pensamiento espacial, Análisis temporal, Comprensión lectora, Ciudadanía activa, Colaboración.
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 9° Año / Educación Cívica, 7° Año. Unidad 1: Construyamos comunidades seguras / Gestión del recurso hídrico y desarrollo comunitario sostenible.
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 8° Año. Unidad: El recurso hídrico en el planeta: distribución espacial y desafíos para garantizar su sostenibilidad. Contenido: Acceso al agua, distribución, consumo, conflictos, gestión y sostenibilidad. Educación Cívica, 7° Año. Unidad: Construyamos comunidades seguras. Contenido: Participación ciudadana y desarrollo comunitario sostenible.
 
 Modelaje / Ejemplo de aplicación:
 
 Tema: Misión: Agua para el Futuro - Exploración y conservación del recurso hídrico.
 
-Nivel: 9° Año.
+Nivel: 8° Año.
 
 Objetivo: Proponer alternativas sostenibles para la gestión comunitaria del agua mediante un recorrido por estaciones.
 
@@ -609,13 +609,13 @@ Recomendaciones para su ejecución: Recomendado para 10° y 11° Año. Grupos de
 
 Habilidades o competencias que desarrolla: Ciudadanía (Expresión escrita, Investigación, Trabajo en equipo, Juicio crítico, Análisis de la realidad).
 
-Contenido de Estudios Sociales o Cívica: Educación Cívica, 10° Año. Unidad 1: El Estado costarricense garante de los Derechos Humanos. Contenido: Mecanismos institucionales y norma jurídica para la protección e inclusión de grupos vulnerables.
+Contenido de Estudios Sociales o Cívica: Educación Cívica, 9° Año. Tema: Derechos humanos. Contenido: Derechos humanos, mecanismos de protección, igualdad, inclusión social y garantías de los derechos.
 
 Modelaje / Ejemplo de aplicación:
 
 Tema: Revista Cívica: "Voz Democrática - Los Derechos de las Minorías".
 
-Nivel: 10° Año.
+Nivel: 9° Año.
 
 Objetivo: Elaborar una edición escolar enfocada en la promoción de los derechos de las personas adultas mayores y con discapacidad.
 
@@ -651,13 +651,13 @@ Recomendaciones para su ejecución: Recomendado para todo III Ciclo y Educación
 
 Habilidades o competencias que desarrolla: Fuentes orales, Perspectiva histórica, Espacio vivido, Escucha activa, Comunicación interpersonal, Análisis cualitativo.
 
-Contenido de Estudios Sociales o Cívica: Estudios Sociales, 9° Año / Educación Cívica, 11° Año. Unidad 3: Actitudes y prácticas democráticas de la ciudadanía costarricense. Contenido: Transformaciones socioculturales del siglo XX y espacios de participación comunitaria.
+Contenido de Estudios Sociales o Cívica: Estudios Sociales, 11° Año. Unidad: La sociedad costarricense de 1950 a 1980. Contenido: Transformaciones políticas, económicas, sociales y culturales, industrialización, instituciones y cambios en la sociedad costarricense. Educación Cívica, 11° Año. Unidad: Actitudes y prácticas democráticas de la ciudadanía costarricense. Contenido: Espacios de participación comunitaria y ejercicio de la ciudadanía.
 
 Modelaje / Ejemplo de aplicación:
 
 Tema: Transformaciones en el espacio rural/urbano y la vida cotidiana en Costa Rica (1950-1980).
 
-Nivel: 9° Año.
+Nivel: 11° Año.
 
 Objetivo: Analizar los cambios económicos y sociales de la Costa Rica del siglo XX mediante el rescate de la memoria oral comunitaria.
 
@@ -692,28 +692,28 @@ Itinerario Histórico (7° - Sociedades Autóctonas)
 
 El Árbol del Análisis Crítico (9° - Revolución Industrial)
 
-La Portada Periodística (10° - Guerra Fría y Caída del Muro)
+La Portada Periodística (10° - Guerra Fría)
 
-Itinerario Geográfico (8° - Regiones de Costa Rica)
+Itinerario Geográfico (8° - Recurso Hídrico)
 
-Mapas Cognitivos (Sol, Telaraña, Uve Heurística) (10° - Amenazas Geográficas)
+Mapas Cognitivos (Sol, Telaraña, Uve Heurística) (8° - Amenazas Sísmicas y Volcánicas)
 
-Estudio de Casos Geográfico (11° - Conflictos Socioambientales)
+Estudio de Casos Geográfico (8° - Conflictos Socioambientales y Recurso Hídrico)
 
-Ponerse en su Lugar (Empatía Espacial) (10° - Refugiados Climáticos)
+Ponerse en su Lugar (Empatía Espacial) (10° - Movilidad Espacial)
 
-Debate: Foto-Problema y Dilema Moral (11° - Políticas Públicas y Derechos)
+Debate: Foto-Problema y Dilema Moral (11° - Políticas Públicas Inclusivas)
 
-Disco Foro Cívico (11° - Cultura de Paz y Derechos Humanos)
+Disco Foro Cívico (11° - Cultura de Paz y Prácticas Democráticas)
 
 Video Foro: Diseño con Edpuzzle (8° - Identidad de Género)
 
-Mediación Aplicada a Tecnologías: Inteligencia Artificial (11° - Institucionalidad Democrática)
+Mediación Aplicada a Tecnologías: Inteligencia Artificial (10° - Régimen Político Costarricense)
 
-Story Telling (Estudios Sociales) (8° - Intercambio Colombino)
+Story Telling (Estudios Sociales) (9° - Intercambio Colombino)
 
-Cuaderno de Viaje (Estudios Sociales o Educación Cívica) (9° - Recurso Hídrico)
+Cuaderno de Viaje (Estudios Sociales y Educación Cívica) (8° - Recurso Hídrico)
 
-Periódico o Revista (Uso para Cívica) (10° - Derechos Humanos)
+Periódico o Revista (Uso para Cívica) (9° - Derechos Humanos)
 
-Entrevista (Estudios Sociales y Educación Cívica) (9° - Transformaciones del Siglo XX)
+Entrevista (Estudios Sociales y Educación Cívica) (11° - Sociedad Costarricense 1950-1980)
