@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregunta de Indagación - Gases de Efecto Invernadero</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .question-widget {
+            background: rgba(20, 30, 40, 0.75); 
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .widget-header {
+            color: #FFD046; 
+            padding: 25px 30px 10px;
+            text-align: center;
+        }
+
+        .widget-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .question-display {
+            padding: 30px 40px 50px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFD046; 
+            border: 1px solid rgba(255, 208, 70, 0.3);
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            line-height: 1.5;
+            font-weight: 500;
+            color: #ffffff; 
+            margin: 0;
+            max-width: 95%;
+            animation: fadeIn 0.8s ease;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .question-widget { width: 100%; border-radius: 0; border-left: none; border-right: none;}
+            .question-text { font-size: 1.25rem; }
+            .widget-header h2 { font-size: 1.5rem; }
+            .question-display { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="question-widget">
+    <div class="widget-header">
+        <h2>Reto de Indagación</h2>
+    </div>
+
+    <div class="question-display">
+        <div class="category-badge" id="categoryBadge">Cargando...</div>
+        <p class="question-text" id="questionText">
+            Cargando pregunta...
+        </p>
+    </div>
+</div>
+
+<script>
+    // Banco de preguntas enfocadas en identificar fuentes de GEI en la vida cotidiana
+    const questionsData = [
+        { 
+            text: "¿Qué medio de transporte usa tu familia diariamente y qué tipo de combustible utiliza (gasolina, diésel, eléctrico)?", 
+            category: "Transporte"
+        },
+        { 
+            text: "¿En tu casa se quema basura o leña? ¿Crees que el humo que sale de ahí afecta el aire y contribuye al efecto invernadero?", 
+            category: "Hogar"
+        },
+        { 
+            text: "¿Qué aparatos de tu casa permanecen enchufados todo el día y cómo crees que su consumo de electricidad genera gases?", 
+            category: "Energía"
+        },
+        { 
+            text: "¿Qué hace tu familia con los desechos orgánicos (cáscaras, restos de comida)? ¿Sabías que al descomponerse liberan gases como el metano?", 
+            category: "Residuos"
+        },
+        { 
+            text: "¿En tu comunidad hay fábricas, beneficios de café o talleres que generen humo? ¿Qué tipo de gases crees que emiten?", 
+            category: "Comunidad"
+        },
+        { 
+            text: "¿Qué actividades de tu colegio (uso de buses, aires acondicionados, impresiones, basura) crees que generan más gases de efecto invernadero?", 
+            category: "Colegio"
+        },
+        { 
+            text: "¿Has notado si en tu barrio hay muchos árboles o si, por el contrario, han sido cortados? ¿Cómo influye eso en la absorción de gases?", 
+            category: "Naturaleza"
+        },
+        { 
+            text: "¿Qué tipo de alimentos consumes con más frecuencia? ¿Sabías que la producción de carne y lácteos genera gases como el metano?", 
+            category: "Alimentación"
+        },
+        { 
+            text: "¿Usan en tu casa aerosoles, desodorantes o productos en spray? ¿Qué relación crees que tienen con los gases que atrapan el calor?", 
+            category: "Químicos"
+        },
+        { 
+            text: "Si tuvieras que señalar la actividad que más gases de efecto invernadero genera en tu comunidad, ¿cuál sería y por qué?", 
+            category: "Reflexión"
+        }
+    ];
+
+    const questionText = document.getElementById('questionText');
+    const categoryBadge = document.getElementById('categoryBadge');
+
+    function loadRandomQuestion() {
+        const randomIndex = Math.floor(Math.random() * questionsData.length);
+        const selectedQ = questionsData[randomIndex];
+
+        questionText.innerText = selectedQ.text;
+        categoryBadge.innerText = selectedQ.category;
+    }
+
+    window.addEventListener('load', () => {
+        loadRandomQuestion();
+    });
+</script>
+
+</body>
+</html>
