@@ -1,0 +1,235 @@
+
+<div id="simulador-invernadero">
+  <style>
+    #simulador-invernadero {
+      background: #202020;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      border: 1px solid #555;
+      border-radius: 34px;
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #simulador-invernadero .grafico {
+      width: 100%;
+      padding: 20px 4% 10px;
+      box-sizing: border-box;
+    }
+
+    #simulador-invernadero svg {
+      display: block;
+      width: 100%;
+      max-width: 720px;
+      height: auto;
+      margin: auto;
+    }
+
+    #simulador-invernadero text {
+      font-family: Arial, sans-serif;
+      fill: #eee;
+      font-size: 15px;
+      font-weight: bold;
+      paint-order: stroke;
+      stroke: #202020;
+      stroke-width: 3px;
+      stroke-linejoin: round;
+    }
+
+    #simulador-invernadero .control {
+      border-top: 1px solid #444;
+      padding: 22px 18px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    #simulador-invernadero .etiqueta {
+      flex: 1 1 230px;
+      line-height: 1.45;
+      font-size: 16px;
+    }
+
+    #simulador-invernadero .valor {
+      min-width: 24px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    #simulador-invernadero input {
+      flex: 2 1 180px;
+      min-width: 120px;
+      accent-color: #fff;
+      cursor: pointer;
+    }
+
+    #simulador-invernadero .nota {
+      font-size: 11px;
+      color: #aaa;
+      text-align: center;
+      padding: 0 12px 14px;
+    }
+  </style>
+
+  <div class="grafico">
+    <svg viewBox="0 0 700 350" role="img" aria-label="Esquema del efecto invernadero: la luz solar llega a la Tierra y los gases atmosféricos retienen parte de la radiación infrarroja.">
+
+      <defs>
+        <linearGradient id="tierra-color" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0875c9"/>
+          <stop offset="100%" stop-color="#064477"/>
+        </linearGradient>
+        <linearGradient id="atm-color" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#607b91" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#607b91" stop-opacity=".28"/>
+        </linearGradient>
+        <clipPath id="tierra-clip">
+          <path d="M170 280 Q350 220 530 280 L530 310 L170 310Z"/>
+        </clipPath>
+      </defs>
+
+      <!-- Sol -->
+      <circle cx="190" cy="55" r="17" fill="#ffc928"/>
+      <g stroke="#ffc928" stroke-width="3">
+        <path d="M190 25V14 M190 85V96 M160 55H149 M220 55H231"/>
+        <path d="M169 34L161 26 M211 76L219 84 M211 34L219 26 M169 76L161 84"/>
+      </g>
+
+      <!-- Rayos solares -->
+      <g stroke="#c99a00" stroke-width="4" fill="none">
+        <path d="M200 85L250 275"/>
+        <path d="M235 85L280 275"/>
+        <path d="M270 85L310 275"/>
+      </g>
+      <g fill="#c99a00">
+        <path d="M244 266L250 280L253 265Z"/>
+        <path d="M274 266L280 280L283 265Z"/>
+        <path d="M304 266L310 280L313 265Z"/>
+      </g>
+
+      <!-- Atmósfera -->
+      <path d="M185 175 Q350 105 515 175 L505 225 Q350 165 195 225Z"
+            fill="url(#atm-color)"/>
+
+      <!-- Moléculas de gases -->
+      <g id="moleculas" fill="#7298b8">
+        <circle cx="220" cy="185" r="5"/>
+        <circle cx="230" cy="181" r="5"/>
+        <circle cx="265" cy="177" r="5"/>
+        <circle cx="280" cy="171" r="5"/>
+        <circle cx="340" cy="160" r="5"/>
+        <circle cx="350" cy="164" r="5"/>
+        <circle cx="385" cy="169" r="5"/>
+        <circle cx="400" cy="176" r="5"/>
+        <circle cx="420" cy="179" r="5"/>
+        <circle cx="435" cy="174" r="5"/>
+        <circle cx="460" cy="190" r="5"/>
+        <circle cx="470" cy="193" r="5"/>
+      </g>
+
+      <!-- Tierra -->
+      <path d="M170 280 Q350 220 530 280 L530 310 L170 310Z"
+            fill="url(#tierra-color)" stroke="#168e54" stroke-width="3"/>
+
+      <!-- Continentes esquemáticos -->
+      <g clip-path="url(#tierra-clip)">
+        <path d="M170 265 Q205 240 235 260 L260 275 L245 290
+                 L225 285 L215 310 L180 310Z" fill="#469b55"/>
+        <path d="M290 270 L315 260 L335 278 L320 300
+                 L300 310 L280 290Z" fill="#4b9b52"/>
+        <path d="M395 260 Q430 235 460 255 L490 270
+                 L475 290 L445 285 L430 310 L395 300Z"
+              fill="#d4b66b"/>
+        <path d="M480 280 L510 265 L530 280 L530 310 L490 310Z"
+              fill="#4b9b52"/>
+      </g>
+
+      <!-- Radiación infrarroja que escapa -->
+      <path id="flecha-escape" d="M350 255 L350 65"
+            stroke="#ed690e" stroke-width="5" fill="none"/>
+      <path d="M343 75L350 62L357 75Z" fill="#ed690e"/>
+
+      <!-- Radiación infrarroja que regresa -->
+      <path id="flecha-retorno"
+            d="M350 175 Q420 185 480 270"
+            stroke="#e33c36" stroke-width="4" fill="none"/>
+      <path d="M470 263L481 275L482 258Z" fill="#e33c36"/>
+
+      <!-- Etiquetas -->
+      <text x="260" y="65">Luz solar</text>
+      <text x="360" y="50" id="texto-escape">Radiación que escapa: 60 %</text>
+      <text x="365" y="150" id="texto-retorno">Radiación que regresa: 40 %</text>
+      <text x="350" y="168" text-anchor="middle"> </text>
+      <text x="280" y="165">Atmósfera</text>
+      <text x="350" y="294" text-anchor="middle">Tierra</text>
+    </svg>
+  </div>
+
+  <div class="control">
+    <label class="etiqueta" for="nivel-gases">
+      Nivel relativo de gases de efecto invernadero (escala del modelo: 0–100)
+    </label>
+    <span class="valor" id="valor-gases">55</span>
+    <input id="nivel-gases" type="range" min="0" max="100"
+           value="55" step="1"
+           aria-label="Nivel relativo de gases de efecto invernadero">
+  </div>
+
+  <div class="nota">
+    Modelo ilustrativo con fines educativos. Los porcentajes no representan mediciones reales de la atmósfera.
+  </div>
+
+  <script>
+    (() => {
+      const raiz = document.getElementById("simulador-invernadero");
+      const control = raiz.querySelector("#nivel-gases");
+      const valor = raiz.querySelector("#valor-gases");
+      const escape = raiz.querySelector("#texto-escape");
+      const retorno = raiz.querySelector("#texto-retorno");
+      const flechaEscape = raiz.querySelector("#flecha-escape");
+      const flechaRetorno = raiz.querySelector("#flecha-retorno");
+      const moleculas = raiz.querySelector("#moleculas");
+
+      function actualizar() {
+        const nivel = Number(control.value);
+
+        // Relación ilustrativa: nivel 55 equivale a 40 % de radiación retenida.
+        const porcentajeRetenido = Math.round(nivel * 40 / 55);
+        const porcentajeEscape = 100 - porcentajeRetenido;
+
+        valor.textContent = nivel;
+        escape.textContent = `Radiación que escapa: ${porcentajeEscape} %`;
+        retorno.textContent = `Radiación que regresa: ${porcentajeRetenido} %`;
+
+        // La flecha de escape disminuye a medida que aumenta el nivel.
+        const altura = 190 - porcentajeRetenido * 0.75;
+        flechaEscape.setAttribute("d", `M350 255 L350 ${65 + porcentajeRetenido * 0.75}`);
+
+        // La flecha de retorno aumenta visualmente.
+        const curva = 150 + porcentajeRetenido * 0.65;
+        flechaRetorno.setAttribute(
+          "d",
+          `M350 175 Q${380 + porcentajeRetenido * 0.5} ${curva} 480 270`
+        );
+
+        // Aumenta la cantidad de moléculas representadas.
+        const cantidad = Math.round(nivel / 5);
+        const puntos = [
+          [220,185],[230,181],[245,190],[265,177],[280,171],
+          [300,185],[320,175],[340,160],[350,164],[365,180],
+          [385,169],[400,176],[420,179],[435,174],[450,185],
+          [460,190],[470,193],[490,180],[500,195],[315,195]
+        ];
+
+        moleculas.innerHTML = puntos.slice(0, cantidad).map(p =>
+          `<circle cx="${p[0]}" cy="${p[1]}" r="5"/>`
+        ).join("");
+      }
+
+      control.addEventListener("input", actualizar);
+      actualizar();
+    })();
+  </script>
+</div>
