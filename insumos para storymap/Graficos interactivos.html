@@ -3,66 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparativa Histórica de Emisiones</title>
+    <title>Comparativa Histórica de Emisiones (Transparente)</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
-            --primary-color: #1a2332;
             --accent: #3498db;
-            --bg: #f4f6f8;
-            --card-bg: #ffffff;
-            --text: #2c3e50;
-            --text-muted: #7f8c8d;
-            --radius: 10px;
+            --text: #ffffff; /* Texto blanco para fondos oscuros */
+            --text-muted: #e0e0e0;
         }
+        
+        /* Fondo transparente y adaptable */
         html, body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
+            background: transparent; /* Sin fondo */
             color: var(--text);
             height: 100%;
+            width: 100%;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
+        
         body {
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 12px;
+            align-items: center;
+            padding: 10px;
         }
 
-        /* ── widget ── */
+        /* Contenedor transparente */
         .widget {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: 0 2px 12px rgba(0,0,0,.08);
+            background: transparent; /* Sin fondo de tarjeta */
             width: 100%;
-            max-width: 900px;
-            padding: 18px 20px 14px;
+            max-width: 1000px;
+            height: 100%;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        /* ── header ── */
+        /* Encabezado */
         .header { text-align: center; }
         .header h2 {
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: #ffffff;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8); /* Sombra para legibilidad */
             line-height: 1.3;
         }
         .header p {
-            font-size: .82rem;
+            font-size: .85rem;
             color: var(--text-muted);
-            margin-top: 2px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            margin-top: 4px;
         }
 
-        /* ── controles ── */
+        /* Controles (Chips) */
         .controls {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
             justify-content: center;
+            padding: 5px;
+            /* Fondo muy sutil para agrupar los botones */
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
         }
         .chip {
             display: inline-flex;
@@ -72,32 +80,36 @@
             border-radius: 20px;
             font-size: .78rem;
             cursor: pointer;
-            border: 1.5px solid #dce1e6;
-            background: #f8f9fb;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: #ffffff;
             transition: all .2s ease;
             user-select: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
-        .chip:hover { background: #eaecf0; }
+        .chip:hover { background: rgba(255,255,255,0.2); }
         .chip.active {
             border-color: var(--chip-color, var(--accent));
-            background: color-mix(in srgb, var(--chip-color, var(--accent)) 12%, white);
+            background: rgba(255,255,255,0.2);
             font-weight: 600;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
         .chip .dot {
             width: 10px; height: 10px;
             border-radius: 50%;
             background: var(--chip-color, var(--accent));
             flex-shrink: 0;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
         .chip input { display: none; }
 
-        /* ── gráfico ── */
+        /* Gráfico */
         .chart-wrap {
             position: relative;
             width: 100%;
             height: 0;
-            padding-bottom: 52%;   /* aspect ratio ~1.9:1 */
-            min-height: 260px;
+            padding-bottom: 50%;   /* Aspect ratio */
+            min-height: 280px;
         }
         .chart-wrap canvas {
             position: absolute;
@@ -106,21 +118,22 @@
             height: 100% !important;
         }
 
-        /* ── fuente ── */
+        /* Fuente */
         .source {
             text-align: right;
-            font-size: .68rem;
+            font-size: .7rem;
             color: var(--text-muted);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
-        .source a { color: var(--accent); text-decoration: none; }
+        .source a { color: var(--accent); text-decoration: none; text-shadow: none; }
 
-        /* ── responsive ── */
-        @media (max-width: 520px) {
-            body { padding: 6px; }
-            .widget { padding: 12px 10px 10px; }
-            .header h2 { font-size: 1.05rem; }
-            .chip { font-size: .72rem; padding: 3px 8px; }
-            .chart-wrap { padding-bottom: 65%; min-height: 200px; }
+        /* Responsive */
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            .header h2 { font-size: 1.1rem; }
+            .chip { font-size: .7rem; padding: 3px 8px; }
+            .chart-wrap { padding-bottom: 65%; min-height: 220px; }
+            .controls { padding: 3px; }
         }
     </style>
 </head>
@@ -152,7 +165,7 @@ const YEARS = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,
 
 const COUNTRIES = {
   "Mundo": {
-    color: "#636e72",
+    color: "#ffffff", // Blanco para que resalte en el gráfico transparente
     data: [33864.7,34012.9,33953.0,34126.0,34392.9,35194.0,35584.2,36968.2,36466.9,36463.4,37124.3,35598.1,36571.9,37583.9,39432.9,40389.8,41871.7,42646.8,42894.6,42835.7,44624.3,45371.6,45884.5,46574.5,47216.1,47082.9,47047.5,47778.0,48853.1,49250.2,47002.2,49353.0,49775.4,50802.9]
   },
   "China": {
@@ -184,7 +197,7 @@ const COUNTRIES = {
     data: [1127.32,1145.0,1158.97,1154.26,1214.72,1235.88,1248.92,1233.83,1182.08,1208.09,1218.49,1114.87,1141.05,1146.7,1132.24,1138.84,1118.62,1152.3,1082.02,1022.68,1079.77,1220.34,1263.47,1278.92,1231.41,1194.51,1196.02,1183.8,1145.18,1109.6,1053.17,1105.26,1080.55,1035.83]
   },
   "Alemania": {
-    color: "#2d3436",
+    color: "#bdc3c7", // Gris claro para contrastar
     data: [1096.59,1071.33,1026.85,1019.35,1010.04,1007.15,1031.7,994.6,972.98,935.0,927.26,978.38,961.62,962.37,944.24,922.31,930.6,901.5,904.37,847.17,878.07,822.03,835.11,850.31,809.5,814.4,872.03,855.33,825.29,774.0,720.02,742.6,732.33,669.68]
   },
   "México": {
@@ -242,15 +255,20 @@ Object.entries(COUNTRIES).forEach(([name, info]) => {
 // ── Chart.js ──
 const ctx = document.getElementById("chart").getContext("2d");
 
+// Ajustes globales de Chart.js para fondo transparente
+Chart.defaults.color = '#ffffff'; 
+Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+
 function buildDatasets() {
     return [...active].map(name => ({
         label: name,
         data: COUNTRIES[name].data,
         borderColor: COUNTRIES[name].color,
-        backgroundColor: COUNTRIES[name].color + "22",
-        borderWidth: 2,
+        backgroundColor: COUNTRIES[name].color + "22", // Relleno semitransparente
+        borderWidth: 2.5, // Líneas un poco más gruesas para resaltar
         pointRadius: 0,
-        pointHitRadius: 8,
+        pointHitRadius: 10,
         tension: 0.35,
         fill: true
     }));
@@ -265,16 +283,16 @@ const chart = new Chart(ctx, {
         interaction: { mode: "index", intersect: false },
         plugins: {
             legend: {
-                display: true,
-                position: "bottom",
-                labels: { boxWidth: 12, padding: 10, font: { size: 11 } }
+                display: false // Ocultamos la leyenda porque ya usamos los chips
             },
             tooltip: {
-                backgroundColor: "rgba(26,35,50,.92)",
-                titleFont: { size: 12 },
-                bodyFont: { size: 11 },
-                padding: 10,
-                cornerRadius: 6,
+                backgroundColor: "rgba(20, 30, 40, 0.9)",
+                titleFont: { size: 13, weight: 'bold' },
+                bodyFont: { size: 12 },
+                padding: 12,
+                cornerRadius: 8,
+                borderColor: 'rgba(255,255,255,0.2)',
+                borderWidth: 1,
                 callbacks: {
                     label: ctx => {
                         const v = ctx.parsed.y;
@@ -286,15 +304,30 @@ const chart = new Chart(ctx, {
         scales: {
             y: {
                 beginAtZero: true,
-                grid: { color: "#ecf0f1" },
-                title: { display: true, text: "MtCO₂e", font: { size: 11 } },
-                ticks: { font: { size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + "k" : v }
+                grid: { color: "rgba(255, 255, 255, 0.15)" }, // Cuadrícula sutil blanca
+                title: { 
+                    display: true, 
+                    text: "Millones de Toneladas (MtCO₂e)", 
+                    font: { size: 11, weight: 'bold' },
+                    color: '#e0e0e0'
+                },
+                ticks: { 
+                    font: { size: 10 },
+                    color: '#e0e0e0',
+                    callback: v => v >= 1000 ? (v/1000).toFixed(0) + "k" : v 
+                }
             },
             x: {
-                grid: { display: false },
-                title: { display: true, text: "Año", font: { size: 11 } },
+                grid: { display: false }, // Sin líneas verticales para limpiar
+                title: { 
+                    display: true, 
+                    text: "Año", 
+                    font: { size: 11, weight: 'bold' },
+                    color: '#e0e0e0'
+                },
                 ticks: {
                     font: { size: 10 },
+                    color: '#e0e0e0',
                     maxRotation: 45,
                     autoSkip: true,
                     maxTicksLimit: 12
