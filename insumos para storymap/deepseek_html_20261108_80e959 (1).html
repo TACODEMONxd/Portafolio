@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafíos de Aula - Cambio Climático</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .question-widget {
+            background: rgba(20, 30, 40, 0.75); 
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .widget-header {
+            color: #FFD046; 
+            padding: 25px 30px 10px;
+            text-align: center;
+        }
+
+        .widget-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .question-display {
+            padding: 30px 40px 50px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFD046; 
+            border: 1px solid rgba(255, 208, 70, 0.3);
+        }
+
+        .question-text {
+            font-size: 1.4rem; 
+            line-height: 1.5;
+            font-weight: 500;
+            color: #ffffff; 
+            margin: 0;
+            max-width: 95%;
+            animation: fadeIn 0.8s ease;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .question-widget { width: 100%; border-radius: 0; border-left: none; border-right: none;}
+            .question-text { font-size: 1.2rem; }
+            .widget-header h2 { font-size: 1.5rem; }
+            .question-display { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="question-widget">
+    <div class="widget-header">
+        <h2>✨ Reto de Aula</h2>
+    </div>
+
+    <div class="question-display">
+        <div class="category-badge" id="categoryBadge">Cargando...</div>
+        <p class="question-text" id="questionText">
+            Cargando reto...
+        </p>
+    </div>
+</div>
+
+<script>
+    // Banco de 18 retos, con el reto del mapa corregido
+    const challengesData = [
+        // --- DILEMAS Y FUTURO ---
+        { 
+            text: "💰 <strong>El nuevo oro:</strong> En un futuro afectado por el cambio climático, ¿qué crees que será más valioso: el agua potable o el oro? Escribe tu respuesta y justifica por qué.", 
+            category: "Dilema" 
+        },
+        { 
+            text: "📝 <strong>Nota al futuro:</strong> Escribe en una hoja una sola cosa que te encantaría hacer de grande, pero que el calentamiento global podría impedir (ej: esquiar, ver un arrecife de coral).", 
+            category: "Reflexión" 
+        },
+        { 
+            text: "🌻 <strong>El último girasol:</strong> Imagina que es el año 2100 y solo queda un girasol en la Tierra. Escribe qué nombre le pondrías a esa última flor y por qué.", 
+            category: "Creatividad" 
+        },
+        { 
+            text: "🏙️ <strong>Ciudad burbuja:</strong> Si tuvieras que diseñar una ciudad del futuro para protegerte del calor extremo, ¿tendría techo? ¿Sería subterránea? Describe tu idea en 3 líneas.", 
+            category: "Ingenio" 
+        },
+        { 
+            text: "👕 <strong>Moda climática:</strong> ¿Cómo te imaginas la ropa que usaremos en el futuro si la temperatura sube mucho? Dibuja una prenda rápida en tu cuaderno.", 
+            category: "Diseño" 
+        },
+
+        // --- HUMOR Y TECNOLOGÍA ---
+        { 
+            text: "😂 <strong>Humor climático:</strong> Usa tu celular o pídele a una IA (como ChatGPT) que te cuente un chiste corto sobre los gases de efecto invernadero. Anótalo y hazlo leer a tu grupo.", 
+            category: "Tecnología" 
+        },
+        { 
+            text: "🤖 <strong>Pregunta a la IA:</strong> Si tienes una computadora o celular, pídele a una IA que te dé 1 acción sencilla para reducir tu huella de carbono en el colegio. Escríbela.", 
+            category: "Tecnología" 
+        },
+        { 
+            text: "📱 <strong>Búsqueda rápida:</strong> Si tienes acceso a internet, busca en 1 minuto cuál es el gas de efecto invernadero que más se produce en Costa Rica (pista: no es el CO₂).", 
+            category: "Investigación" 
+        },
+
+        // --- SOLUCIONES LOCAS ---
+        { 
+            text: "💡 <strong>Solución descabellada:</strong> Escribe en tu cuaderno la idea más absurda o de ciencia ficción para detener el calentamiento global. (Ej: Entrenar pingüinos para que sean refrigeradores).", 
+            category: "Imaginación" 
+        },
+        { 
+            text: "📦 <strong>Invento inútil:</strong> Piensa en un invento inútil pero divertido para combatir el calor (ej: 'Un ventilador gigante para la Tierra'). Escribe cómo se llamaría.", 
+            category: "Ingenio" 
+        },
+        { 
+            text: "🎩 <strong>Superpoder:</strong> Si pudieras tener un superpoder para salvar al planeta del efecto invernadero, ¿cuál sería y cómo lo usarías?", 
+            category: "Creatividad" 
+        },
+
+        // --- ESCRITURA Y MENSAJES ---
+        { 
+            text: "🗣️ <strong>Mensaje al mundo:</strong> Escribe un tuit (mensaje corto de 140 caracteres) para convencer a los adultos de usar menos el carro. ¡Usa emojis!", 
+            category: "Redes Sociales" 
+        },
+        { 
+            text: "🎤 <strong>Frase célebre:</strong> Escribe una frase inspiradora (o chistosa) para poner en un cartel en la entrada de tu colegio sobre el cambio climático.", 
+            category: "Escritura" 
+        },
+        { 
+            text: "🎵 <strong>Playlist del clima:</strong> Anota en tu cuaderno el nombre de 1 canción que te recuerde a la naturaleza o al cuidado del planeta. ¿Por qué la elegiste?", 
+            category: "Música" 
+        },
+
+        // --- OBSERVACIÓN Y STORY MAP ---
+        { 
+            text: "🔍 <strong>Cazador de plástico:</strong> Mira a tu alrededor en el salón. ¿Cuántos objetos de plástico puedes ver? Anota el número y piensa: ¿qué pasará con ellos cuando los botemos?", 
+            category: "Observación" 
+        },
+        { 
+            text: "🌳 <strong>Dibujo del futuro:</strong> Dibuja en 2 minutos cómo sería tu barrio si todos los carros fueran eléctricos y hubiera más árboles. ¡Sin importar si dibujas mal!", 
+            category: "Dibujo" 
+        },
+        // RETO CORREGIDO (Mapa de emisiones con íconos proporcionales)
+        { 
+            text: "📊 <strong>Detective del mapa:</strong> Ve al mapa de emisiones del Story Map. Busca el ícono más grande (el país que más contamina) y el más pequeño. Anota los nombres de ambos en tu cuaderno.", 
+            category: "Story Map" 
+        },
+        { 
+            text: "🌡️ <strong>Temperatura ideal:</strong> Anota en tu cuaderno qué prefieres: ¿Un verano con 40°C o un invierno con 10°C? ¿Cómo te afectaría el calor extremo en tu vida diaria?", 
+            category: "Reflexión" 
+        }
+    ];
+
+    const questionText = document.getElementById('questionText');
+    const categoryBadge = document.getElementById('categoryBadge');
+
+    function loadRandomChallenge() {
+        const randomIndex = Math.floor(Math.random() * challengesData.length);
+        const selectedC = challengesData[randomIndex];
+
+        questionText.innerHTML = selectedC.text;
+        categoryBadge.innerText = selectedC.category;
+    }
+
+    window.addEventListener('load', () => {
+        loadRandomChallenge();
+    });
+</script>
+
+</body>
+</html>
