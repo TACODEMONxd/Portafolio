@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativa Histórica de Emisiones</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary-color: #1a2332;
+            --accent: #3498db;
+            --bg: #f4f6f8;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-muted: #7f8c8d;
+            --radius: 10px;
+        }
+        html, body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 12px;
+        }
+
+        /* ── widget ── */
+        .widget {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 12px rgba(0,0,0,.08);
+            width: 100%;
+            max-width: 900px;
+            padding: 18px 20px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ── header ── */
+        .header { text-align: center; }
+        .header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.3;
+        }
+        .header p {
+            font-size: .82rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── controles ── */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: .78rem;
+            cursor: pointer;
+            border: 1.5px solid #dce1e6;
+            background: #f8f9fb;
+            transition: all .2s ease;
+            user-select: none;
+        }
+        .chip:hover { background: #eaecf0; }
+        .chip.active {
+            border-color: var(--chip-color, var(--accent));
+            background: color-mix(in srgb, var(--chip-color, var(--accent)) 12%, white);
+            font-weight: 600;
+        }
+        .chip .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--chip-color, var(--accent));
+            flex-shrink: 0;
+        }
+        .chip input { display: none; }
+
+        /* ── gráfico ── */
+        .chart-wrap {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 52%;   /* aspect ratio ~1.9:1 */
+            min-height: 260px;
+        }
+        .chart-wrap canvas {
+            position: absolute;
+            inset: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* ── fuente ── */
+        .source {
+            text-align: right;
+            font-size: .68rem;
+            color: var(--text-muted);
+        }
+        .source a { color: var(--accent); text-decoration: none; }
+
+        /* ── responsive ── */
+        @media (max-width: 520px) {
+            body { padding: 6px; }
+            .widget { padding: 12px 10px 10px; }
+            .header h2 { font-size: 1.05rem; }
+            .chip { font-size: .72rem; padding: 3px 8px; }
+            .chart-wrap { padding-bottom: 65%; min-height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="widget">
+    <div class="header">
+        <h2>Emisiones Históricas de GEI por País (1990 – 2023)</h2>
+        <p>Selecciona los países para comparar sus tendencias · Fuente: Climate Watch · MtCO₂e</p>
+    </div>
+
+    <div class="controls" id="controls"></div>
+
+    <div class="chart-wrap">
+        <canvas id="chart"></canvas>
+    </div>
+
+    <div class="source">
+        Datos: <a href="https://www.climatewatchdata.org" target="_blank" rel="noopener">Climate Watch – Historical GHG Emissions</a> · Total incl. LULUCF, todos los GEI
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  DATOS ESTÁTICOS  –  Climate Watch (MtCO₂e)
+//  Años: 1990 → 2023   (34 puntos)
+// ═══════════════════════════════════════════════
+const YEARS = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
+
+const COUNTRIES = {
+  "Mundo": {
+    color: "#636e72",
+    data: [33864.7,34012.9,33953.0,34126.0,34392.9,35194.0,35584.2,36968.2,36466.9,36463.4,37124.3,35598.1,36571.9,37583.9,39432.9,40389.8,41871.7,42646.8,42894.6,42835.7,44624.3,45371.6,45884.5,46574.5,47216.1,47082.9,47047.5,47778.0,48853.1,49250.2,47002.2,49353.0,49775.4,50802.9]
+  },
+  "China": {
+    color: "#e74c3c",
+    data: [3059.8,3206.8,3348.83,3592.57,3764.57,4165.19,4181.35,4170.84,4278.47,4211.0,4379.04,4575.41,4867.5,5535.98,6298.83,7074.07,7741.96,8334.16,8579.21,9145.36,9971.68,10465.0,10742.8,11221.8,11279.7,11120.8,10973.1,11209.2,11683.0,11937.5,12107.0,12691.0,12677.3,13180.0]
+  },
+  "Estados Unidos": {
+    color: "#2980b9",
+    data: [5183.62,5136.98,5219.86,5330.24,5425.4,5492.42,5663.62,5924.06,5970.76,5972.05,6135.59,6026.4,5873.62,5941.79,6025.92,6046.79,5959.92,6067.26,5887.5,5470.06,5743.93,5583.81,5368.03,5517.92,5577.0,5475.56,5511.58,5465.14,5699.1,5582.45,5026.98,5568.28,5642.49,5438.71]
+  },
+  "India": {
+    color: "#e67e22",
+    data: [1131.28,1186.06,1209.73,1244.99,1294.32,1363.59,1412.28,1472.64,1502.48,1585.03,1625.11,1872.67,1891.32,1934.25,2023.76,2095.09,2193.87,2340.68,2455.58,2569.71,2686.93,2734.88,2890.15,2958.55,3146.36,3185.21,3164.55,3286.34,3404.4,3409.21,3239.76,3465.62,3712.09,3978.72]
+  },
+  "UE-27": {
+    color: "#8e44ad",
+    data: [4292.16,4224.0,4075.22,3995.41,3984.57,4037.2,4144.1,4066.61,4024.57,3946.02,3945.12,3983.33,3964.59,4053.5,4053.62,4026.1,4024.91,3986.38,3893.52,3624.94,3705.96,3597.81,3536.11,3454.21,3303.68,3356.38,3543.72,3563.19,3478.13,3330.71,3057.09,3425.0,3354.19,3119.45]
+  },
+  "Brasil": {
+    color: "#27ae60",
+    data: [2142.12,2163.68,2173.92,2184.21,2201.14,2227.97,2229.72,2261.46,2297.83,2309.03,2310.84,1826.41,1866.41,1882.39,1932.22,1949.83,1937.98,1977.55,1977.81,1951.39,2060.08,1351.55,1396.98,1422.44,1461.88,1448.43,1797.01,1822.03,1781.85,1804.9,1808.79,2110.41,2108.49,2125.81]
+  },
+  "Rusia": {
+    color: "#c0392b",
+    data: [1987.92,1925.85,1682.68,1497.3,1271.74,1196.33,1151.32,1005.99,1015.67,1041.22,1101.72,994.2,987.32,1061.19,1053.13,1084.01,1112.42,1121.87,1115.67,987.13,1057.19,1383.84,1366.35,1320.69,1313.47,1280.63,1350.65,1395.55,1487.24,1485.47,1408.07,1290.18,1274.09,1320.61]
+  },
+  "Japón": {
+    color: "#6c5ce7",
+    data: [1127.32,1145.0,1158.97,1154.26,1214.72,1235.88,1248.92,1233.83,1182.08,1208.09,1218.49,1114.87,1141.05,1146.7,1132.24,1138.84,1118.62,1152.3,1082.02,1022.68,1079.77,1220.34,1263.47,1278.92,1231.41,1194.51,1196.02,1183.8,1145.18,1109.6,1053.17,1105.26,1080.55,1035.83]
+  },
+  "Alemania": {
+    color: "#2d3436",
+    data: [1096.59,1071.33,1026.85,1019.35,1010.04,1007.15,1031.7,994.6,972.98,935.0,927.26,978.38,961.62,962.37,944.24,922.31,930.6,901.5,904.37,847.17,878.07,822.03,835.11,850.31,809.5,814.4,872.03,855.33,825.29,774.0,720.02,742.6,732.33,669.68]
+  },
+  "México": {
+    color: "#00b894",
+    data: [444.67,464.29,467.42,485.97,512.95,492.35,511.87,536.53,570.36,553.35,580.33,491.97,503.78,532.61,541.35,566.81,587.63,600.24,605.23,593.8,610.85,677.72,683.59,669.2,664.5,679.25,722.64,720.49,703.7,717.92,665.12,677.05,708.29,731.3]
+  },
+  "Argentina": {
+    color: "#74b9ff",
+    data: [345.68,349.98,355.27,356.23,359.83,363.2,374.69,379.81,383.61,391.56,389.85,411.2,409.8,432.62,449.86,453.87,467.91,479.7,483.64,462.47,466.48,440.64,446.35,453.65,451.27,457.07,440.4,444.61,442.72,439.85,425.53,430.56,450.46,435.37]
+  },
+  "Colombia": {
+    color: "#fdcb6e",
+    data: [243.74,244.73,248.52,253.52,256.65,262.1,262.94,269.68,272.02,260.25,264.4,207.98,204.96,208.45,211.21,213.83,215.79,223.91,228.48,234.12,242.51,240.66,239.93,249.74,253.41,251.72,288.2,285.3,293.93,296.31,288.57,284.64,289.23,294.16]
+  },
+  "Costa Rica": {
+    color: "#00cec9",
+    data: [5.24,5.55,6.69,6.8,7.17,6.74,6.56,6.57,7.28,7.1,6.91,9.69,9.71,10.09,10.13,10.68,11.07,12.51,12.68,12.31,12.48,8.26,8.25,8.74,8.68,8.64,14.27,14.49,14.75,14.75,13.4,15.68,15.3,16.97]
+  },
+  "Reino Unido": {
+    color: "#d63031",
+    data: [777.15,786.38,769.69,752.23,750.3,743.26,764.48,744.61,738.41,709.1,707.94,716.3,697.96,705.45,697.91,691.11,687.27,671.16,649.56,593.15,605.36,565.07,584.92,568.74,528.08,512.96,499.53,488.87,481.33,466.45,423.11,443.83,427.54,408.15]
+  },
+  "Francia": {
+    color: "#0984e3",
+    data: [480.7,506.62,491.05,470.23,463.54,471.16,490.11,480.43,497.3,488.39,486.91,451.08,443.21,447.98,446.61,447.62,438.09,431.11,425.33,407.16,410.87,401.36,404.12,404.38,369.06,374.48,410.14,414.89,400.26,390.73,351.82,383.65,371.17,346.89]
+  }
+};
+
+// Países activos por defecto
+const active = new Set(["China","Estados Unidos","India","UE-27","Brasil"]);
+
+// ── Crear chips ──
+const controlsEl = document.getElementById("controls");
+Object.entries(COUNTRIES).forEach(([name, info]) => {
+    const label = document.createElement("label");
+    label.className = "chip" + (active.has(name) ? " active" : "");
+    label.style.setProperty("--chip-color", info.color);
+
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = active.has(name);
+    cb.addEventListener("change", () => {
+        if (cb.checked) active.add(name); else active.delete(name);
+        label.classList.toggle("active", cb.checked);
+        redraw();
+    });
+
+    const dot = document.createElement("span");
+    dot.className = "dot";
+
+    label.append(cb, dot, document.createTextNode(" " + name));
+    controlsEl.appendChild(label);
+});
+
+// ── Chart.js ──
+const ctx = document.getElementById("chart").getContext("2d");
+
+function buildDatasets() {
+    return [...active].map(name => ({
+        label: name,
+        data: COUNTRIES[name].data,
+        borderColor: COUNTRIES[name].color,
+        backgroundColor: COUNTRIES[name].color + "22",
+        borderWidth: 2,
+        pointRadius: 0,
+        pointHitRadius: 8,
+        tension: 0.35,
+        fill: true
+    }));
+}
+
+const chart = new Chart(ctx, {
+    type: "line",
+    data: { labels: YEARS, datasets: buildDatasets() },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+            legend: {
+                display: true,
+                position: "bottom",
+                labels: { boxWidth: 12, padding: 10, font: { size: 11 } }
+            },
+            tooltip: {
+                backgroundColor: "rgba(26,35,50,.92)",
+                titleFont: { size: 12 },
+                bodyFont: { size: 11 },
+                padding: 10,
+                cornerRadius: 6,
+                callbacks: {
+                    label: ctx => {
+                        const v = ctx.parsed.y;
+                        return " " + ctx.dataset.label + ": " + v.toLocaleString("es") + " MtCO₂e";
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: "#ecf0f1" },
+                title: { display: true, text: "MtCO₂e", font: { size: 11 } },
+                ticks: { font: { size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + "k" : v }
+            },
+            x: {
+                grid: { display: false },
+                title: { display: true, text: "Año", font: { size: 11 } },
+                ticks: {
+                    font: { size: 10 },
+                    maxRotation: 45,
+                    autoSkip: true,
+                    maxTicksLimit: 12
+                }
+            }
+        }
+    }
+});
+
+function redraw() {
+    chart.data.datasets = buildDatasets();
+    chart.update();
+}
+</script>
+</body>
+</html>
