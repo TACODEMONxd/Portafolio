@@ -8,29 +8,29 @@
   * { box-sizing: border-box; }
   body {
     margin: 0; padding: 18px;
-    background: #000; color: #eee;
+    background: transparent; color: #FFD046;
     font-family: Arial, Helvetica, sans-serif;
   }
   .simulador {
     width: min(100%, 1100px); margin: 0 auto;
-    background: #202020; border: 1px solid #555;
-    border-radius: 34px; overflow: hidden;
+    background: transparent; border: 0;
+    border-radius: 16px; overflow: hidden;
   }
   .grafico { padding: 22px 3% 14px; }
   svg { display: block; width: 100%; max-width: 900px; height: auto; margin: auto; }
   svg text {
-    font-family: Arial, sans-serif; fill: #eee; font-size: 16px;
-    font-weight: 600; paint-order: stroke; stroke: #202020;
-    stroke-width: 3px; stroke-linejoin: round;
+    font-family: Arial, sans-serif; fill: #FFD046; font-size: 16px;
+    font-weight: 700; paint-order: stroke fill;
+    stroke: rgba(20, 45, 65, .85); stroke-width: 3px; stroke-linejoin: round;
   }
   .control {
-    border-top: 1px solid #444; padding: 22px 18px;
+    border-top: 1px solid rgba(100,100,100,.25); padding: 22px 18px;
     display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
   }
   .etiqueta { flex: 1 1 300px; line-height: 1.4; font-size: 16px; }
   .valor { min-width: 28px; text-align: center; font-size: 15px; }
-  input[type=range] { flex: 2 1 220px; min-width: 150px; accent-color: white; cursor: pointer; }
-  .nota { padding: 0 18px 16px; text-align: center; color: #aaa; font-size: 12px; line-height: 1.5; }
+  input[type=range] { flex: 2 1 220px; min-width: 150px; accent-color: #FFD046; cursor: pointer; }
+  .nota { padding: 0 18px 16px; text-align: center; color: #FFD046; font-size: 12px; line-height: 1.5; }
   @media (max-width: 520px) {
     body { padding: 8px; }
     .simulador { border-radius: 22px; }
@@ -50,8 +50,8 @@
       <desc id="descripcion">La luz solar atraviesa la atmósfera y calienta la Tierra. La superficie libera radiación infrarroja; parte escapa al espacio y parte regresa debido a los gases de efecto invernadero.</desc>
       <defs>
         <linearGradient id="atm" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#718da5" stop-opacity=".55"/>
-          <stop offset="1" stop-color="#718da5" stop-opacity=".25"/>
+          <stop offset="0" stop-color="#4b91bd" stop-opacity=".72"/>
+          <stop offset="1" stop-color="#4b91bd" stop-opacity=".48"/>
         </linearGradient>
         <linearGradient id="mar" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#0878c9"/><stop offset="1" stop-color="#064477"/>
@@ -76,8 +76,7 @@
       <text x="255" y="75">Luz solar</text>
 
       <!-- Capa atmosférica -->
-      <path d="M185 190 Q380 110 575 190 L562 250 Q380 185 198 250Z" fill="url(#atm)"/>
-      <text x="380" y="177" text-anchor="middle">Atmósfera</text>
+      <path d="M185 190 Q380 110 575 190 L562 250 Q380 185 198 250Z" fill="url(#atm)" stroke="#70b7df" stroke-opacity=".85" stroke-width="2"/>
       <g id="moleculas" fill="#789bb9">
         <circle cx="220" cy="202" r="6"/><circle cx="238" cy="195" r="6"/>
         <circle cx="265" cy="190" r="6"/><circle cx="292" cy="184" r="6"/>
@@ -95,7 +94,7 @@
         <path d="M405 275L440 255L470 267L500 285L485 310L455 305L435 345L405 320Z" fill="#d4b66b"/>
         <path d="M500 295L540 275L590 295L590 345L520 345Z" fill="#4b9b52"/>
       </g>
-      <text x="380" y="330" text-anchor="middle">Tierra</text>
+      <text x="380" y="330" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">Tierra</text>
 
       <!-- Radiación infrarroja -->
       <path id="flechaEscape" d="M380 290 L380 72" stroke="#ed690e" stroke-width="6" fill="none"/>
@@ -105,6 +104,7 @@
 
       <text id="textoEscape" x="397" y="58">Radiación que escapa: 60 %</text>
       <text id="textoRetorno" x="397" y="150">Radiación que regresa: 40 %</text>
+      <text x="270" y="218" text-anchor="middle" font-size="18">Atmósfera</text>
     </svg>
   </div>
 
