@@ -10,19 +10,20 @@
             --sky-warm: #ffd89b;
             --sky-hot: #e74c3c;
             --text-dark: #2c3e50;
-            --panel-bg: rgba(255, 255, 255, 0.85);
+            --panel-bg: rgba(255, 255, 255, 0.85); /* Panel semitransparente para legibilidad */
             --danger: #e74c3c;
             --success: #27ae60;
             --warning: #f39c12;
         }
 
+        /* Configuración para fondo transparente y adaptabilidad */
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: transparent;
+            background-color: transparent; /* Fondo totalmente transparente */
             font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
@@ -30,34 +31,35 @@
             position: relative;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(174, 226, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+            background-color: transparent; /* El cielo será transparente sobre el mapa de ArcGIS */
             overflow: hidden;
-            transition: background 2s ease;
+            transition: background-color 2s ease;
+            /* Usamos un gradiente sutil que se mezcla con el fondo */
+            background: linear-gradient(to bottom, rgba(174, 226, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
         }
 
-        /* --- LÍNEA DE TIEMPO (Sin fondo negro) --- */
+        /* --- LÍNEA DE TIEMPO --- */
         .timeline-bar {
             position: absolute;
-            top: 2%; /* Un poco más abajo para que respire */
+            top: 0;
             left: 0;
             width: 100%;
             height: 6%;
+            background: rgba(0,0,0,0.5);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 6%;
+            padding: 0 4%;
             box-sizing: border-box;
             z-index: 30;
-            /* Se eliminó el background negro */
-            background: transparent; 
+            color: white;
+            font-size: 1.5vh;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
         }
         
         .timeline-step {
-            color: #ffffff;
-            font-size: 1.6vh;
-            font-weight: bold;
-            text-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.8); /* Sombra fuerte para leer sobre cualquier fondo */
-            opacity: 0.5;
+            opacity: 0.4;
             transition: all 0.5s ease;
             padding: 0.5vh 1.5vw;
             border-radius: 15px;
@@ -68,13 +70,12 @@
             background: var(--danger);
             box-shadow: 0 0 10px var(--danger);
             transform: scale(1.1);
-            text-shadow: none; /* Al tener fondo rojo, no necesita sombra */
         }
 
         /* --- SOL --- */
         .sun-container {
             position: absolute;
-            top: 12%; /* Ajustado para no chocar con la línea de tiempo */
+            top: 10%;
             right: 10%;
             width: 15vh;
             height: 15vh;
@@ -158,7 +159,7 @@
             bottom: 0;
             width: 100%;
             height: 25%;
-            background: rgba(140, 192, 132, 0.5);
+            background: rgba(140, 192, 132, 0.5); /* Suelo semitransparente */
             z-index: 2;
             transition: background 2s;
             backdrop-filter: blur(2px);
@@ -194,7 +195,7 @@
             filter: grayscale(0.5) opacity(0.7);
             user-select: none;
             line-height: 1;
-            text-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3);
+            text-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3); /* Sombra para que resalte en cualquier fondo */
         }
 
         .interactive-obj:hover {
@@ -249,13 +250,13 @@
             100% { transform: translate(-50%, -20vh) scale(4); opacity: 0; }
         }
 
-        /* --- PANEL DE CONTROL --- */
+        /* --- PANEL DE CONTROL (Transparente) --- */
         .control-panel {
             position: absolute;
             top: 10%;
             right: 3%;
             width: 26%;
-            background: var(--panel-bg);
+            background: var(--panel-bg); /* Fondo semitransparente para legibilidad de los controles */
             border-radius: 16px;
             padding: 2vh 1.5vw;
             box-shadow: 0 1vh 3vh rgba(0,0,0,0.2);
@@ -371,7 +372,7 @@
             font-weight: bold;
         }
 
-        /* --- ESTADOS CLIMÁTICOS --- */
+        /* --- ESTADOS CLIMÁTICOS (Afectan al contenedor transparente) --- */
         .sim-container.hot {
             background: radial-gradient(circle, transparent 40%, rgba(231, 76, 60, 0.4) 100%);
         }
@@ -380,6 +381,7 @@
             background: radial-gradient(circle, transparent 40%, rgba(255, 216, 155, 0.4) 100%);
         }
 
+        /* Responsividad extrema para que no se rompa en bloques pequeños */
         @media (max-width: 800px) {
             .interactive-obj { font-size: 7vh; }
             .control-panel { width: 35%; padding: 1.5vh; }
@@ -389,7 +391,7 @@
             .fact-card { font-size: 1.1vh; }
             .btn-reset { font-size: 1.1vh; }
             .instruction { font-size: 1.2vh; padding: 1vh 2vw; }
-            .timeline-step { font-size: 1.2vh; }
+            .timeline-bar { font-size: 1.2vh; }
         }
     </style>
 </head>
@@ -397,7 +399,6 @@
 
 <div class="sim-container" id="simContainer">
     
-    <!-- Línea de tiempo transparente -->
     <div class="timeline-bar">
         <div class="timeline-step" id="step-1">1850: Era Preindustrial</div>
         <div class="timeline-step" id="step-2">1950: Gran Aceleración</div>
@@ -547,10 +548,11 @@
             bubble.classList.remove('active');
         }
 
+        // Limpiamos clases de estado
         container.classList.remove('hot', 'warm');
 
         if (displayTemp < 1.5) {
-            container.classList.add('warm');
+            container.classList.add('warm'); // Un tono cálido sutil
             tempDisplay.style.color = 'var(--success)';
             statusMessage.className = 'status-message';
             statusMessage.innerText = '✅ Calentamiento < 1.5°C.';
@@ -570,7 +572,7 @@
             step3.classList.remove('active');
 
         } else {
-            container.classList.add('hot');
+            container.classList.add('hot'); // Alerta roja
             tempDisplay.style.color = 'var(--danger)';
             statusMessage.className = 'status-message danger';
             statusMessage.innerText = '🚨 ¡ALERTA ROJA!';
