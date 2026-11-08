@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión 1.5°C - Simulador Climático</title>
+    <title>Misión 1.5°C - Simulador Climático (Transparente)</title>
     <style>
         :root {
             --sky-base: #aee2ff;
             --sky-warm: #ffd89b;
             --sky-hot: #e74c3c;
             --text-dark: #2c3e50;
-            --panel-bg: rgba(255, 255, 255, 0.9);
+            --panel-bg: rgba(255, 255, 255, 0.85);
             --danger: #e74c3c;
             --success: #27ae60;
             --warning: #f39c12;
@@ -22,45 +22,42 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background-color: transparent;
             font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         .sim-container {
             position: relative;
-            width: 100vw;
-            height: 56.25vw; /* 16:9 Aspect Ratio */
-            max-height: 100vh;
-            max-width: 177.78vh;
-            margin: auto;
-            position: absolute;
-            top: 0; bottom: 0; left: 0; right: 0;
-            background-color: var(--sky-base);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(174, 226, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
             overflow: hidden;
-            transition: background-color 2s ease;
+            transition: background 2s ease;
         }
 
-        /* --- LÍNEA DE TIEMPO --- */
+        /* --- LÍNEA DE TIEMPO (Sin fondo negro) --- */
         .timeline-bar {
             position: absolute;
-            top: 0;
+            top: 2%; /* Un poco más abajo para que respire */
             left: 0;
             width: 100%;
             height: 6%;
-            background: rgba(0,0,0,0.6);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 4%;
+            padding: 0 6%;
             box-sizing: border-box;
             z-index: 30;
-            color: white;
-            font-size: 1.5vh;
-            font-weight: bold;
-            backdrop-filter: blur(5px);
+            /* Se eliminó el background negro */
+            background: transparent; 
         }
         
         .timeline-step {
-            opacity: 0.4;
+            color: #ffffff;
+            font-size: 1.6vh;
+            font-weight: bold;
+            text-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.8); /* Sombra fuerte para leer sobre cualquier fondo */
+            opacity: 0.5;
             transition: all 0.5s ease;
             padding: 0.5vh 1.5vw;
             border-radius: 15px;
@@ -71,12 +68,13 @@
             background: var(--danger);
             box-shadow: 0 0 10px var(--danger);
             transform: scale(1.1);
+            text-shadow: none; /* Al tener fondo rojo, no necesita sombra */
         }
 
         /* --- SOL --- */
         .sun-container {
             position: absolute;
-            top: 10%;
+            top: 12%; /* Ajustado para no chocar con la línea de tiempo */
             right: 10%;
             width: 15vh;
             height: 15vh;
@@ -129,8 +127,8 @@
             left: 0;
             width: 100%;
             height: 0%;
-            background: linear-gradient(to top, rgba(231, 76, 60, 0.5) 0%, rgba(241, 196, 15, 0.2) 100%);
-            border-top: 0.5vh solid rgba(231, 76, 60, 0.8);
+            background: linear-gradient(to top, rgba(231, 76, 60, 0.6) 0%, rgba(241, 196, 15, 0.2) 100%);
+            border-top: 0.5vh solid rgba(231, 76, 60, 0.9);
             box-shadow: 0 -1vh 3vh rgba(231, 76, 60, 0.4);
             z-index: 6;
             transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
@@ -154,26 +152,27 @@
         }
         .greenhouse-bubble.active .bubble-label { opacity: 1; }
 
-        /* --- SUELO Y CIUDAD (Ajustado para iconos grandes) --- */
+        /* --- SUELO Y CIUDAD --- */
         .ground {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 30%;
-            background: #8cc084;
+            height: 25%;
+            background: rgba(140, 192, 132, 0.5);
             z-index: 2;
             transition: background 2s;
+            backdrop-filter: blur(2px);
         }
-        .sim-container.hot .ground { background: #a67c52; }
+        .sim-container.hot .ground { background: rgba(166, 124, 82, 0.6); }
 
         .city-items {
             position: absolute;
-            bottom: 22%; /* Elevado para que quepan bien los iconos grandes */
+            bottom: 18%;
             width: 100%;
             display: flex;
-            justify-content: center; /* Centrados */
+            justify-content: center;
             align-items: flex-end;
-            gap: 4vw; /* Espacio compacto entre ellos */
+            gap: 3vw;
             z-index: 10;
             padding: 0 2%;
             box-sizing: border-box;
@@ -184,17 +183,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5vh;
+            gap: 1vh;
         }
 
         .interactive-obj {
-            font-size: 12vh; /* ¡ICONOS MUCHO MÁS GRANDES! */
+            font-size: 10vh;
             cursor: pointer;
             position: relative;
             transition: transform 0.3s, filter 0.3s;
-            filter: grayscale(0.8) opacity(0.6);
+            filter: grayscale(0.5) opacity(0.7);
             user-select: none;
             line-height: 1;
+            text-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3);
         }
 
         .interactive-obj:hover {
@@ -208,18 +208,18 @@
         }
 
         .obj-label {
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.7);
             color: white;
             padding: 0.5vh 1.5vw;
             border-radius: 6px;
-            font-size: 1.6vh;
+            font-size: 1.5vh;
             font-weight: bold;
             opacity: 0;
             transition: opacity 0.3s;
         }
         .interactive-obj:hover + .obj-label, .interactive-obj.active + .obj-label { opacity: 1; }
 
-        /* Humo proporcional */
+        /* Humo */
         .smoke-container {
             position: absolute;
             bottom: 80%;
@@ -232,9 +232,9 @@
             position: absolute;
             bottom: 0;
             left: 50%;
-            width: 3vh;
-            height: 3vh;
-            background: rgba(80, 80, 80, 0.7);
+            width: 2.5vh;
+            height: 2.5vh;
+            background: rgba(80, 80, 80, 0.6);
             border-radius: 50%;
             opacity: 0;
         }
@@ -257,20 +257,20 @@
             width: 26%;
             background: var(--panel-bg);
             border-radius: 16px;
-            padding: 3vh 2vw;
+            padding: 2vh 1.5vw;
             box-shadow: 0 1vh 3vh rgba(0,0,0,0.2);
             z-index: 20;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.8);
             display: flex;
             flex-direction: column;
-            gap: 2vh;
+            gap: 1.5vh;
         }
 
         .panel-header {
             text-align: center;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 1.5vh;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+            padding-bottom: 1vh;
         }
         .panel-header h2 { margin: 0; font-size: 2.2vh; color: var(--text-dark); }
 
@@ -281,12 +281,13 @@
             color: var(--success);
             transition: color 0.5s;
             line-height: 1;
+            text-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
         }
         
         .thermometer {
             width: 100%;
             height: 2.5vh;
-            background: #ecf0f1;
+            background: rgba(0,0,0,0.1);
             border-radius: 10px;
             overflow: hidden;
             position: relative;
@@ -306,10 +307,10 @@
             text-align: center;
             padding: 1.5vh;
             border-radius: 8px;
-            background: #e8f8f5;
+            background: rgba(39, 174, 96, 0.2);
             color: var(--success);
             transition: all 0.5s;
-            min-height: 5vh;
+            min-height: 4vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -317,12 +318,12 @@
 
         /* Ficha Didáctica */
         .fact-card {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.9);
             border-left: 5px solid var(--text-dark);
             padding: 1.5vh;
             border-radius: 6px;
             font-size: 1.4vh;
-            color: #555;
+            color: #333;
             display: none;
             animation: slideIn 0.3s ease;
             box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.05);
@@ -347,7 +348,7 @@
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
-            font-size: 1.4vh;
+            font-size: 1.3vh;
         }
         .btn-reset:hover { background: #1a252c; transform: translateY(-2px); }
 
@@ -357,11 +358,11 @@
             bottom: 2%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.7);
             color: white;
             padding: 1.2vh 2.5vw;
             border-radius: 30px;
-            font-size: 1.6vh;
+            font-size: 1.5vh;
             z-index: 20;
             pointer-events: none;
             transition: opacity 0.5s;
@@ -370,12 +371,33 @@
             font-weight: bold;
         }
 
+        /* --- ESTADOS CLIMÁTICOS --- */
+        .sim-container.hot {
+            background: radial-gradient(circle, transparent 40%, rgba(231, 76, 60, 0.4) 100%);
+        }
+        
+        .sim-container.warm {
+            background: radial-gradient(circle, transparent 40%, rgba(255, 216, 155, 0.4) 100%);
+        }
+
+        @media (max-width: 800px) {
+            .interactive-obj { font-size: 7vh; }
+            .control-panel { width: 35%; padding: 1.5vh; }
+            .temp-display { font-size: 3.5vh; }
+            .panel-header h2 { font-size: 1.8vh; }
+            .status-message { font-size: 1.2vh; }
+            .fact-card { font-size: 1.1vh; }
+            .btn-reset { font-size: 1.1vh; }
+            .instruction { font-size: 1.2vh; padding: 1vh 2vw; }
+            .timeline-step { font-size: 1.2vh; }
+        }
     </style>
 </head>
 <body>
 
 <div class="sim-container" id="simContainer">
     
+    <!-- Línea de tiempo transparente -->
     <div class="timeline-bar">
         <div class="timeline-step" id="step-1">1850: Era Preindustrial</div>
         <div class="timeline-step" id="step-2">1950: Gran Aceleración</div>
@@ -392,7 +414,7 @@
             <h2>🌡️ Monitor Climático</h2>
         </div>
         
-        <div class="temp-display" id="tempDisplay">+0.0°C</div>
+        <div class="temp-display" id="tempDisplay">+0.8°C</div>
         
         <div class="thermometer">
             <div class="thermometer-fill" id="thermometerFill"></div>
@@ -407,11 +429,11 @@
             <span id="factText">Haz clic en un objeto para ver su impacto.</span>
         </div>
 
-        <button class="btn-reset" id="resetBtn">🔄 Reiniciar Simulación</button>
+        <button class="btn-reset" id="resetBtn">🔄 Reiniciar</button>
     </div>
 
     <div class="greenhouse-bubble" id="bubble">
-        <div class="bubble-label">CAPA DE GASES DE EFECTO INVERNADERO</div>
+        <div class="bubble-label">GASES DE EFECTO INVERNADERO</div>
     </div>
 
     <div class="ground"></div>
@@ -515,8 +537,8 @@
         if (percentage > 100) percentage = 100;
         thermometerFill.style.width = percentage + '%';
 
-        let bubbleHeight = (displayTemp / 4.0) * 65; 
-        if (bubbleHeight > 65) bubbleHeight = 65;
+        let bubbleHeight = (displayTemp / 4.0) * 60; 
+        if (bubbleHeight > 60) bubbleHeight = 60;
         bubble.style.height = bubbleHeight + '%';
 
         if (bubbleHeight > 5) {
@@ -525,34 +547,33 @@
             bubble.classList.remove('active');
         }
 
+        container.classList.remove('hot', 'warm');
+
         if (displayTemp < 1.5) {
-            container.style.backgroundColor = 'var(--sky-base)';
-            container.classList.remove('hot');
+            container.classList.add('warm');
             tempDisplay.style.color = 'var(--success)';
             statusMessage.className = 'status-message';
-            statusMessage.innerText = '✅ Objetivo cumplido: Calentamiento < 1.5°C.';
+            statusMessage.innerText = '✅ Calentamiento < 1.5°C.';
             
             step1.classList.add('active');
             step2.classList.remove('active');
             step3.classList.remove('active');
 
         } else if (displayTemp < 2.5) {
-            container.style.backgroundColor = 'var(--sky-warm)';
-            container.classList.remove('hot');
+            container.classList.add('warm');
             tempDisplay.style.color = 'var(--warning)';
             statusMessage.className = 'status-message warning';
-            statusMessage.innerText = '⚠️ Calentamiento moderado. Efectos visibles.';
+            statusMessage.innerText = '⚠️ Efectos visibles.';
             
             step1.classList.remove('active');
             step2.classList.add('active');
             step3.classList.remove('active');
 
         } else {
-            container.style.backgroundColor = 'var(--sky-hot)';
             container.classList.add('hot');
             tempDisplay.style.color = 'var(--danger)';
             statusMessage.className = 'status-message danger';
-            statusMessage.innerText = '🚨 ¡ALERTA ROJA! Punto de no retorno climático.';
+            statusMessage.innerText = '🚨 ¡ALERTA ROJA!';
             
             step1.classList.remove('active');
             step2.classList.remove('active');
