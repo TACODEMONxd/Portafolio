@@ -3,49 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Burbuja de Calor - Efecto Invernadero</title>
+    <title>Misión 1.5°C - Simulador Climático</title>
     <style>
         :root {
             --sky-base: #aee2ff;
-            --sky-hot: #ff9a76;
-            --sky-toxic: #d35400;
+            --sky-warm: #ffd89b;
+            --sky-hot: #e74c3c;
             --text-dark: #2c3e50;
+            --panel-bg: rgba(255, 255, 255, 0.9);
             --danger: #e74c3c;
             --success: #27ae60;
-            --panel-bg: rgba(255, 255, 255, 0.95);
+            --warning: #f39c12;
         }
 
-        body {
+        body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: #1a252c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         .sim-container {
             position: relative;
-            width: 100%;
-            max-width: 1000px;
-            height: 600px;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 Aspect Ratio */
+            max-height: 100vh;
+            max-width: 177.78vh;
+            margin: auto;
+            position: absolute;
+            top: 0; bottom: 0; left: 0; right: 0;
             background-color: var(--sky-base);
-            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             transition: background-color 2s ease;
         }
 
-        /* --- EL SOL Y LOS RAYOS --- */
+        /* --- LÍNEA DE TIEMPO --- */
+        .timeline-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4%;
+            box-sizing: border-box;
+            z-index: 30;
+            color: white;
+            font-size: 1.5vh;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
+        }
+        
+        .timeline-step {
+            opacity: 0.4;
+            transition: all 0.5s ease;
+            padding: 0.5vh 1.5vw;
+            border-radius: 15px;
+        }
+        
+        .timeline-step.active {
+            opacity: 1;
+            background: var(--danger);
+            box-shadow: 0 0 10px var(--danger);
+            transform: scale(1.1);
+        }
+
+        /* --- SOL --- */
         .sun-container {
             position: absolute;
-            top: 40px;
-            right: 80px;
-            width: 100px;
-            height: 100px;
+            top: 10%;
+            right: 10%;
+            width: 15vh;
+            height: 15vh;
+            transition: all 2s ease;
+            z-index: 1;
         }
 
         .sun {
@@ -53,42 +89,51 @@
             height: 100%;
             background: radial-gradient(circle, #f1c40f 40%, #f39c12 100%);
             border-radius: 50%;
-            box-shadow: 0 0 40px #f1c40f;
+            box-shadow: 0 0 5vh #f1c40f;
             position: relative;
-            z-index: 5;
             animation: pulseSun 3s infinite alternate;
+            transition: background 2s, box-shadow 2s;
+        }
+
+        .sim-container.hot .sun {
+            background: radial-gradient(circle, #e74c3c 40%, #c0392b 100%);
+            box-shadow: 0 0 10vh #e74c3c;
         }
 
         @keyframes pulseSun {
-            0% { transform: scale(1); box-shadow: 0 0 40px #f1c40f; }
-            100% { transform: scale(1.05); box-shadow: 0 0 60px #f1c40f; }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
 
-        /* Rayos del sol rebotando */
-        .ray {
+        .heat-wave {
             position: absolute;
-            top: 50px;
-            right: 130px;
-            width: 4px;
-            height: 300px;
-            background: linear-gradient(to bottom, rgba(241, 196, 15, 0.8), transparent);
-            transform-origin: top right;
-            transform: rotate(30deg);
-            opacity: 0.6;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            background: radial-gradient(circle, transparent 50%, rgba(231, 76, 60, 0.2) 100%);
+            opacity: 0;
+            transition: opacity 2s;
             pointer-events: none;
+            z-index: 4;
+        }
+        .sim-container.hot .heat-wave { opacity: 1; animation: pulseHeat 2s infinite alternate; }
+        @keyframes pulseHeat {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
 
-        /* --- LA BURBUJA DE GASES (El Efecto Invernadero) --- */
+        /* --- BURBUJA DE GASES --- */
         .greenhouse-bubble {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 0%; /* Empieza en 0, crece hacia arriba */
-            background: linear-gradient(to top, rgba(231, 76, 60, 0.4) 0%, rgba(241, 196, 15, 0.2) 100%);
-            border-top: 6px dashed rgba(231, 76, 60, 0.7);
+            height: 0%;
+            background: linear-gradient(to top, rgba(231, 76, 60, 0.5) 0%, rgba(241, 196, 15, 0.2) 100%);
+            border-top: 0.5vh solid rgba(231, 76, 60, 0.8);
+            box-shadow: 0 -1vh 3vh rgba(231, 76, 60, 0.4);
             z-index: 6;
-            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1), background 1s;
+            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
             display: flex;
             justify-content: center;
@@ -98,125 +143,151 @@
         .bubble-label {
             background: var(--danger);
             color: white;
-            padding: 5px 15px;
-            border-radius: 0 0 10px 10px;
-            font-size: 0.8rem;
+            padding: 0.5vh 2vw;
+            border-radius: 0 0 12px 12px;
+            font-size: 1.4vh;
             font-weight: bold;
             opacity: 0;
             transition: opacity 1s;
             transform: translateY(-100%);
+            letter-spacing: 1px;
         }
         .greenhouse-bubble.active .bubble-label { opacity: 1; }
 
-        /* --- SUELO Y CIUDAD --- */
+        /* --- SUELO Y CIUDAD (Ajustado para iconos grandes) --- */
         .ground {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 150px;
+            height: 30%;
             background: #8cc084;
             z-index: 2;
             transition: background 2s;
         }
+        .sim-container.hot .ground { background: #a67c52; }
 
         .city-items {
             position: absolute;
-            bottom: 100px;
+            bottom: 22%; /* Elevado para que quepan bien los iconos grandes */
             width: 100%;
             display: flex;
-            justify-content: space-around;
+            justify-content: center; /* Centrados */
             align-items: flex-end;
+            gap: 4vw; /* Espacio compacto entre ellos */
             z-index: 10;
-            padding: 0 50px;
+            padding: 0 2%;
             box-sizing: border-box;
         }
 
         /* Objetos interactivos */
+        .obj-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+        }
+
         .interactive-obj {
-            font-size: 4rem;
+            font-size: 12vh; /* ¡ICONOS MUCHO MÁS GRANDES! */
             cursor: pointer;
             position: relative;
-            transition: transform 0.2s, filter 0.3s;
-            filter: grayscale(0.5) opacity(0.7); /* Inactivos por defecto */
+            transition: transform 0.3s, filter 0.3s;
+            filter: grayscale(0.8) opacity(0.6);
             user-select: none;
+            line-height: 1;
         }
 
         .interactive-obj:hover {
-            transform: scale(1.1) translateY(-5px);
+            transform: scale(1.15) translateY(-2vh);
             filter: grayscale(0) opacity(1);
         }
 
         .interactive-obj.active {
-            filter: grayscale(0) opacity(1) drop-shadow(0 0 15px rgba(231, 76, 60, 0.8));
-            transform: scale(1.1);
+            filter: grayscale(0) opacity(1) drop-shadow(0 1.5vh 2vh rgba(0,0,0,0.4));
+            transform: scale(1.1) translateY(-1vh);
         }
 
-        /* Sistema de humo */
-        .smoke {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            background: rgba(100, 100, 100, 0.6);
-            border-radius: 50%;
+        .obj-label {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5vh 1.5vw;
+            border-radius: 6px;
+            font-size: 1.6vh;
+            font-weight: bold;
             opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .interactive-obj:hover + .obj-label, .interactive-obj.active + .obj-label { opacity: 1; }
+
+        /* Humo proporcional */
+        .smoke-container {
+            position: absolute;
+            bottom: 80%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
         }
-
-        .interactive-obj.active .smoke {
-            animation: riseSmoke 2s infinite ease-out;
+        .smoke {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 3vh;
+            height: 3vh;
+            background: rgba(80, 80, 80, 0.7);
+            border-radius: 50%;
+            opacity: 0;
         }
 
-        @keyframes riseSmoke {
+        .interactive-obj.active .smoke:nth-child(1) { animation: rise 2s infinite 0s; }
+        .interactive-obj.active .smoke:nth-child(2) { animation: rise 2s infinite 0.5s; }
+        .interactive-obj.active .smoke:nth-child(3) { animation: rise 2s infinite 1s; }
+        .interactive-obj.active .smoke:nth-child(4) { animation: rise 2s infinite 1.5s; }
+
+        @keyframes rise {
             0% { transform: translate(-50%, 0) scale(1); opacity: 0.8; }
-            100% { transform: translate(-50%, -100px) scale(3); opacity: 0; }
+            100% { transform: translate(-50%, -20vh) scale(4); opacity: 0; }
         }
 
-        /* --- PANEL DE CONTROL LATERAL --- */
+        /* --- PANEL DE CONTROL --- */
         .control-panel {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 280px;
+            top: 10%;
+            right: 3%;
+            width: 26%;
             background: var(--panel-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            padding: 3vh 2vw;
+            box-shadow: 0 1vh 3vh rgba(0,0,0,0.2);
             z-index: 20;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-
-        .panel-title {
-            margin: 0 0 15px 0;
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            border-bottom: 2px solid var(--sky-base);
-            padding-bottom: 10px;
-        }
-
-        .stat-row {
+            border: 1px solid rgba(255,255,255,0.8);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            font-weight: 600;
+            flex-direction: column;
+            gap: 2vh;
         }
 
-        .stat-value {
-            color: var(--danger);
-            font-size: 1.1rem;
+        .panel-header {
+            text-align: center;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 1.5vh;
         }
+        .panel-header h2 { margin: 0; font-size: 2.2vh; color: var(--text-dark); }
 
-        /* Termómetro Visual */
+        .temp-display {
+            font-size: 5vh;
+            font-weight: 800;
+            text-align: center;
+            color: var(--success);
+            transition: color 0.5s;
+            line-height: 1;
+        }
+        
         .thermometer {
             width: 100%;
-            height: 15px;
+            height: 2.5vh;
             background: #ecf0f1;
             border-radius: 10px;
-            margin: 15px 0;
             overflow: hidden;
             position: relative;
         }
@@ -230,53 +301,73 @@
         }
 
         .status-message {
-            font-size: 0.9rem;
+            font-size: 1.5vh;
             font-weight: bold;
             text-align: center;
-            padding: 10px;
+            padding: 1.5vh;
             border-radius: 8px;
             background: #e8f8f5;
             color: var(--success);
             transition: all 0.5s;
+            min-height: 5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .status-message.warning { background: #fef9e7; color: #b7950b; }
-        .status-message.danger { background: #fadbd8; color: var(--danger); animation: pulseDanger 1s infinite; }
+        /* Ficha Didáctica */
+        .fact-card {
+            background: #fff;
+            border-left: 5px solid var(--text-dark);
+            padding: 1.5vh;
+            border-radius: 6px;
+            font-size: 1.4vh;
+            color: #555;
+            display: none;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.05);
+            line-height: 1.5;
+        }
+        .fact-card.show { display: block; }
+        .fact-card strong { color: var(--danger); display: block; margin-bottom: 0.8vh; font-size: 1.5vh;}
 
-        @keyframes pulseDanger {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .btn-reset {
             width: 100%;
-            margin-top: 15px;
-            padding: 10px;
+            padding: 1.5vh;
             background: var(--text-dark);
             color: white;
             border: none;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 1.4vh;
         }
-        .btn-reset:hover { background: #1a252c; }
+        .btn-reset:hover { background: #1a252c; transform: translateY(-2px); }
 
-        /* Alerta visual */
+        /* Instrucciones */
         .instruction {
             position: absolute;
-            bottom: 20px;
+            bottom: 2%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 1.2vh 2.5vw;
+            border-radius: 30px;
+            font-size: 1.6vh;
             z-index: 20;
             pointer-events: none;
             transition: opacity 0.5s;
+            backdrop-filter: blur(4px);
+            white-space: nowrap;
+            font-weight: bold;
         }
 
     </style>
@@ -285,137 +376,147 @@
 
 <div class="sim-container" id="simContainer">
     
-    <!-- Sol y Rayos -->
-    <div class="sun-container">
-        <div class="sun"></div>
-        <div class="ray" style="transform: rotate(20deg);"></div>
-        <div class="ray" style="transform: rotate(45deg);"></div>
+    <div class="timeline-bar">
+        <div class="timeline-step" id="step-1">1850: Era Preindustrial</div>
+        <div class="timeline-step" id="step-2">1950: Gran Aceleración</div>
+        <div class="timeline-step" id="step-3">2020: Crisis Climática</div>
     </div>
 
-    <!-- Panel de Control -->
-    <div class="control-panel">
-        <h2 class="panel-title">🌡️ Monitor de Calor</h2>
-        
-        <div class="stat-row">
-            <span>Emisiones (CO₂e):</span>
-            <span class="stat-value" id="co2Display">0 t</span>
-        </div>
-        <div class="stat-row">
-            <span>Temperatura Global:</span>
-            <span class="stat-value" id="tempDisplay">+0.0°C</span>
-        </div>
+    <div class="sun-container" id="sunContainer">
+        <div class="sun"></div>
+    </div>
+    <div class="heat-wave"></div>
 
+    <div class="control-panel">
+        <div class="panel-header">
+            <h2>🌡️ Monitor Climático</h2>
+        </div>
+        
+        <div class="temp-display" id="tempDisplay">+0.0°C</div>
+        
         <div class="thermometer">
             <div class="thermometer-fill" id="thermometerFill"></div>
         </div>
-
+        
         <div class="status-message" id="statusMessage">
             Clima Estable. Haz clic en los objetos.
+        </div>
+
+        <div class="fact-card" id="factCard">
+            <strong id="factTitle">Dato Científico</strong>
+            <span id="factText">Haz clic en un objeto para ver su impacto.</span>
         </div>
 
         <button class="btn-reset" id="resetBtn">🔄 Reiniciar Simulación</button>
     </div>
 
-    <!-- Burbuja de Efecto Invernadero -->
     <div class="greenhouse-bubble" id="bubble">
-        <div class="bubble-label">Capa de Gases de Efecto Invernadero</div>
+        <div class="bubble-label">CAPA DE GASES DE EFECTO INVERNADERO</div>
     </div>
 
-    <!-- Suelo -->
     <div class="ground"></div>
 
-    <!-- Objetos de la Ciudad -->
     <div class="city-items" id="cityItems">
-        <!-- Los objetos se generan con JS -->
+        <!-- Generados por JS -->
     </div>
 
-    <div class="instruction" id="instruction">👆 Haz clic en los objetos para activar/desactivar sus emisiones</div>
+    <div class="instruction" id="instruction">👆 Haz clic en los iconos para encender/apagar emisiones</div>
 
 </div>
 
 <script>
-    // 1. Datos de los objetos
     const sources = [
-        { id: 'factory', icon: '🏭', name: 'Fábrica', co2: 15, temp: 0.8 },
-        { id: 'car', icon: '🚗', name: 'Auto', co2: 5, temp: 0.3 },
-        { id: 'cow', icon: '🐄', name: 'Ganadería', co2: 8, temp: 0.5 },
-        { id: 'plane', icon: '✈️', name: 'Avión', co2: 10, temp: 0.6 },
-        { id: 'tree', icon: '🌳', name: 'Bosque', co2: -10, temp: -0.5 } // Sumidero
+        { id: 'factory', icon: '🏭', name: 'Fábrica', temp: 0.8, fuel: 'Carbón y Gas Natural', desc: 'La industria pesada quema carbón para producir acero y cemento.' },
+        { id: 'car', icon: '🚗', name: 'Auto', temp: 0.3, fuel: 'Gasolina / Diésel', desc: 'El motor de combustión interna libera CO₂ por el tubo de escape.' },
+        { id: 'cow', icon: '🐄', name: 'Ganadería', temp: 0.5, fuel: 'Digestión (Metano)', desc: 'Las vacas liberan metano (CH₄), un gas 25 veces más potente que el CO₂.' },
+        { id: 'plane', icon: '✈️', name: 'Avión', temp: 0.6, fuel: 'Queroseno', desc: 'Quema combustible a gran altitud, donde el impacto térmico es mayor.' },
+        { id: 'tree', icon: '🌳', name: 'Bosque', temp: -0.5, fuel: 'Sumidero de Carbono', desc: '¡Nuestros aliados! Absorben CO₂ de la atmósfera mediante fotosíntesis.' }
     ];
 
     let state = {};
-    sources.forEach(s => state[s.id] = false); // Todos inactivos al inicio
+    sources.forEach(s => state[s.id] = false); 
 
-    // Elementos DOM
     const container = document.getElementById('simContainer');
     const cityItems = document.getElementById('cityItems');
     const bubble = document.getElementById('bubble');
-    const co2Display = document.getElementById('co2Display');
     const tempDisplay = document.getElementById('tempDisplay');
     const thermometerFill = document.getElementById('thermometerFill');
     const statusMessage = document.getElementById('statusMessage');
     const instruction = document.getElementById('instruction');
+    const factCard = document.getElementById('factCard');
+    const factTitle = document.getElementById('factTitle');
+    const factText = document.getElementById('factText');
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    const step3 = document.getElementById('step-3');
 
-    // 2. Renderizar Objetos
     sources.forEach(source => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'obj-wrapper';
+        
         const el = document.createElement('div');
         el.className = 'interactive-obj';
         el.id = `obj-${source.id}`;
-        el.innerHTML = `
-            <div class="smoke"></div>
-            ${source.icon}
-        `;
         
-        // Evento de clic
+        let smokeHTML = '';
+        if(source.id !== 'tree') {
+            smokeHTML = `<div class="smoke-container">
+                <div class="smoke"></div><div class="smoke"></div>
+                <div class="smoke"></div><div class="smoke"></div>
+            </div>`;
+        }
+
+        el.innerHTML = `${smokeHTML}${source.icon}`;
+        
+        const label = document.createElement('div');
+        label.className = 'obj-label';
+        label.innerText = source.name;
+
         el.addEventListener('click', () => toggleSource(source.id, el));
         
-        cityItems.appendChild(el);
+        wrapper.appendChild(el);
+        wrapper.appendChild(label);
+        cityItems.appendChild(wrapper);
     });
 
-    // 3. Lógica de Interacción
     function toggleSource(id, element) {
-        state[id] = !state[id]; // Cambiar estado
-        
-        // Ocultar instrucción inicial
+        state[id] = !state[id]; 
         instruction.style.opacity = '0';
 
         if (state[id]) {
             element.classList.add('active');
+            const data = sources.find(s => s.id === id);
+            factTitle.innerText = `${data.icon} ${data.name} - ${data.fuel}`;
+            factText.innerText = data.desc;
+            factCard.classList.add('show');
         } else {
             element.classList.remove('active');
+            factCard.classList.remove('show');
         }
 
         updateSimulation();
     }
 
     function updateSimulation() {
-        let totalCO2 = 0;
         let totalTemp = 0;
 
-        // Calcular totales basados en el estado
         sources.forEach(source => {
             if (state[source.id]) {
-                totalCO2 += source.co2;
                 totalTemp += source.temp;
             }
         });
 
-        // Evitar valores negativos irreales
-        if (totalCO2 < 0) totalCO2 = 0;
         if (totalTemp < 0) totalTemp = 0;
 
-        // Actualizar textos
-        co2Display.innerText = totalCO2 + ' t';
-        tempDisplay.innerText = '+' + totalTemp.toFixed(1) + '°C';
+        let displayTemp = totalTemp + 0.8; 
+        tempDisplay.innerText = '+' + displayTemp.toFixed(1) + '°C';
 
-        // Actualizar termómetro (Max 50t de CO2 para llenar la barra)
-        let percentage = (totalCO2 / 40) * 100;
+        let percentage = (displayTemp / 4.0) * 100;
         if (percentage > 100) percentage = 100;
         thermometerFill.style.width = percentage + '%';
 
-        // Actualizar Burbuja de Efecto Invernadero (Max altura 60% de la pantalla)
-        let bubbleHeight = (totalCO2 / 40) * 60;
-        if (bubbleHeight > 60) bubbleHeight = 60;
+        let bubbleHeight = (displayTemp / 4.0) * 65; 
+        if (bubbleHeight > 65) bubbleHeight = 65;
         bubble.style.height = bubbleHeight + '%';
 
         if (bubbleHeight > 5) {
@@ -424,23 +525,41 @@
             bubble.classList.remove('active');
         }
 
-        // Cambiar color de fondo y estados
-        if (totalCO2 === 0) {
+        if (displayTemp < 1.5) {
             container.style.backgroundColor = 'var(--sky-base)';
+            container.classList.remove('hot');
+            tempDisplay.style.color = 'var(--success)';
             statusMessage.className = 'status-message';
-            statusMessage.innerText = 'Clima Estable. Todo en equilibrio.';
-        } else if (totalCO2 <= 15) {
-            container.style.backgroundColor = '#ffd89b'; // Amarillo suave
+            statusMessage.innerText = '✅ Objetivo cumplido: Calentamiento < 1.5°C.';
+            
+            step1.classList.add('active');
+            step2.classList.remove('active');
+            step3.classList.remove('active');
+
+        } else if (displayTemp < 2.5) {
+            container.style.backgroundColor = 'var(--sky-warm)';
+            container.classList.remove('hot');
+            tempDisplay.style.color = 'var(--warning)';
             statusMessage.className = 'status-message warning';
-            statusMessage.innerText = 'Aumento de temperatura. Inicio del efecto invernadero.';
+            statusMessage.innerText = '⚠️ Calentamiento moderado. Efectos visibles.';
+            
+            step1.classList.remove('active');
+            step2.classList.add('active');
+            step3.classList.remove('active');
+
         } else {
-            container.style.backgroundColor = 'var(--sky-hot)'; // Naranja/Rojo
+            container.style.backgroundColor = 'var(--sky-hot)';
+            container.classList.add('hot');
+            tempDisplay.style.color = 'var(--danger)';
             statusMessage.className = 'status-message danger';
-            statusMessage.innerText = '¡ALERTA! El calor está atrapado. Crisis climática.';
+            statusMessage.innerText = '🚨 ¡ALERTA ROJA! Punto de no retorno climático.';
+            
+            step1.classList.remove('active');
+            step2.classList.remove('active');
+            step3.classList.add('active');
         }
     }
 
-    // 4. Reiniciar
     document.getElementById('resetBtn').addEventListener('click', () => {
         sources.forEach(source => {
             state[source.id] = false;
@@ -448,10 +567,10 @@
         });
         
         instruction.style.opacity = '1';
+        factCard.classList.remove('show');
         updateSimulation();
     });
 
-    // Inicializar
     updateSimulation();
 
 </script>
