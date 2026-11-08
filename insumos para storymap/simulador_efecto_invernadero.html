@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador del efecto invernadero</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 18px;
+    background: #000; color: #eee;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .simulador {
+    width: min(100%, 1100px); margin: 0 auto;
+    background: #202020; border: 1px solid #555;
+    border-radius: 34px; overflow: hidden;
+  }
+  .grafico { padding: 22px 3% 14px; }
+  svg { display: block; width: 100%; max-width: 900px; height: auto; margin: auto; }
+  svg text {
+    font-family: Arial, sans-serif; fill: #eee; font-size: 16px;
+    font-weight: 600; paint-order: stroke; stroke: #202020;
+    stroke-width: 3px; stroke-linejoin: round;
+  }
+  .control {
+    border-top: 1px solid #444; padding: 22px 18px;
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  }
+  .etiqueta { flex: 1 1 300px; line-height: 1.4; font-size: 16px; }
+  .valor { min-width: 28px; text-align: center; font-size: 15px; }
+  input[type=range] { flex: 2 1 220px; min-width: 150px; accent-color: white; cursor: pointer; }
+  .nota { padding: 0 18px 16px; text-align: center; color: #aaa; font-size: 12px; line-height: 1.5; }
+  @media (max-width: 520px) {
+    body { padding: 8px; }
+    .simulador { border-radius: 22px; }
+    .grafico { padding: 12px 5px 8px; }
+    .control { gap: 12px; padding: 17px 14px; }
+    .etiqueta { flex-basis: 100%; }
+    input[type=range] { flex: 1 1 150px; }
+    svg text { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<main class="simulador" aria-label="Simulador interactivo del efecto invernadero">
+  <div class="grafico">
+    <svg viewBox="0 0 760 390" role="img" aria-labelledby="titulo descripcion">
+      <title id="titulo">Cómo actúa el efecto invernadero</title>
+      <desc id="descripcion">La luz solar atraviesa la atmósfera y calienta la Tierra. La superficie libera radiación infrarroja; parte escapa al espacio y parte regresa debido a los gases de efecto invernadero.</desc>
+      <defs>
+        <linearGradient id="atm" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#718da5" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#718da5" stop-opacity=".25"/>
+        </linearGradient>
+        <linearGradient id="mar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0878c9"/><stop offset="1" stop-color="#064477"/>
+        </linearGradient>
+        <clipPath id="tierraClip">
+          <path d="M170 300 Q380 235 590 300 L590 345 L170 345Z"/>
+        </clipPath>
+      </defs>
+
+      <!-- Sol y radiación solar -->
+      <circle cx="180" cy="58" r="21" fill="#ffc928"/>
+      <g stroke="#ffc928" stroke-width="3">
+        <path d="M180 25V13 M180 91V103 M147 58H135 M213 58H225"/>
+        <path d="M157 35L148 26 M203 81L212 90 M203 35L212 26 M157 81L148 90"/>
+      </g>
+      <g stroke="#c99a00" stroke-width="4" fill="none">
+        <path d="M205 95L270 293"/><path d="M245 95L305 293"/><path d="M285 95L340 293"/>
+      </g>
+      <g fill="#c99a00">
+        <path d="M263 284L270 301L274 282Z"/><path d="M298 284L305 301L309 282Z"/><path d="M333 284L340 301L344 282Z"/>
+      </g>
+      <text x="255" y="75">Luz solar</text>
+
+      <!-- Capa atmosférica -->
+      <path d="M185 190 Q380 110 575 190 L562 250 Q380 185 198 250Z" fill="url(#atm)"/>
+      <text x="380" y="177" text-anchor="middle">Atmósfera</text>
+      <g id="moleculas" fill="#789bb9">
+        <circle cx="220" cy="202" r="6"/><circle cx="238" cy="195" r="6"/>
+        <circle cx="265" cy="190" r="6"/><circle cx="292" cy="184" r="6"/>
+        <circle cx="320" cy="179" r="6"/><circle cx="348" cy="175" r="6"/>
+        <circle cx="380" cy="173" r="6"/><circle cx="410" cy="176" r="6"/>
+        <circle cx="440" cy="181" r="6"/><circle cx="468" cy="188" r="6"/>
+        <circle cx="495" cy="195" r="6"/><circle cx="520" cy="203" r="6"/>
+      </g>
+
+      <!-- Superficie terrestre esquemática -->
+      <path d="M170 300 Q380 235 590 300 L590 345 L170 345Z" fill="url(#mar)" stroke="#168e54" stroke-width="3"/>
+      <g clip-path="url(#tierraClip)">
+        <path d="M170 285L205 265L235 275L250 300L228 315L210 345L170 345Z" fill="#469b55"/>
+        <path d="M280 275L310 260L340 280L328 310L300 330L275 305Z" fill="#4b9b52"/>
+        <path d="M405 275L440 255L470 267L500 285L485 310L455 305L435 345L405 320Z" fill="#d4b66b"/>
+        <path d="M500 295L540 275L590 295L590 345L520 345Z" fill="#4b9b52"/>
+      </g>
+      <text x="380" y="330" text-anchor="middle">Tierra</text>
+
+      <!-- Radiación infrarroja -->
+      <path id="flechaEscape" d="M380 290 L380 72" stroke="#ed690e" stroke-width="6" fill="none"/>
+      <path id="puntaEscape" d="M371 83L380 65L389 83Z" fill="#ed690e"/>
+      <path id="flechaRetorno" d="M380 205 Q470 215 535 292" stroke="#e33c36" stroke-width="5" fill="none"/>
+      <path d="M523 282L538 298L539 278Z" fill="#e33c36"/>
+
+      <text id="textoEscape" x="397" y="58">Radiación que escapa: 60 %</text>
+      <text id="textoRetorno" x="397" y="150">Radiación que regresa: 40 %</text>
+    </svg>
+  </div>
+
+  <div class="control">
+    <label class="etiqueta" for="nivelGases">Nivel relativo de gases de efecto invernadero (escala del modelo: 0–100)</label>
+    <output class="valor" id="valorGases" for="nivelGases">55</output>
+    <input id="nivelGases" type="range" min="0" max="100" value="55" step="1">
+  </div>
+  <p class="nota">Modelo ilustrativo con fines educativos. Los valores representan una escala relativa y no mediciones reales de la atmósfera.</p>
+</main>
+
+<script>
+(() => {
+  const control = document.getElementById('nivelGases');
+  const valor = document.getElementById('valorGases');
+  const textoEscape = document.getElementById('textoEscape');
+  const textoRetorno = document.getElementById('textoRetorno');
+  const flechaEscape = document.getElementById('flechaEscape');
+  const puntaEscape = document.getElementById('puntaEscape');
+  const flechaRetorno = document.getElementById('flechaRetorno');
+  const moleculas = document.getElementById('moleculas');
+
+  const puntos = [
+    [220,202],[238,195],[250,211],[265,190],[280,207],
+    [292,184],[305,205],[320,179],[335,198],[348,175],
+    [365,194],[380,173],[395,195],[410,176],[425,199],
+    [440,181],[455,205],[468,188],[482,211],[495,195],
+    [510,215],[520,203],[300,220],[450,220]
+  ];
+
+  function actualizar() {
+    const nivel = Number(control.value);
+    // Correspondencia visual didáctica: en el valor inicial 55, se retiene 40 %.
+    const retenida = Math.round(nivel * 40 / 55);
+    const escapa = 100 - retenida;
+
+    valor.textContent = nivel;
+    textoEscape.textContent = `Radiación que escapa: ${escapa} %`;
+    textoRetorno.textContent = `Radiación que regresa: ${retenida} %`;
+
+    const yFinal = 75 + retenida * 0.65;
+    flechaEscape.setAttribute('d', `M380 290 L380 ${yFinal}`);
+    puntaEscape.setAttribute('d', `M371 ${yFinal + 11}L380 ${yFinal - 7}L389 ${yFinal + 11}Z`);
+
+    const controlY = 185 + retenida * 0.45;
+    flechaRetorno.setAttribute('d', `M380 205 Q${440 + retenida * 0.35} ${controlY} 535 292`);
+
+    const cantidad = Math.round(nivel / 100 * puntos.length);
+    moleculas.innerHTML = puntos.slice(0, cantidad)
+      .map(([x,y]) => `<circle cx="${x}" cy="${y}" r="6"/>`).join('');
+  }
+  control.addEventListener('input', actualizar);
+  actualizar();
+})();
+</script>
+</body>
+</html>
