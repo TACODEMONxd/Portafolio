@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión 1.5°C - Simulador Climático (Transparente)</title>
+    <title>Misión 1.5°C - Simulador Climático Minimalista (Textos grandes)</title>
     <style>
         :root {
             --sky-base: #aee2ff;
             --sky-warm: #ffd89b;
             --sky-hot: #e74c3c;
             --text-dark: #2c3e50;
-            --panel-bg: rgba(255, 255, 255, 0.85); /* Panel semitransparente para legibilidad */
+            --panel-bg: rgba(255, 255, 255, 0.85);
             --danger: #e74c3c;
             --success: #27ae60;
             --warning: #f39c12;
         }
 
-        /* Configuración para fondo transparente y adaptabilidad */
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: transparent; /* Fondo totalmente transparente */
+            background-color: transparent;
             font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
@@ -31,38 +30,37 @@
             position: relative;
             width: 100%;
             height: 100%;
-            background-color: transparent; /* El cielo será transparente sobre el mapa de ArcGIS */
+            background: linear-gradient(to bottom, rgba(174, 226, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
             overflow: hidden;
-            transition: background-color 2s ease;
-            /* Usamos un gradiente sutil que se mezcla con el fondo */
-            background: linear-gradient(to bottom, rgba(174, 226, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
+            transition: background 2s ease;
         }
 
-        /* --- LÍNEA DE TIEMPO --- */
+        /* --- LÍNEA DE TIEMPO (texto más grande) --- */
         .timeline-bar {
             position: absolute;
-            top: 0;
+            top: 2%;
             left: 0;
             width: 100%;
             height: 6%;
-            background: rgba(0,0,0,0.5);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 4%;
+            padding: 0 5%;
             box-sizing: border-box;
             z-index: 30;
-            color: white;
-            font-size: 1.5vh;
-            font-weight: bold;
-            backdrop-filter: blur(5px);
+            background: transparent;
         }
         
         .timeline-step {
-            opacity: 0.4;
+            color: #ffffff;
+            font-size: 2.2vh; /* Aumentado */
+            font-weight: bold;
+            text-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.9);
+            opacity: 0.6;
             transition: all 0.5s ease;
             padding: 0.5vh 1.5vw;
             border-radius: 15px;
+            white-space: nowrap;
         }
         
         .timeline-step.active {
@@ -70,15 +68,16 @@
             background: var(--danger);
             box-shadow: 0 0 10px var(--danger);
             transform: scale(1.1);
+            text-shadow: none;
         }
 
         /* --- SOL --- */
         .sun-container {
             position: absolute;
-            top: 10%;
-            right: 10%;
-            width: 15vh;
-            height: 15vh;
+            top: 12%;
+            right: 8%;
+            width: 18vh;
+            height: 18vh;
             transition: all 2s ease;
             z-index: 1;
         }
@@ -96,7 +95,7 @@
 
         .sim-container.hot .sun {
             background: radial-gradient(circle, #e74c3c 40%, #c0392b 100%);
-            box-shadow: 0 0 10vh #e74c3c;
+            box-shadow: 0 0 12vh #e74c3c;
         }
 
         @keyframes pulseSun {
@@ -144,7 +143,7 @@
             color: white;
             padding: 0.5vh 2vw;
             border-radius: 0 0 12px 12px;
-            font-size: 1.4vh;
+            font-size: 1.8vh; /* Aumentado */
             font-weight: bold;
             opacity: 0;
             transition: opacity 1s;
@@ -158,8 +157,8 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 25%;
-            background: rgba(140, 192, 132, 0.5); /* Suelo semitransparente */
+            height: 28%;
+            background: rgba(140, 192, 132, 0.5);
             z-index: 2;
             transition: background 2s;
             backdrop-filter: blur(2px);
@@ -168,34 +167,34 @@
 
         .city-items {
             position: absolute;
-            bottom: 18%;
+            bottom: 20%;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 3vw;
+            gap: 2vw;
             z-index: 10;
-            padding: 0 2%;
+            padding: 0 1%;
             box-sizing: border-box;
+            flex-wrap: wrap;
         }
 
-        /* Objetos interactivos */
         .obj-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1vh;
+            gap: 0.5vh;
         }
 
         .interactive-obj {
-            font-size: 10vh;
+            font-size: 9vh; /* Aumentado */
             cursor: pointer;
             position: relative;
             transition: transform 0.3s, filter 0.3s;
             filter: grayscale(0.5) opacity(0.7);
             user-select: none;
             line-height: 1;
-            text-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3); /* Sombra para que resalte en cualquier fondo */
+            text-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3);
         }
 
         .interactive-obj:hover {
@@ -209,14 +208,15 @@
         }
 
         .obj-label {
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
             color: white;
-            padding: 0.5vh 1.5vw;
+            padding: 0.4vh 1.2vw;
             border-radius: 6px;
-            font-size: 1.5vh;
+            font-size: 1.8vh; /* Aumentado */
             font-weight: bold;
             opacity: 0;
             transition: opacity 0.3s;
+            white-space: nowrap;
         }
         .interactive-obj:hover + .obj-label, .interactive-obj.active + .obj-label { opacity: 1; }
 
@@ -250,33 +250,28 @@
             100% { transform: translate(-50%, -20vh) scale(4); opacity: 0; }
         }
 
-        /* --- PANEL DE CONTROL (Transparente) --- */
+        /* --- PANEL DE CONTROL (más grande y legible) --- */
         .control-panel {
             position: absolute;
             top: 10%;
             right: 3%;
-            width: 26%;
-            background: var(--panel-bg); /* Fondo semitransparente para legibilidad de los controles */
+            width: 24%; /* Un poco más ancho */
+            min-width: 180px;
+            background: var(--panel-bg);
             border-radius: 16px;
-            padding: 2vh 1.5vw;
+            padding: 2vh 1.2vw;
             box-shadow: 0 1vh 3vh rgba(0,0,0,0.2);
             z-index: 20;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.7);
             display: flex;
             flex-direction: column;
             gap: 1.5vh;
+            align-items: center;
         }
-
-        .panel-header {
-            text-align: center;
-            border-bottom: 2px solid rgba(0,0,0,0.1);
-            padding-bottom: 1vh;
-        }
-        .panel-header h2 { margin: 0; font-size: 2.2vh; color: var(--text-dark); }
 
         .temp-display {
-            font-size: 5vh;
+            font-size: 6vh; /* Aumentado */
             font-weight: 800;
             text-align: center;
             color: var(--success);
@@ -303,35 +298,40 @@
         }
 
         .status-message {
-            font-size: 1.5vh;
+            font-size: 2.2vh; /* Aumentado */
             font-weight: bold;
             text-align: center;
-            padding: 1.5vh;
+            padding: 1.2vh;
             border-radius: 8px;
-            background: rgba(39, 174, 96, 0.2);
+            background: rgba(39, 174, 96, 0.15);
             color: var(--success);
             transition: all 0.5s;
-            min-height: 4vh;
+            min-height: 4.5vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+            line-height: 1.3;
         }
 
-        /* Ficha Didáctica */
+        /* Ficha Didáctica (texto más grande) */
         .fact-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-left: 5px solid var(--text-dark);
-            padding: 1.5vh;
+            padding: 1.2vh 1vw;
             border-radius: 6px;
-            font-size: 1.4vh;
-            color: #333;
+            font-size: 1.8vh; /* Aumentado */
+            color: #222;
             display: none;
             animation: slideIn 0.3s ease;
-            box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.05);
-            line-height: 1.5;
+            box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.08);
+            line-height: 1.45;
+            width: 100%;
+            box-sizing: border-box;
         }
         .fact-card.show { display: block; }
-        .fact-card strong { color: var(--danger); display: block; margin-bottom: 0.8vh; font-size: 1.5vh;}
+        .fact-card strong { color: var(--danger); display: block; margin-bottom: 0.6vh; font-size: 2vh;}
 
         @keyframes slideIn {
             from { opacity: 0; transform: translateX(20px); }
@@ -340,7 +340,7 @@
 
         .btn-reset {
             width: 100%;
-            padding: 1.5vh;
+            padding: 1.2vh;
             background: var(--text-dark);
             color: white;
             border: none;
@@ -348,12 +348,16 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            text-transform: uppercase;
-            font-size: 1.3vh;
+            font-size: 3vh; /* Aumentado */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5vw;
+            line-height: 1;
         }
-        .btn-reset:hover { background: #1a252c; transform: translateY(-2px); }
+        .btn-reset:hover { background: #1a252c; transform: scale(1.05); }
 
-        /* Instrucciones */
+        /* Instrucciones (texto más grande) */
         .instruction {
             position: absolute;
             bottom: 2%;
@@ -363,16 +367,18 @@
             color: white;
             padding: 1.2vh 2.5vw;
             border-radius: 30px;
-            font-size: 1.5vh;
+            font-size: 2vh; /* Aumentado */
             z-index: 20;
             pointer-events: none;
             transition: opacity 0.5s;
             backdrop-filter: blur(4px);
             white-space: nowrap;
             font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3);
         }
 
-        /* --- ESTADOS CLIMÁTICOS (Afectan al contenedor transparente) --- */
+        /* --- ESTADOS CLIMÁTICOS --- */
         .sim-container.hot {
             background: radial-gradient(circle, transparent 40%, rgba(231, 76, 60, 0.4) 100%);
         }
@@ -381,17 +387,18 @@
             background: radial-gradient(circle, transparent 40%, rgba(255, 216, 155, 0.4) 100%);
         }
 
-        /* Responsividad extrema para que no se rompa en bloques pequeños */
         @media (max-width: 800px) {
             .interactive-obj { font-size: 7vh; }
-            .control-panel { width: 35%; padding: 1.5vh; }
-            .temp-display { font-size: 3.5vh; }
-            .panel-header h2 { font-size: 1.8vh; }
-            .status-message { font-size: 1.2vh; }
-            .fact-card { font-size: 1.1vh; }
-            .btn-reset { font-size: 1.1vh; }
-            .instruction { font-size: 1.2vh; padding: 1vh 2vw; }
-            .timeline-bar { font-size: 1.2vh; }
+            .control-panel { width: 30%; padding: 1.5vh; min-width: 150px; }
+            .temp-display { font-size: 4.5vh; }
+            .status-message { font-size: 1.8vh; }
+            .fact-card { font-size: 1.5vh; }
+            .btn-reset { font-size: 2.5vh; }
+            .instruction { font-size: 1.7vh; padding: 1vh 2vw; white-space: normal; text-align: center; max-width: 90%; }
+            .timeline-step { font-size: 1.8vh; }
+            .obj-label { font-size: 1.5vh; }
+            .bubble-label { font-size: 1.5vh; }
+            .city-items { gap: 1.5vw; }
         }
     </style>
 </head>
@@ -399,10 +406,11 @@
 
 <div class="sim-container" id="simContainer">
     
+    <!-- Línea de tiempo -->
     <div class="timeline-bar">
-        <div class="timeline-step" id="step-1">1850: Era Preindustrial</div>
-        <div class="timeline-step" id="step-2">1950: Gran Aceleración</div>
-        <div class="timeline-step" id="step-3">2020: Crisis Climática</div>
+        <div class="timeline-step" id="step-1">1850: Preindustrial</div>
+        <div class="timeline-step" id="step-2">1950: Aceleración</div>
+        <div class="timeline-step" id="step-3">2020: Crisis</div>
     </div>
 
     <div class="sun-container" id="sunContainer">
@@ -410,50 +418,43 @@
     </div>
     <div class="heat-wave"></div>
 
+    <!-- Panel minimalista: solo termómetro y reinicio -->
     <div class="control-panel">
-        <div class="panel-header">
-            <h2>🌡️ Monitor Climático</h2>
-        </div>
-        
         <div class="temp-display" id="tempDisplay">+0.8°C</div>
-        
         <div class="thermometer">
             <div class="thermometer-fill" id="thermometerFill"></div>
         </div>
-        
-        <div class="status-message" id="statusMessage">
-            Clima Estable. Haz clic en los objetos.
-        </div>
-
+        <div class="status-message" id="statusMessage">Estable</div>
         <div class="fact-card" id="factCard">
-            <strong id="factTitle">Dato Científico</strong>
-            <span id="factText">Haz clic en un objeto para ver su impacto.</span>
+            <strong id="factTitle">Dato</strong>
+            <span id="factText"></span>
         </div>
-
-        <button class="btn-reset" id="resetBtn">🔄 Reiniciar</button>
+        <button class="btn-reset" id="resetBtn" title="Reiniciar simulación">⟲</button>
     </div>
 
     <div class="greenhouse-bubble" id="bubble">
-        <div class="bubble-label">GASES DE EFECTO INVERNADERO</div>
+        <div class="bubble-label">GEI</div>
     </div>
 
     <div class="ground"></div>
 
-    <div class="city-items" id="cityItems">
-        <!-- Generados por JS -->
-    </div>
+    <div class="city-items" id="cityItems"></div>
 
-    <div class="instruction" id="instruction">👆 Haz clic en los iconos para encender/apagar emisiones</div>
+    <div class="instruction" id="instruction">👆 Toca los iconos para activar/desactivar emisiones</div>
 
 </div>
 
 <script>
+    // Espectro ampliado de fuentes de emisión
     const sources = [
-        { id: 'factory', icon: '🏭', name: 'Fábrica', temp: 0.8, fuel: 'Carbón y Gas Natural', desc: 'La industria pesada quema carbón para producir acero y cemento.' },
-        { id: 'car', icon: '🚗', name: 'Auto', temp: 0.3, fuel: 'Gasolina / Diésel', desc: 'El motor de combustión interna libera CO₂ por el tubo de escape.' },
-        { id: 'cow', icon: '🐄', name: 'Ganadería', temp: 0.5, fuel: 'Digestión (Metano)', desc: 'Las vacas liberan metano (CH₄), un gas 25 veces más potente que el CO₂.' },
-        { id: 'plane', icon: '✈️', name: 'Avión', temp: 0.6, fuel: 'Queroseno', desc: 'Quema combustible a gran altitud, donde el impacto térmico es mayor.' },
-        { id: 'tree', icon: '🌳', name: 'Bosque', temp: -0.5, fuel: 'Sumidero de Carbono', desc: '¡Nuestros aliados! Absorben CO₂ de la atmósfera mediante fotosíntesis.' }
+        { id: 'factory', icon: '🏭', name: 'Fábrica', temp: 0.8, fuel: 'Carbón / Gas', desc: 'La industria pesada quema combustibles fósiles liberando CO₂ y otros gases.' },
+        { id: 'car', icon: '🚗', name: 'Auto', temp: 0.3, fuel: 'Gasolina / Diésel', desc: 'El motor de combustión emite CO₂, NOx y partículas.' },
+        { id: 'cow', icon: '🐄', name: 'Ganadería', temp: 0.5, fuel: 'Metano (CH₄)', desc: 'La digestión del ganado libera metano, 25 veces más potente que el CO₂.' },
+        { id: 'plane', icon: '✈️', name: 'Avión', temp: 0.6, fuel: 'Queroseno', desc: 'A gran altitud, las emisiones tienen un impacto térmico amplificado.' },
+        { id: 'aerosol', icon: '🧴', name: 'Aerosoles', temp: 0.4, fuel: 'Gases fluorados', desc: 'Los aerosoles y refrigerantes liberan HFC, potentes gases de efecto invernadero.' },
+        { id: 'waste', icon: '🗑️', name: 'Residuos', temp: 0.35, fuel: 'Metano (CH₄)', desc: 'La descomposición de basura orgánica en vertederos genera metano.' },
+        { id: 'deforest', icon: '🪓', name: 'Deforestación', temp: 0.7, fuel: 'CO₂ liberado', desc: 'Al talar bosques, se libera el carbono almacenado y se pierde sumidero.' },
+        { id: 'tree', icon: '🌳', name: 'Bosque', temp: -0.5, fuel: 'Sumidero', desc: '¡Aliado! Absorbe CO₂ mediante fotosíntesis.' }
     ];
 
     let state = {};
@@ -473,6 +474,7 @@
     const step2 = document.getElementById('step-2');
     const step3 = document.getElementById('step-3');
 
+    // Generar iconos
     sources.forEach(source => {
         const wrapper = document.createElement('div');
         wrapper.className = 'obj-wrapper';
@@ -509,12 +511,13 @@
         if (state[id]) {
             element.classList.add('active');
             const data = sources.find(s => s.id === id);
-            factTitle.innerText = `${data.icon} ${data.name} - ${data.fuel}`;
+            factTitle.innerText = `${data.icon} ${data.name}`;
             factText.innerText = data.desc;
             factCard.classList.add('show');
         } else {
             element.classList.remove('active');
-            factCard.classList.remove('show');
+            const anyActive = sources.some(s => state[s.id] && s.id !== 'tree');
+            if (!anyActive) factCard.classList.remove('show');
         }
 
         updateSimulation();
@@ -529,9 +532,8 @@
             }
         });
 
-        if (totalTemp < 0) totalTemp = 0;
-
         let displayTemp = totalTemp + 0.8; 
+        if (displayTemp < 0) displayTemp = 0;
         tempDisplay.innerText = '+' + displayTemp.toFixed(1) + '°C';
 
         let percentage = (displayTemp / 4.0) * 100;
@@ -548,14 +550,13 @@
             bubble.classList.remove('active');
         }
 
-        // Limpiamos clases de estado
         container.classList.remove('hot', 'warm');
 
         if (displayTemp < 1.5) {
-            container.classList.add('warm'); // Un tono cálido sutil
+            container.classList.add('warm');
             tempDisplay.style.color = 'var(--success)';
             statusMessage.className = 'status-message';
-            statusMessage.innerText = '✅ Calentamiento < 1.5°C.';
+            statusMessage.innerText = '✅ < 1.5°C';
             
             step1.classList.add('active');
             step2.classList.remove('active');
@@ -565,17 +566,17 @@
             container.classList.add('warm');
             tempDisplay.style.color = 'var(--warning)';
             statusMessage.className = 'status-message warning';
-            statusMessage.innerText = '⚠️ Efectos visibles.';
+            statusMessage.innerText = '⚠️ Efectos visibles';
             
             step1.classList.remove('active');
             step2.classList.add('active');
             step3.classList.remove('active');
 
         } else {
-            container.classList.add('hot'); // Alerta roja
+            container.classList.add('hot');
             tempDisplay.style.color = 'var(--danger)';
             statusMessage.className = 'status-message danger';
-            statusMessage.innerText = '🚨 ¡ALERTA ROJA!';
+            statusMessage.innerText = '🚨 ¡ALERTA!';
             
             step1.classList.remove('active');
             step2.classList.remove('active');
