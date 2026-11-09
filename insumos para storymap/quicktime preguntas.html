@@ -27,7 +27,6 @@
     position:relative;overflow:hidden;
     transition:background .4s, border-color .4s;
   }
-  /* Feedback global del juego al responder */
   .game.correct-flash{
     background:rgba(46,204,113,.18);
     border-color:rgba(46,204,113,.5);
@@ -44,8 +43,9 @@
   /* ══ PANTALLA DE INICIO ══ */
   .start-screen{
     flex:1 1 auto;display:flex;flex-direction:column;
-    justify-content:center;align-items:center;gap:14px;
+    justify-content:center;align-items:center;gap:12px;
     text-align:center;padding:10px;
+    overflow-y:auto;
   }
   .start-screen.hidden{display:none}
   .start-icon{font-size:clamp(2.5rem,6vh,3.5rem);animation:floatIcon 3s ease-in-out infinite}
@@ -54,12 +54,24 @@
     font-size:clamp(1.4rem,3.5vh,2rem);font-weight:900;color:var(--yellow);
     text-shadow:0 0 30px rgba(255,208,70,.3);
   }
+  /* Párrafo introductorio */
+  .start-intro{
+    font-size:clamp(.85rem,1.9vh,1rem);
+    color:rgba(255,255,255,.92);
+    max-width:560px;line-height:1.6;
+    padding:12px 18px;
+    background:rgba(126,200,255,.08);
+    border-left:3px solid var(--curious);
+    border-radius:8px;
+    text-align:left;
+  }
+  .start-intro strong{color:var(--yellow);font-weight:800}
   .start-desc{
-    font-size:clamp(.8rem,1.8vh,.95rem);color:rgba(255,255,255,.85);
-    max-width:520px;line-height:1.55;
+    font-size:clamp(.75rem,1.6vh,.88rem);color:rgba(255,255,255,.75);
+    max-width:520px;line-height:1.5;
   }
   .start-rules{
-    display:flex;flex-direction:column;gap:6px;margin:4px 0;
+    display:flex;flex-direction:column;gap:5px;margin:2px 0;
     font-size:clamp(.7rem,1.5vh,.85rem);color:rgba(255,255,255,.75);
     text-align:left;
   }
@@ -71,7 +83,7 @@
     background:rgba(255,208,70,.25);
     border:2px solid var(--yellow);
     color:var(--yellow);
-    margin-top:6px;
+    margin-top:4px;
   }
   .btn-start:hover{
     background:rgba(255,208,70,.45);
@@ -169,7 +181,6 @@
   }
   .option.locked{cursor:default}
 
-  /* Animaciones de acierto/error */
   .option.correct{
     background:rgba(46,204,113,.3);
     border-color:var(--ok);
@@ -212,7 +223,6 @@
   @keyframes vibrateMid{0%,100%{transform:translate(0,0)}25%{transform:translate(-2px,1px)}75%{transform:translate(2px,-1px)}}
   @keyframes vibrateHard{0%,100%{transform:translate(0,0)}20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,-2px)}80%{transform:translate(3px,2px)}}
 
-  /* Feedback con indicación clara */
   .feedback{
     flex:0 0 auto;text-align:center;
     font-size:clamp(.75rem,1.6vh,.9rem);font-weight:700;
@@ -242,7 +252,6 @@
     100%{transform:scale(1);opacity:1}
   }
 
-  /* Overlay final */
   .overlay{
     position:absolute;inset:0;background:rgba(0,0,0,.7);
     backdrop-filter:blur(6px);display:flex;flex-direction:column;
@@ -276,11 +285,13 @@
     body{padding:6px}
     .game{padding:12px 10px;gap:8px;max-height:540px}
     .option{padding:10px 14px;min-width:100px}
+    .start-intro{font-size:.8rem;padding:10px 14px}
   }
   @media(max-height:460px){
     .header p{display:none}
     .game{gap:6px;padding:10px}
     .question{gap:6px}
+    .start-intro{font-size:.75rem;padding:8px 12px}
   }
 </style>
 </head>
@@ -295,9 +306,14 @@
   <div class="start-screen" id="startScreen">
     <div class="start-icon">🔮</div>
     <div class="start-title">Adivina, adivinador</div>
+
+    <!-- Párrafo introductorio -->
+    <div class="start-intro">
+      <strong>¿Sabías que</strong> cada vez que viajas en auto, comes una hamburguesa o enciendes el aire acondicionado, estás dejando una huella invisible en el planeta? Esa huella se llama <strong>CO₂</strong>, y aunque no la veas, está cambiando el clima. En este juego vas a adivinar de dónde viene, quién la produce más y por qué debería importarnos. No necesitas ser experto: solo tener ganas de descubrir.
+    </div>
+
     <div class="start-desc">
       No hay respuestas malas, solo descubrimientos por hacer.
-      Elige lo que crees y descubre datos curiosos sobre el clima y las emisiones.
     </div>
     <div class="start-rules">
       <span>🔍 5 preguntas para explorar</span>
@@ -391,7 +407,6 @@ function pickTwoOptions(texts, correctIdx) {
   };
 }
 
-// ── CATEGORÍA 1: Países ──
 function makeCountryQ(difficulty) {
   const sorted = [...COUNTRIES].sort((a,b)=>b.v-a.v);
   const n = sorted.length;
@@ -420,7 +435,6 @@ function makeCountryQ(difficulty) {
   };
 }
 
-// ── CATEGORÍA 2: Efecto invernadero ──
 const CONCEPT_QS = [
   { q:"¿Qué crees que es el <span class='hl'>efecto invernadero</span>?", opts:["Un fenómeno natural que atrapa calor en la atmósfera","Un agujero en la capa de ozono","La contaminación del aire por fábricas","El calor que produce la Tierra en su núcleo"], correct:0, extra:"El efecto invernadero es natural y necesario: sin él, la Tierra sería demasiado fría para la vida. El problema es cuando lo intensificamos con gases extra." },
   { q:"¿Cuál de estos gases <span class='hl'>NO</span> es de efecto invernadero?", opts:["CO₂ (dióxido de carbono)","CH₄ (metano)","O₂ (oxígeno)","N₂O (óxido nitroso)"], correct:2, extra:"El oxígeno (O₂) no atrapa calor. Los principales gases de efecto invernadero son CO₂, CH₄, N₂O y los gases fluorados." },
@@ -438,7 +452,6 @@ function makeConceptQ() {
   return { cat:"Misterios del clima", q:q.q, opts, correct, extra:q.extra, type:"text" };
 }
 
-// ── CATEGORÍA 3: Mixtas / curiosidades ──
 const MIXED_QS = [
   { q:"¿Qué país crees que emite <span class='hl'>más</span> CO₂ en el mundo?", opts:["China","EE.UU.","India","Rusia"], correct:0, extra:"China emite ~13,180 MtCO₂e, más que EE.UU. e India juntos. ¡Es el mayor emisor del mundo!" },
   { q:"¿Cuál de estos países crees que emite <span class='hl'>menos</span> CO₂?", opts:["Costa Rica","México","Brasil","Argentina"], correct:0, extra:"Costa Rica emite solo ~17 MtCO₂e gracias a su matriz eléctrica renovable y políticas ambientales. ¡Es un ejemplo mundial!" },
@@ -458,9 +471,6 @@ function makeMixedQ() {
   return { cat:"Curiosidades del mundo", q:q.q, opts, correct, extra:q.extra, type:"text" };
 }
 
-// ══════════════════════════════════════════════
-//  CONFIGURACIÓN
-// ══════════════════════════════════════════════
 const CONFIG = {
   categories: [
     { gen:makeCountryQ, count:2 },
@@ -497,9 +507,6 @@ const overlayScore = $("overlayScore");
 const overlayMsg = $("overlayMsg");
 const playAgainBtn = $("playAgainBtn");
 
-// ══════════════════════════════════════════════
-//  GENERADOR DE PARTIDA
-// ══════════════════════════════════════════════
 function buildGame() {
   const qs = [];
   const diffs = shuffle(CONFIG.difficulties);
@@ -515,9 +522,6 @@ function buildGame() {
   return shuffle(qs);
 }
 
-// ══════════════════════════════════════════════
-//  JUEGO
-// ══════════════════════════════════════════════
 function startGame() {
   questions = buildGame();
   currentQ = 0;
@@ -692,9 +696,6 @@ function showFinal() {
   overlay.classList.add("show");
 }
 
-// ══════════════════════════════════════════════
-//  EVENTOS
-// ══════════════════════════════════════════════
 startBtn.addEventListener("click", startGame);
 playAgainBtn.addEventListener("click", () => {
   overlay.classList.remove("show");
