@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Adivina, adivinador - Cambio Climático</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --yellow:#FFD046; --ok:#2ecc71; --bad:#e74c3c; --white:#fff;
+    --curious:#7ec8ff;
+  }
+  html,body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:transparent;color:var(--white);
+    width:100%;height:100%;overflow:hidden;
+  }
+  body{
+    display:flex;justify-content:center;align-items:center;padding:10px;height:100%;
+  }
+  .game{
+    width:100%;max-width:900px;height:100%;max-height:620px;
+    display:flex;flex-direction:column;gap:10px;
+    padding:16px 18px;
+    background:rgba(0,0,0,.3);backdrop-filter:blur(8px);
+    border-radius:16px;border:1px solid rgba(255,255,255,.15);
+    position:relative;overflow:hidden;
+    transition:background .4s, border-color .4s;
+  }
+  /* Feedback global del juego al responder */
+  .game.correct-flash{
+    background:rgba(46,204,113,.18);
+    border-color:rgba(46,204,113,.5);
+  }
+  .game.incorrect-flash{
+    background:rgba(231,76,60,.18);
+    border-color:rgba(231,76,60,.5);
+  }
+
+  .header{flex:0 0 auto;text-align:center}
+  .header h1{font-size:clamp(1.1rem,2.6vh,1.4rem);font-weight:900;color:var(--yellow);letter-spacing:0.5px}
+  .header p{font-size:clamp(.6rem,1.3vh,.75rem);color:rgba(255,255,255,.8);margin-top:2px}
+
+  /* ══ PANTALLA DE INICIO ══ */
+  .start-screen{
+    flex:1 1 auto;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;gap:14px;
+    text-align:center;padding:10px;
+  }
+  .start-screen.hidden{display:none}
+  .start-icon{font-size:clamp(2.5rem,6vh,3.5rem);animation:floatIcon 3s ease-in-out infinite}
+  @keyframes floatIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .start-title{
+    font-size:clamp(1.4rem,3.5vh,2rem);font-weight:900;color:var(--yellow);
+    text-shadow:0 0 30px rgba(255,208,70,.3);
+  }
+  .start-desc{
+    font-size:clamp(.8rem,1.8vh,.95rem);color:rgba(255,255,255,.85);
+    max-width:520px;line-height:1.55;
+  }
+  .start-rules{
+    display:flex;flex-direction:column;gap:6px;margin:4px 0;
+    font-size:clamp(.7rem,1.5vh,.85rem);color:rgba(255,255,255,.75);
+    text-align:left;
+  }
+  .start-rules span{display:flex;align-items:center;gap:8px}
+  .btn-start{
+    padding:12px 36px;border-radius:30px;
+    font-size:clamp(1rem,2.2vh,1.2rem);font-weight:800;
+    cursor:pointer;transition:all .2s;
+    background:rgba(255,208,70,.25);
+    border:2px solid var(--yellow);
+    color:var(--yellow);
+    margin-top:6px;
+  }
+  .btn-start:hover{
+    background:rgba(255,208,70,.45);
+    transform:scale(1.05);
+    box-shadow:0 0 25px rgba(255,208,70,.4);
+  }
+
+  /* ══ ÁREA DE JUEGO ══ */
+  .play-area{
+    flex:1 1 auto;display:flex;flex-direction:column;gap:10px;min-height:0;
+  }
+  .play-area.hidden{display:none}
+
+  .topbar{
+    flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;
+    gap:8px;padding:0 4px;
+  }
+  .progress{display:flex;gap:6px}
+  .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:rgba(255,255,255,.25);transition:all .3s;
+  }
+  .dot.active{background:var(--yellow);box-shadow:0 0 8px rgba(255,208,70,.7);transform:scale(1.3)}
+  .dot.done{background:var(--curious);box-shadow:0 0 8px rgba(126,200,255,.6)}
+
+  .timer{
+    display:flex;align-items:center;gap:8px;
+    font-size:clamp(1.3rem,3vh,1.7rem);font-weight:900;
+    color:var(--yellow);
+    background:rgba(255,208,70,.12);
+    border:2px solid rgba(255,208,70,.4);
+    padding:5px 16px;border-radius:24px;
+    transition:all .2s;
+  }
+  .timer.warning{
+    color:var(--bad);border-color:rgba(231,76,60,.7);
+    background:rgba(231,76,60,.2);
+    animation:pulse .3s infinite alternate;
+    box-shadow:0 0 20px rgba(231,76,60,.5);
+  }
+  @keyframes pulse{to{transform:scale(1.1);box-shadow:0 0 30px rgba(231,76,60,.8)}}
+  .timer-icon{font-size:clamp(1.1rem,2.6vh,1.4rem);display:inline-block}
+  .timer.warning .timer-icon{animation:shake .2s infinite}
+  @keyframes shake{
+    0%{transform:translateX(0) rotate(0)}
+    25%{transform:translateX(-3px) rotate(-8deg)}
+    75%{transform:translateX(3px) rotate(8deg)}
+    100%{transform:translateX(0) rotate(0)}
+  }
+  .timer-bar{
+    width:clamp(50px,10vw,80px);height:6px;border-radius:3px;
+    background:rgba(255,255,255,.15);overflow:hidden;
+  }
+  .timer-fill{
+    height:100%;width:100%;background:var(--yellow);
+    transition:width .15s linear, background .2s;
+  }
+  .timer.warning .timer-fill{background:var(--bad)}
+
+  .question{
+    flex:1 1 auto;min-height:0;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:12px;padding:4px;
+  }
+  .category{
+    font-size:clamp(.55rem,1.2vh,.7rem);font-weight:700;
+    text-transform:uppercase;letter-spacing:1px;
+    color:var(--curious);background:rgba(126,200,255,.12);
+    border:1px solid rgba(126,200,255,.35);
+    padding:3px 12px;border-radius:12px;
+  }
+  .question-text{
+    font-size:clamp(.95rem,2.2vh,1.25rem);font-weight:700;
+    text-align:center;max-width:90%;line-height:1.35;
+  }
+  .question-text .hl{color:var(--yellow)}
+
+  .options{
+    display:flex;justify-content:center;align-items:center;
+    gap:clamp(10px,2.5vw,24px);width:100%;flex-wrap:wrap;
+  }
+  .option{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;padding:14px 20px;
+    min-width:clamp(120px,25vw,200px);
+    background:rgba(255,255,255,.08);
+    border:2px solid rgba(255,255,255,.18);
+    border-radius:14px;cursor:pointer;
+    transition:all .2s;user-select:none;
+  }
+  .option:hover:not(.locked){
+    background:rgba(255,208,70,.12);
+    border-color:rgba(255,208,70,.6);
+    transform:translateY(-3px) scale(1.03);
+  }
+  .option.locked{cursor:default}
+
+  /* Animaciones de acierto/error */
+  .option.correct{
+    background:rgba(46,204,113,.3);
+    border-color:var(--ok);
+    box-shadow:0 0 25px rgba(46,204,113,.6);
+    animation:popCorrect .5s ease;
+  }
+  @keyframes popCorrect{
+    0%{transform:scale(1)}
+    40%{transform:scale(1.08)}
+    100%{transform:scale(1)}
+  }
+  .option.incorrect{
+    background:rgba(231,76,60,.3);
+    border-color:var(--bad);
+    box-shadow:0 0 25px rgba(231,76,60,.5);
+    animation:shakeIncorrect .4s ease;
+  }
+  @keyframes shakeIncorrect{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-8px)}
+    40%{transform:translateX(8px)}
+    60%{transform:translateX(-5px)}
+    80%{transform:translateX(5px)}
+  }
+
+  .option-flag{font-size:clamp(1.8rem,4.5vh,2.8rem);line-height:1}
+  .option-text{font-size:clamp(.75rem,1.6vh,.9rem);font-weight:700;text-align:center}
+
+  .vs-badge{
+    font-size:clamp(.8rem,1.8vh,1rem);font-weight:900;color:var(--yellow);
+    padding:5px 10px;border-radius:50%;
+    border:1.5px solid rgba(255,208,70,.5);
+    background:rgba(0,0,0,.3);flex-shrink:0;
+  }
+
+  .option.vibrate-soft{animation:vibrateSoft .5s ease-in-out infinite}
+  .option.vibrate-mid{animation:vibrateMid .3s ease-in-out infinite}
+  .option.vibrate-hard{animation:vibrateHard .15s ease-in-out infinite}
+  @keyframes vibrateSoft{0%,100%{transform:translate(0,0)}50%{transform:translate(0,-2px)}}
+  @keyframes vibrateMid{0%,100%{transform:translate(0,0)}25%{transform:translate(-2px,1px)}75%{transform:translate(2px,-1px)}}
+  @keyframes vibrateHard{0%,100%{transform:translate(0,0)}20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,-2px)}80%{transform:translate(3px,2px)}}
+
+  /* Feedback con indicación clara */
+  .feedback{
+    flex:0 0 auto;text-align:center;
+    font-size:clamp(.75rem,1.6vh,.9rem);font-weight:700;
+    min-height:1.6em;transition:all .3s;padding:6px 10px;
+    border-radius:10px;line-height:1.4;
+  }
+  .feedback.info{color:rgba(255,255,255,.75)}
+  .feedback.correct{
+    color:var(--ok);
+    background:rgba(46,204,113,.15);
+    border:1px solid rgba(46,204,113,.4);
+    animation:feedbackPop .4s ease;
+  }
+  .feedback.incorrect{
+    color:var(--bad);
+    background:rgba(231,76,60,.15);
+    border:1px solid rgba(231,76,60,.4);
+    animation:feedbackPop .4s ease;
+  }
+  .feedback.curious{
+    color:var(--curious);
+    background:rgba(126,200,255,.08);
+    border:1px solid rgba(126,200,255,.3);
+  }
+  @keyframes feedbackPop{
+    0%{transform:scale(0.9);opacity:.5}
+    100%{transform:scale(1);opacity:1}
+  }
+
+  /* Overlay final */
+  .overlay{
+    position:absolute;inset:0;background:rgba(0,0,0,.7);
+    backdrop-filter:blur(6px);display:flex;flex-direction:column;
+    justify-content:center;align-items:center;gap:14px;z-index:50;
+    opacity:0;pointer-events:none;transition:opacity .4s;padding:20px;
+    text-align:center;
+  }
+  .overlay.show{opacity:1;pointer-events:auto}
+  .overlay-title{font-size:clamp(1.3rem,3.2vh,1.8rem);font-weight:900;color:var(--yellow)}
+  .overlay-icon{font-size:clamp(2rem,5vh,3rem)}
+  .overlay-score{
+    font-size:clamp(1.5rem,3.5vh,2.2rem);font-weight:900;
+    color:var(--curious);
+  }
+  .overlay-msg{
+    font-size:clamp(.8rem,1.8vh,1rem);color:rgba(255,255,255,.9);
+    max-width:520px;line-height:1.55;
+  }
+  .btn{
+    padding:10px 28px;border-radius:24px;
+    font-size:clamp(.8rem,1.7vh,.95rem);font-weight:700;
+    cursor:pointer;transition:all .2s;border:1.5px solid transparent;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .btn-primary{
+    background:rgba(255,208,70,.2);border-color:rgba(255,208,70,.55);color:var(--yellow);
+  }
+  .btn-primary:hover{background:rgba(255,208,70,.35);transform:scale(1.04)}
+
+  @media(max-width:560px){
+    body{padding:6px}
+    .game{padding:12px 10px;gap:8px;max-height:540px}
+    .option{padding:10px 14px;min-width:100px}
+  }
+  @media(max-height:460px){
+    .header p{display:none}
+    .game{gap:6px;padding:10px}
+    .question{gap:6px}
+  }
+</style>
+</head>
+<body>
+<div class="game" id="game">
+  <div class="header">
+    <h1>🔮 Adivina, adivinador</h1>
+    <p>Un juego para despertar tu curiosidad sobre el clima</p>
+  </div>
+
+  <!-- ══ PANTALLA DE INICIO ══ -->
+  <div class="start-screen" id="startScreen">
+    <div class="start-icon">🔮</div>
+    <div class="start-title">Adivina, adivinador</div>
+    <div class="start-desc">
+      No hay respuestas malas, solo descubrimientos por hacer.
+      Elige lo que crees y descubre datos curiosos sobre el clima y las emisiones.
+    </div>
+    <div class="start-rules">
+      <span>🔍 5 preguntas para explorar</span>
+      <span>⏱️ Tienes 6 segundos para adivinar</span>
+      <span>💡 Cada respuesta revela un dato curioso</span>
+      <span>🌍 Lo importante es aprender, no acertar</span>
+    </div>
+    <button class="btn-start" id="startBtn">▶ Empezar a adivinar</button>
+  </div>
+
+  <!-- ══ ÁREA DE JUEGO ══ -->
+  <div class="play-area hidden" id="playArea">
+    <div class="topbar">
+      <div class="progress" id="progress"></div>
+      <div class="timer" id="timer">
+        <span class="timer-icon" id="timerIcon">⏱️</span>
+        <span id="timerText">6</span>
+        <div class="timer-bar"><div class="timer-fill" id="timerFill"></div></div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="category" id="category">Curiosidad</div>
+      <div class="question-text" id="questionText">Cargando pregunta...</div>
+      <div class="options" id="options"></div>
+    </div>
+
+    <div class="feedback info" id="feedback">Elige lo que creas... ¡y descubre!</div>
+  </div>
+
+  <!-- Overlay final -->
+  <div class="overlay" id="overlay">
+    <div class="overlay-icon">🌍</div>
+    <div class="overlay-title">¡Buen viaje de descubrimiento!</div>
+    <div class="overlay-score" id="overlayScore"></div>
+    <div class="overlay-msg" id="overlayMsg"></div>
+    <button class="btn btn-primary" id="playAgainBtn">🔄 Descubrir más</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+// ══════════════════════════════════════════════
+//  DATOS: Países (2023, MtCO₂e)
+// ══════════════════════════════════════════════
+const COUNTRIES = [
+  { n:"China", f:"🇨🇳", v:13180 },
+  { n:"EE.UU.", f:"🇺🇸", v:5438.71 },
+  { n:"India", f:"🇮🇳", v:3978.72 },
+  { n:"UE-27", f:"🇪🇺", v:3119.45 },
+  { n:"Brasil", f:"🇧🇷", v:2125.81 },
+  { n:"Indonesia", f:"🇮🇩", v:1572.78 },
+  { n:"Rusia", f:"🇷🇺", v:1320.61 },
+  { n:"Japón", f:"🇯🇵", v:1035.83 },
+  { n:"Canadá", f:"🇨🇦", v:876.71 },
+  { n:"México", f:"🇲🇽", v:731.3 },
+  { n:"Alemania", f:"🇩🇪", v:669.68 },
+  { n:"Australia", f:"🇦🇺", v:652.15 },
+  { n:"Corea del Sur", f:"🇰🇷", v:642.71 },
+  { n:"Turquía", f:"🇹🇷", v:522.97 },
+  { n:"Vietnam", f:"🇻🇳", v:471.78 },
+  { n:"Tailandia", f:"🇹🇭", v:458.04 },
+  { n:"Argentina", f:"🇦🇷", v:435.37 },
+  { n:"Italia", f:"🇮🇹", v:423.48 },
+  { n:"Reino Unido", f:"🇬🇧", v:408.15 },
+  { n:"Malasia", f:"🇲🇾", v:402.61 },
+  { n:"Sudáfrica", f:"🇿🇦", v:383.8 },
+  { n:"Egipto", f:"🇪🇬", v:366.3 },
+  { n:"Polonia", f:"🇵🇱", v:355.42 },
+  { n:"Francia", f:"🇫🇷", v:346.89 },
+  { n:"Nigeria", f:"🇳🇬", v:342.93 },
+  { n:"Kazajistán", f:"🇰🇿", v:338.61 },
+  { n:"Irak", f:"🇮🇶", v:335.12 },
+  { n:"Argelia", f:"🇩🇿", v:303.25 },
+  { n:"Colombia", f:"🇨🇴", v:294.16 },
+  { n:"España", f:"🇪🇸", v:271.3 },
+  { n:"Costa Rica", f:"🇨🇷", v:16.97 }
+];
+
+const shuffle = a => { const r=[...a]; for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];} return r; };
+
+function pickTwoOptions(texts, correctIdx) {
+  const correct = texts[correctIdx];
+  const others = texts.filter((_, i) => i !== correctIdx);
+  const wrong = others[Math.floor(Math.random() * others.length)];
+  const pair = Math.random() < 0.5 ? [correct, wrong] : [wrong, correct];
+  return {
+    opts: pair.map(t => ({ text: t })),
+    correct: pair.indexOf(correct)
+  };
+}
+
+// ── CATEGORÍA 1: Países ──
+function makeCountryQ(difficulty) {
+  const sorted = [...COUNTRIES].sort((a,b)=>b.v-a.v);
+  const n = sorted.length;
+  let a, b;
+  if (difficulty === "easy") {
+    const top = sorted.slice(0, Math.floor(n*0.3));
+    const bot = sorted.slice(Math.floor(n*0.7));
+    a = top[Math.floor(Math.random()*top.length)];
+    b = bot[Math.floor(Math.random()*bot.length)];
+  } else if (difficulty === "medium") {
+    const mid = sorted.slice(Math.floor(n*0.15), Math.floor(n*0.75));
+    const s = shuffle(mid); a = s[0]; b = s[1];
+  } else {
+    const i = Math.floor(Math.random()*(n-5))+2;
+    const s = shuffle(sorted.slice(i, i+4)); a = s[0]; b = s[1];
+  }
+  const pair = Math.random()<0.5 ? [a,b] : [b,a];
+  const correctIdx = pair[0].v > pair[1].v ? 0 : 1;
+  return {
+    cat: "Adivina quién emite más",
+    q: "¿Cuál de estos países crees que emite <span class='hl'>más</span> CO₂?",
+    opts: pair.map(c => ({ flag: c.f, text: c.n })),
+    correct: correctIdx,
+    extra: `💡 ${pair[0].n} emite ${pair[0].v.toLocaleString("es")} MtCO₂e y ${pair[1].n} emite ${pair[1].v.toLocaleString("es")} MtCO₂e.`,
+    type: "vs"
+  };
+}
+
+// ── CATEGORÍA 2: Efecto invernadero ──
+const CONCEPT_QS = [
+  { q:"¿Qué crees que es el <span class='hl'>efecto invernadero</span>?", opts:["Un fenómeno natural que atrapa calor en la atmósfera","Un agujero en la capa de ozono","La contaminación del aire por fábricas","El calor que produce la Tierra en su núcleo"], correct:0, extra:"El efecto invernadero es natural y necesario: sin él, la Tierra sería demasiado fría para la vida. El problema es cuando lo intensificamos con gases extra." },
+  { q:"¿Cuál de estos gases <span class='hl'>NO</span> es de efecto invernadero?", opts:["CO₂ (dióxido de carbono)","CH₄ (metano)","O₂ (oxígeno)","N₂O (óxido nitroso)"], correct:2, extra:"El oxígeno (O₂) no atrapa calor. Los principales gases de efecto invernadero son CO₂, CH₄, N₂O y los gases fluorados." },
+  { q:"¿Qué actividad humana crees que produce <span class='hl'>más</span> CO₂ en el mundo?", opts:["La quema de combustibles fósiles","La respiración de los animales","Los volcanes","La evaporación del agua"], correct:0, extra:"Quemar carbón, petróleo y gas para obtener energía y mover vehículos es la principal fuente de CO₂." },
+  { q:"¿Qué significa que un gas sea <span class='hl'>más potente</span> que el CO₂?", opts:["Que atrapa más calor por molécula","Que es más abundante en la atmósfera","Que es más pesado","Que se produce más rápido"], correct:0, extra:"El metano atrapa ~25 veces más calor que el CO₂ por molécula, aunque dura menos tiempo en la atmósfera." },
+  { q:"¿Qué crees que pasaría si <span class='hl'>no existiera</span> el efecto invernadero?", opts:["La Tierra sería demasiado fría para la vida","La Tierra se calentaría más","No cambiaría nada","Habría más oxígeno"], correct:0, extra:"Sin efecto invernadero, la temperatura media de la Tierra sería de -18°C en lugar de los +15°C actuales." },
+  { q:"¿Qué es un <span class='hl'>sumidero de carbono</span>?", opts:["Un sistema que absorbe más CO₂ del que emite","Un lugar donde se quema carbón","Un tipo de nube","Un gas contaminante"], correct:0, extra:"Los bosques y océanos son sumideros naturales: absorben CO₂ de la atmósfera y lo almacenan." },
+  { q:"¿Cuál crees que es el <span class='hl'>principal gas</span> de efecto invernadero emitido por la actividad humana?", opts:["CO₂","Metano","Ozono","Vapor de agua"], correct:0, extra:"El CO₂ es el principal gas de efecto invernadero emitido por actividades humanas, sobre todo al quemar combustibles fósiles." },
+  { q:"¿Qué sector crees que produce <span class='hl'>más emisiones</span> de metano?", opts:["La ganadería y agricultura","La industria textil","La minería de oro","La aviación"], correct:0, extra:"La ganadería (por la digestión de vacas y otros rumiantes) y los residuos orgánicos son las principales fuentes de metano." }
+];
+
+function makeConceptQ() {
+  const q = CONCEPT_QS[Math.floor(Math.random()*CONCEPT_QS.length)];
+  const { opts, correct } = pickTwoOptions(q.opts, q.correct);
+  return { cat:"Misterios del clima", q:q.q, opts, correct, extra:q.extra, type:"text" };
+}
+
+// ── CATEGORÍA 3: Mixtas / curiosidades ──
+const MIXED_QS = [
+  { q:"¿Qué país crees que emite <span class='hl'>más</span> CO₂ en el mundo?", opts:["China","EE.UU.","India","Rusia"], correct:0, extra:"China emite ~13,180 MtCO₂e, más que EE.UU. e India juntos. ¡Es el mayor emisor del mundo!" },
+  { q:"¿Cuál de estos países crees que emite <span class='hl'>menos</span> CO₂?", opts:["Costa Rica","México","Brasil","Argentina"], correct:0, extra:"Costa Rica emite solo ~17 MtCO₂e gracias a su matriz eléctrica renovable y políticas ambientales. ¡Es un ejemplo mundial!" },
+  { q:"¿Qué país de <span class='hl'>América Latina</span> crees que emite más CO₂?", opts:["Brasil","México","Argentina","Colombia"], correct:0, extra:"Brasil emite ~2,126 MtCO₂e, principalmente por deforestación y agricultura." },
+  { q:"¿Cuál de estos países crees que emite <span class='hl'>más</span> por persona?", opts:["EE.UU.","India","Brasil","Indonesia"], correct:0, extra:"EE.UU. tiene emisiones per cápita muy altas (~16 toneladas por persona), mientras India emite ~2.8 toneladas por persona." },
+  { q:"¿Qué país crees que <span class='hl'>redujo más</span> sus emisiones entre 1990 y 2023?", opts:["Alemania","China","India","Brasil"], correct:0, extra:"Alemania redujo de ~1,097 a ~670 MtCO₂e, gracias a energías renovables y al cierre de industrias contaminantes." },
+  { q:"¿Cuál de estos países crees que <span class='hl'>NO</span> está en el top 5 de emisores?", opts:["Brasil","China","India","EE.UU."], correct:0, extra:"El top 5 está formado por China, EE.UU., India, la UE-27 e Indonesia. Brasil está más abajo." },
+  { q:"¿Qué país crees que emite <span class='hl'>más</span> CO₂: Japón o Corea del Sur?", opts:["Japón","Corea del Sur"], correct:0, extra:"Japón emite ~1,036 MtCO₂e; Corea del Sur ~643 MtCO₂e." },
+  { q:"¿Qué país crees que emite <span class='hl'>más</span> CO₂: México o Canadá?", opts:["Canadá","México"], correct:0, extra:"Canadá emite ~877 MtCO₂e y México ~731 MtCO₂e. Canadá tiene emisiones per cápita muy altas." },
+  { q:"¿Qué país crees que emite <span class='hl'>más</span> CO₂: Costa Rica o Panamá?", opts:["Costa Rica","Panamá","Emiten igual","Ninguno emite"], correct:0, extra:"Costa Rica emite ~17 MtCO₂e. Es uno de los países con menores emisiones de la región." },
+  { q:"¿Cuál de estos países crees que <span class='hl'>no</span> aparece en el top 10 de emisores?", opts:["Francia","China","India","Rusia"], correct:0, extra:"Francia emite ~347 MtCO₂e, muy por debajo del top 10, en parte gracias a su energía nuclear." }
+];
+
+function makeMixedQ() {
+  const q = MIXED_QS[Math.floor(Math.random()*MIXED_QS.length)];
+  const { opts, correct } = pickTwoOptions(q.opts, q.correct);
+  return { cat:"Curiosidades del mundo", q:q.q, opts, correct, extra:q.extra, type:"text" };
+}
+
+// ══════════════════════════════════════════════
+//  CONFIGURACIÓN
+// ══════════════════════════════════════════════
+const CONFIG = {
+  categories: [
+    { gen:makeCountryQ, count:2 },
+    { gen:makeConceptQ, count:2 },
+    { gen:makeMixedQ, count:1 }
+  ],
+  timePerQuestion: 6,
+  difficulties: ["easy","easy","medium","medium","hard"]
+};
+
+let questions = [];
+let currentQ = 0;
+let score = 0;
+let timerInterval = null;
+let timeLeft = 0;
+let locked = false;
+
+const $ = id => document.getElementById(id);
+const gameEl = $("game");
+const startScreen = $("startScreen");
+const playArea = $("playArea");
+const startBtn = $("startBtn");
+const progressEl = $("progress");
+const categoryEl = $("category");
+const questionTextEl = $("questionText");
+const optionsEl = $("options");
+const feedbackEl = $("feedback");
+const timerEl = $("timer");
+const timerText = $("timerText");
+const timerIcon = $("timerIcon");
+const timerFill = $("timerFill");
+const overlay = $("overlay");
+const overlayScore = $("overlayScore");
+const overlayMsg = $("overlayMsg");
+const playAgainBtn = $("playAgainBtn");
+
+// ══════════════════════════════════════════════
+//  GENERADOR DE PARTIDA
+// ══════════════════════════════════════════════
+function buildGame() {
+  const qs = [];
+  const diffs = shuffle(CONFIG.difficulties);
+  let diffIdx = 0;
+  CONFIG.categories.forEach(cat => {
+    for (let i = 0; i < cat.count; i++) {
+      const diff = diffs[diffIdx % diffs.length];
+      diffIdx++;
+      const q = cat.gen === makeCountryQ ? cat.gen(diff) : cat.gen();
+      qs.push(q);
+    }
+  });
+  return shuffle(qs);
+}
+
+// ══════════════════════════════════════════════
+//  JUEGO
+// ══════════════════════════════════════════════
+function startGame() {
+  questions = buildGame();
+  currentQ = 0;
+  score = 0;
+  overlay.classList.remove("show");
+  startScreen.classList.add("hidden");
+  playArea.classList.remove("hidden");
+  renderProgress();
+  loadQuestion();
+}
+
+function renderProgress() {
+  progressEl.innerHTML = "";
+  for (let i = 0; i < questions.length; i++) {
+    const d = document.createElement("div");
+    d.className = "dot";
+    if (i === currentQ) d.classList.add("active");
+    if (i < currentQ) d.classList.add("done");
+    progressEl.appendChild(d);
+  }
+}
+
+function loadQuestion() {
+  if (currentQ >= questions.length) { showFinal(); return; }
+
+  locked = false;
+  clearInterval(timerInterval);
+  gameEl.classList.remove("correct-flash","incorrect-flash");
+  const q = questions[currentQ];
+
+  categoryEl.textContent = q.cat;
+  questionTextEl.innerHTML = q.q;
+  feedbackEl.textContent = "Elige lo que creas... ¡y descubre!";
+  feedbackEl.className = "feedback info";
+
+  optionsEl.innerHTML = "";
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement("div");
+    div.className = "option";
+    div.dataset.index = i;
+    div.innerHTML = (opt.flag ? `<div class="option-flag">${opt.flag}</div>` : "") +
+                    `<div class="option-text">${opt.text}</div>`;
+    div.addEventListener("click", () => handleAnswer(i, div));
+    optionsEl.appendChild(div);
+  });
+
+  if (q.type === "vs" && optionsEl.children.length === 2) {
+    const vs = document.createElement("div");
+    vs.className = "vs-badge";
+    vs.textContent = "VS";
+    optionsEl.insertBefore(vs, optionsEl.children[1]);
+  }
+
+  renderProgress();
+  startTimer();
+}
+
+function startTimer() {
+  timeLeft = CONFIG.timePerQuestion;
+  updateTimerUI();
+  applyVibration(0);
+  timerInterval = setInterval(() => {
+    timeLeft -= 0.1;
+    if (timeLeft <= 0) {
+      timeLeft = 0;
+      updateTimerUI();
+      clearInterval(timerInterval);
+      timeoutAnswer();
+    } else {
+      updateTimerUI();
+      applyVibration(timeLeft);
+    }
+  }, 100);
+}
+
+function updateTimerUI() {
+  const pct = (timeLeft / CONFIG.timePerQuestion) * 100;
+  timerFill.style.width = pct + "%";
+  timerText.textContent = Math.ceil(timeLeft);
+  timerEl.classList.toggle("warning", timeLeft <= 2);
+}
+
+function applyVibration(secondsLeft) {
+  Array.from(optionsEl.querySelectorAll(".option")).forEach(el => {
+    el.classList.remove("vibrate-soft","vibrate-mid","vibrate-hard");
+  });
+  if (locked) return;
+
+  let cls = "";
+  if (secondsLeft <= 1.5) cls = "vibrate-hard";
+  else if (secondsLeft <= 3) cls = "vibrate-mid";
+  else if (secondsLeft <= 4.5) cls = "vibrate-soft";
+
+  if (cls) {
+    Array.from(optionsEl.querySelectorAll(".option")).forEach(el => {
+      el.classList.add(cls);
+    });
+  }
+}
+
+function timeoutAnswer() {
+  if (locked) return;
+  locked = true;
+  const q = questions[currentQ];
+  Array.from(optionsEl.children).forEach((el, i) => {
+    if (el.classList.contains("option")) {
+      if (i === q.correct) el.classList.add("correct");
+      el.classList.remove("vibrate-soft","vibrate-mid","vibrate-hard");
+      el.classList.add("locked");
+    }
+  });
+  gameEl.classList.add("incorrect-flash");
+  feedbackEl.textContent = "⏰ ¡Se acabó el tiempo! " + (q.extra || "");
+  feedbackEl.className = "feedback incorrect";
+  renderProgress();
+  advance();
+}
+
+function handleAnswer(idx, el) {
+  if (locked) return;
+  locked = true;
+  clearInterval(timerInterval);
+
+  const q = questions[currentQ];
+  const allOpts = Array.from(optionsEl.children).filter(c => c.classList.contains("option"));
+  allOpts.forEach(o => {
+    o.classList.add("locked");
+    o.classList.remove("vibrate-soft","vibrate-mid","vibrate-hard");
+  });
+
+  const isCorrect = idx === q.correct;
+
+  if (isCorrect) {
+    el.classList.add("correct");
+    gameEl.classList.add("correct-flash");
+    score++;
+    feedbackEl.textContent = "✅ ¡Adivinaste! " + (q.extra || "");
+    feedbackEl.className = "feedback correct";
+  } else {
+    el.classList.add("incorrect");
+    allOpts[q.correct].classList.add("correct");
+    gameEl.classList.add("incorrect-flash");
+    feedbackEl.textContent = "❌ ¡Casi! " + (q.extra || "");
+    feedbackEl.className = "feedback incorrect";
+  }
+
+  renderProgress();
+  advance();
+}
+
+function advance() {
+  currentQ++;
+  if (currentQ < questions.length) {
+    setTimeout(loadQuestion, 2200);
+  } else {
+    setTimeout(showFinal, 2200);
+  }
+}
+
+function showFinal() {
+  clearInterval(timerInterval);
+  overlayScore.textContent = `${score}/${questions.length} aciertos`;
+  let msg;
+  if (score === questions.length) {
+    msg = "¡Adivinaste todo! Tu curiosidad está afinada. Pero lo importante no es acertar, sino seguir preguntándote por el mundo que te rodea. 🌟";
+  } else if (score >= 2) {
+    msg = "Cada respuesta te acercó a un dato nuevo. Lo importante no es acertar siempre, sino seguir preguntándote por el mundo. 🌱";
+  } else {
+    msg = "Adivinar no siempre es fácil, pero cada intento te enseñó algo nuevo. Lo importante es mantener la curiosidad viva. 💡";
+  }
+  overlayMsg.textContent = msg;
+  overlay.classList.add("show");
+}
+
+// ══════════════════════════════════════════════
+//  EVENTOS
+// ══════════════════════════════════════════════
+startBtn.addEventListener("click", startGame);
+playAgainBtn.addEventListener("click", () => {
+  overlay.classList.remove("show");
+  startScreen.classList.remove("hidden");
+  playArea.classList.add("hidden");
+});
+</script>
+</body>
+</html>
