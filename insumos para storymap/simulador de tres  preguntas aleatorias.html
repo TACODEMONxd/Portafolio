@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Estas son tus tres preguntas - GEI</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --accent-yellow: #FFD046;
+            --text: #ffffff;
+            --radius: 16px;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: transparent;
+            color: var(--text);
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            height: 100%;
+        }
+
+        .widget {
+            width: 100%;
+            max-width: 950px;
+            height: 100%;
+            max-height: 680px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px 22px 16px;
+            background: rgba(0, 0, 0, 0.28);
+            backdrop-filter: blur(8px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instruction-badge {
+            flex: 0 0 auto;
+            text-align: center;
+            padding: 6px 22px;
+            border-radius: 20px;
+            font-size: clamp(0.65rem, 1.4vh, 0.8rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            background: rgba(255, 208, 70, 0.15);
+            color: var(--accent-yellow);
+            border: 1px solid rgba(255, 208, 70, 0.4);
+            align-self: center;
+        }
+
+        .questions-list {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            min-height: 0;
+            overflow-y: auto;
+            padding: 4px 2px;
+            scrollbar-width: thin;
+        }
+
+        .questions-list::-webkit-scrollbar { width: 4px; }
+        .questions-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+
+        .question-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            transition: all 0.25s ease;
+            animation: fadeIn 0.6s ease backwards;
+        }
+
+        .question-card:nth-child(1) { animation-delay: 0.1s; }
+        .question-card:nth-child(2) { animation-delay: 0.25s; }
+        .question-card:nth-child(3) { animation-delay: 0.4s; }
+
+        .question-card:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 208, 70, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            flex: 0 0 auto;
+            width: clamp(28px, 4vh, 36px);
+            height: clamp(28px, 4vh, 36px);
+            border-radius: 50%;
+            background: rgba(255, 208, 70, 0.2);
+            border: 1.5px solid rgba(255, 208, 70, 0.5);
+            color: var(--accent-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.85rem, 1.8vh, 1rem);
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .question-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .question-text {
+            font-size: clamp(0.9rem, 2.1vh, 1.15rem);
+            line-height: 1.4;
+            font-weight: 600;
+            color: #ffffff;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .question-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: clamp(0.55rem, 1.1vh, 0.68rem);
+            font-weight: 700;
+            background: rgba(255, 208, 70, 0.12);
+            color: var(--accent-yellow);
+            border: 1px solid rgba(255, 208, 70, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: clamp(0.55rem, 1.1vh, 0.68rem);
+            font-weight: 700;
+            background: rgba(39, 174, 96, 0.15);
+            color: #7dffb0;
+            border: 1px solid rgba(39, 174, 96, 0.35);
+            letter-spacing: 0.5px;
+        }
+
+        .formats-hint {
+            flex: 0 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            padding-top: 2px;
+        }
+
+        .format-chip {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: clamp(0.55rem, 1.2vh, 0.7rem);
+            color: rgba(255, 255, 255, 0.9);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 6px; }
+            .widget { padding: 14px 12px 10px; gap: 8px; max-height: 560px; }
+            .instruction-badge { font-size: 0.55rem; padding: 4px 14px; }
+            .question-card { padding: 10px 12px; gap: 10px; }
+            .question-text { font-size: clamp(0.85rem, 2.6vh, 1rem); }
+            .format-chip { font-size: 0.5rem; padding: 2px 7px; }
+        }
+
+        @media (max-height: 480px) {
+            .widget { gap: 6px; padding: 10px; }
+            .question-card { padding: 8px 10px; }
+            .formats-hint { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="widget">
+    <div class="instruction-badge">📓 Estas son tus tres preguntas (1–3 min cada una)</div>
+
+    <div class="questions-list" id="questionsList"></div>
+
+    <div class="formats-hint">
+        <span class="format-chip">✏️ Texto</span>
+        <span class="format-chip">🎨 Dibujo + explicación</span>
+        <span class="format-chip">📊 Infografía</span>
+        <span class="format-chip">🧠 Mapa mental</span>
+        <span class="format-chip">📋 Cuadro comparativo</span>
+        <span class="format-chip">📈 Línea de tiempo</span>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { text: "¿Qué es el efecto invernadero? Explícalo con tus propias palabras.", category: "Concepto", icon: "🏡", time: "1 min" },
+        { text: "Menciona 2 actividades de tu casa que producen gases de efecto invernadero.", category: "Hogar", icon: "🏠", time: "1 min" },
+        { text: "¿Qué significa 'huella de carbono'? Da un ejemplo.", category: "Concepto", icon: "👣", time: "2 min" },
+        { text: "¿Cuál es la diferencia entre clima y tiempo atmosférico?", category: "Concepto", icon: "🌤️", time: "2 min" },
+        { text: "Dibuja un ejemplo de cómo el CO₂ atrapa el calor en la atmósfera.", category: "Dibujo", icon: "🎨", time: "3 min" },
+        { text: "Nombra 2 gases de efecto invernadero además del CO₂.", category: "Ciencia", icon: "🧪", time: "1 min" },
+        { text: "¿Por qué se dice que los árboles son 'pulmones del planeta'?", category: "Naturaleza", icon: "🌳", time: "2 min" },
+        { text: "¿Qué medio de transporte usas más y cómo afecta al clima?", category: "Transporte", icon: "🚌", time: "2 min" },
+        { text: "¿Qué pasa con el hielo de los polos cuando sube la temperatura?", category: "Clima", icon: "❄️", time: "2 min" },
+        { text: "Menciona 3 cosas que puedes hacer para reducir tu huella de carbono.", category: "Acción", icon: "🌍", time: "3 min" },
+        { text: "¿Qué es el metano y de dónde viene? Da un ejemplo.", category: "Ciencia", icon: "🐄", time: "2 min" },
+        { text: "¿Por qué el nivel del mar está subiendo? Explícalo en una frase.", category: "Océanos", icon: "🌊", time: "2 min" },
+        { text: "¿Qué significa 'energía renovable'? Da 2 ejemplos.", category: "Energía", icon: "☀️", time: "2 min" },
+        { text: "Dibuja cómo llega la luz del sol a la Tierra y qué pasa con el calor.", category: "Dibujo", icon: "🎨", time: "3 min" },
+        { text: "¿Qué es el reciclaje y cómo ayuda al clima?", category: "Residuos", icon: "♻️", time: "2 min" },
+        { text: "Nombra un alimento que consumas seguido y explica cómo su producción genera GEI.", category: "Alimentación", icon: "🍽️", time: "3 min" },
+        { text: "¿Qué es el Acuerdo de París? Explícalo en 2 líneas.", category: "Política", icon: "🤝", time: "2 min" },
+        { text: "¿Qué pasaría si no existiera el efecto invernadero en la Tierra?", category: "Reflexión", icon: "🤔", time: "2 min" },
+        { text: "¿Qué es un sumidero de carbono? Da un ejemplo.", category: "Naturaleza", icon: "🌱", time: "2 min" },
+        { text: "Escribe 2 consecuencias del cambio climático que observes o conozcas.", category: "Impacto", icon: "⚠️", time: "2 min" },
+        { text: "¿Por qué los océanos son importantes para regular el clima?", category: "Océanos", icon: "🌊", time: "2 min" },
+        { text: "Dibuja un mapa mental con 4 fuentes de emisión de GEI.", category: "Dibujo", icon: "🧠", time: "3 min" },
+        { text: "¿Qué es la contaminación del aire y cómo se relaciona con el clima?", category: "Salud", icon: "🏥", time: "2 min" },
+        { text: "¿Qué significa 'desarrollo sostenible'? Explícalo con un ejemplo.", category: "Concepto", icon: "♻️", time: "2 min" },
+        { text: "Menciona 2 consecuencias de la deforestación para el clima.", category: "Naturaleza", icon: "🪓", time: "2 min" },
+        { text: "¿Qué es la acidificación del océano? Explica en una frase.", category: "Océanos", icon: "🧫", time: "2 min" },
+        { text: "¿Por qué el calor extremo afecta más a unas personas que a otras?", category: "Salud", icon: "🔥", time: "2 min" },
+        { text: "¿Qué es un bono de carbono? Explica en 2 líneas.", category: "Economía", icon: "💰", time: "2 min" },
+        { text: "Nombra 2 cosas que hacen en tu colegio que generan GEI.", category: "Colegio", icon: "🏫", time: "2 min" },
+        { text: "¿Cómo afecta el cambio climático a los animales de tu región?", category: "Biodiversidad", icon: "🦜", time: "3 min" }
+    ];
+
+    function getThreeRandomQuestions() {
+        const shuffled = [...questions];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled.slice(0, 3);
+    }
+
+    function renderQuestions() {
+        const selected = getThreeRandomQuestions();
+        const list = document.getElementById('questionsList');
+        list.innerHTML = '';
+
+        selected.forEach((q, i) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-number">${i + 1}</div>
+                <div class="question-content">
+                    <div class="question-text">${q.icon} ${q.text}</div>
+                    <div class="question-meta">
+                        <span class="category-badge">${q.category}</span>
+                        <span class="time-badge">⏱️ ${q.time}</span>
+                    </div>
+                </div>
+            `;
+            list.appendChild(card);
+        });
+    }
+
+    window.addEventListener('load', renderQuestions);
+</script>
+
+</body>
+</html>
