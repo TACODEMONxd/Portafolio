@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Comparativa Histórica de Emisiones - Líneas / Barras</title>
+    <title>Comparativa Histórica de Emisiones - Transparente</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Reset total para evitar scroll */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -16,18 +15,16 @@
         :root {
             --primary-color: #1a2332;
             --accent: #3498db;
-            --bg: #f4f6f8;
-            --card-bg: #ffffff;
             --text: #2c3e50;
             --text-muted: #7f8c8d;
             --radius: 10px;
-            --btn-bg: #ecf0f1;
-            --btn-hover: #dfe6e9;
+            --btn-bg: rgba(255, 255, 255, 0.85);
+            --btn-hover: rgba(255, 255, 255, 1);
         }
 
         html, body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
+            background: transparent;
             color: var(--text);
             width: 100%;
             height: 100%;
@@ -44,11 +41,10 @@
             height: 100%;
         }
 
-        /* ── widget que ocupa todo el contenedor ── */
+        /* Widget sin fondo (transparente) */
         .widget {
-            background: var(--card-bg);
+            background: transparent;
             border-radius: var(--radius);
-            box-shadow: 0 2px 12px rgba(0,0,0,.08);
             width: 100%;
             height: 100%;
             display: flex;
@@ -58,37 +54,118 @@
             overflow: hidden;
         }
 
-        /* ── header con botón de cambio ── */
+        /* Header solo con texto */
         .header {
             flex: 0 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 8px;
-        }
-        .header-text {
-            flex: 1;
             text-align: center;
         }
-        .header-text h2 {
+        .header h2 {
             font-size: clamp(0.9rem, 2.1vh, 1.2rem);
             font-weight: 700;
             color: var(--primary-color);
             line-height: 1.25;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.15);
         }
-        .header-text p {
+        .header p {
             font-size: clamp(0.6rem, 1.4vh, 0.78rem);
             color: var(--text-muted);
             margin-top: 1px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
         }
 
-        /* Botón de cambio de gráfico (minimalista) */
+        /* Controles (chips) */
+        .controls {
+            flex: 0 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            justify-content: center;
+            align-content: flex-start;
+            max-height: 22%;
+            overflow-y: auto;
+            padding: 2px 0;
+            scrollbar-width: thin;
+        }
+        .controls::-webkit-scrollbar { height: 4px; width: 4px; }
+        .controls::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-size: clamp(0.55rem, 1.25vh, 0.72rem);
+            cursor: pointer;
+            border: 1.5px solid rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            transition: all .2s ease;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .chip:hover { background: rgba(255, 255, 255, 0.95); }
+        .chip.active {
+            border-color: var(--chip-color, var(--accent));
+            background: color-mix(in srgb, var(--chip-color, var(--accent)) 15%, white);
+            font-weight: 600;
+        }
+        .chip .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--chip-color, var(--accent));
+            flex-shrink: 0;
+        }
+        .chip input { display: none; }
+
+        /* Gráfico */
+        .chart-wrap {
+            flex: 1 1 auto;
+            position: relative;
+            width: 100%;
+            min-height: 0;
+            height: 100%;
+            /* Fondo sutil para que el gráfico se lea bien sin tapar el story map */
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(4px);
+            border-radius: 8px;
+            padding: 4px;
+        }
+        .chart-wrap canvas {
+            position: absolute;
+            inset: 4px;
+            width: calc(100% - 8px) !important;
+            height: calc(100% - 8px) !important;
+            display: block;
+        }
+
+        /* Pie: fuente + botón de cambio */
+        .footer {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            padding: 0 2px;
+        }
+        .source {
+            text-align: left;
+            font-size: clamp(0.45rem, 1vh, 0.62rem);
+            color: var(--text-muted);
+            line-height: 1.2;
+            flex: 1;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+        }
+        .source a { color: var(--accent); text-decoration: none; }
+
         .chart-toggle {
             flex: 0 0 auto;
             width: clamp(32px, 4.5vh, 40px);
             height: clamp(32px, 4.5vh, 40px);
-            border: 1.5px solid #dce1e6;
+            border: 1.5px solid rgba(0, 0, 0, 0.15);
             background: var(--btn-bg);
+            backdrop-filter: blur(4px);
             border-radius: 8px;
             cursor: pointer;
             display: flex;
@@ -107,89 +184,19 @@
             transform: scale(0.95);
         }
 
-        /* ── controles (chips) ── */
-        .controls {
-            flex: 0 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            justify-content: center;
-            align-content: flex-start;
-            max-height: 22%;
-            overflow-y: auto;
-            padding: 2px 0;
-            scrollbar-width: thin;
-        }
-        .controls::-webkit-scrollbar { height: 4px; width: 4px; }
-        .controls::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 2px 7px;
-            border-radius: 20px;
-            font-size: clamp(0.55rem, 1.25vh, 0.72rem);
-            cursor: pointer;
-            border: 1.5px solid #dce1e6;
-            background: #f8f9fb;
-            transition: all .2s ease;
-            user-select: none;
-            white-space: nowrap;
-        }
-        .chip:hover { background: #eaecf0; }
-        .chip.active {
-            border-color: var(--chip-color, var(--accent));
-            background: color-mix(in srgb, var(--chip-color, var(--accent)) 12%, white);
-            font-weight: 600;
-        }
-        .chip .dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--chip-color, var(--accent));
-            flex-shrink: 0;
-        }
-        .chip input { display: none; }
-
-        /* ── gráfico que ocupa el espacio restante ── */
-        .chart-wrap {
-            flex: 1 1 auto;
-            position: relative;
-            width: 100%;
-            min-height: 0;
-            height: 100%;
-        }
-        .chart-wrap canvas {
-            position: absolute;
-            inset: 0;
-            width: 100% !important;
-            height: 100% !important;
-            display: block;
-        }
-
-        /* ── fuente ── */
-        .source {
-            flex: 0 0 auto;
-            text-align: right;
-            font-size: clamp(0.45rem, 1vh, 0.62rem);
-            color: var(--text-muted);
-            line-height: 1.2;
-        }
-        .source a { color: var(--accent); text-decoration: none; }
-
-        /* ── ajustes para pantallas muy pequeñas ── */
+        /* Responsive */
         @media (max-width: 520px) {
             body { padding: 4px; }
             .widget { padding: 6px 6px 4px; gap: 4px; }
-            .header-text h2 { font-size: clamp(0.8rem, 2.4vh, 0.95rem); }
-            .header-text p { display: none; }
+            .header h2 { font-size: clamp(0.8rem, 2.4vh, 0.95rem); }
+            .header p { display: none; }
             .chip { font-size: clamp(0.5rem, 1.4vh, 0.65rem); padding: 2px 5px; }
+            .footer { flex-direction: column; align-items: flex-start; gap: 4px; }
         }
 
         @media (max-height: 400px) {
-            .header-text h2 { font-size: 0.85rem; }
-            .header-text p { display: none; }
+            .header h2 { font-size: 0.85rem; }
+            .header p { display: none; }
             .controls { max-height: 28%; }
             .chip { font-size: 0.55rem; padding: 1px 4px; }
             .chart-toggle { width: 28px; height: 28px; font-size: 0.9rem; }
@@ -200,11 +207,8 @@
 
 <div class="widget">
     <div class="header">
-        <div class="header-text">
-            <h2>Emisiones Históricas de GEI por País (1990 – 2023)</h2>
-            <p>Selecciona países para comparar · Fuente: Climate Watch · MtCO₂e</p>
-        </div>
-        <button class="chart-toggle" id="chartToggle" title="Cambiar a gráfico de barras">📊</button>
+        <h2>Emisiones Históricas de GEI por País (1990 – 2023)</h2>
+        <p>Selecciona países para comparar · Fuente: Climate Watch · MtCO₂e</p>
     </div>
 
     <div class="controls" id="controls"></div>
@@ -213,16 +217,15 @@
         <canvas id="chart"></canvas>
     </div>
 
-    <div class="source">
-        Datos: <a href="https://www.climatewatchdata.org" target="_blank" rel="noopener">Climate Watch – Historical GHG Emissions</a> · Total incl. LULUCF, todos los GEI
+    <div class="footer">
+        <div class="source">
+            Datos: <a href="https://www.climatewatchdata.org" target="_blank" rel="noopener">Climate Watch – Historical GHG Emissions</a> · Total incl. LULUCF, todos los GEI
+        </div>
+        <button class="chart-toggle" id="chartToggle" title="Cambiar a gráfico de barras">📊</button>
     </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
-//  DATOS ESTÁTICOS  –  Climate Watch (MtCO₂e)
-//  Años: 1990 → 2023   (34 puntos)
-// ═══════════════════════════════════════════════
 const YEARS = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
 
 const COUNTRIES = {
@@ -288,10 +291,8 @@ const COUNTRIES = {
   }
 };
 
-// Países activos por defecto
 const active = new Set(["China","Estados Unidos","India","UE-27","Brasil"]);
 
-// ── Crear chips ──
 const controlsEl = document.getElementById("controls");
 Object.entries(COUNTRIES).forEach(([name, info]) => {
     const label = document.createElement("label");
@@ -314,9 +315,8 @@ Object.entries(COUNTRIES).forEach(([name, info]) => {
     controlsEl.appendChild(label);
 });
 
-// ── Chart.js ──
 const ctx = document.getElementById("chart").getContext("2d");
-let chartType = "line"; // Tipo actual: "line" o "bar"
+let chartType = "line";
 
 function buildDatasets() {
     return [...active].map(name => ({
@@ -329,7 +329,6 @@ function buildDatasets() {
         pointHitRadius: 8,
         tension: 0.35,
         fill: chartType === "line",
-        // Para barras, agrupamos por año; para líneas, las mostramos como series
         barPercentage: 0.9,
         categoryPercentage: 0.8
     }));
@@ -350,7 +349,8 @@ const chart = new Chart(ctx, {
                 labels: {
                     boxWidth: 12,
                     padding: 8,
-                    font: { size: 10 }
+                    font: { size: 10 },
+                    color: '#2c3e50'
                 }
             },
             tooltip: {
@@ -370,18 +370,20 @@ const chart = new Chart(ctx, {
         scales: {
             y: {
                 beginAtZero: true,
-                grid: { color: "#ecf0f1" },
-                title: { display: true, text: "MtCO₂e", font: { size: 10 } },
+                grid: { color: "rgba(0, 0, 0, 0.08)" },
+                title: { display: true, text: "MtCO₂e", font: { size: 10 }, color: '#2c3e50' },
                 ticks: {
                     font: { size: 9 },
+                    color: '#2c3e50',
                     callback: v => v >= 1000 ? (v/1000).toFixed(0) + "k" : v
                 }
             },
             x: {
                 grid: { display: false },
-                title: { display: true, text: "Año", font: { size: 10 } },
+                title: { display: true, text: "Año", font: { size: 10 }, color: '#2c3e50' },
                 ticks: {
                     font: { size: 9 },
+                    color: '#2c3e50',
                     maxRotation: 45,
                     autoSkip: true,
                     maxTicksLimit: 10
@@ -391,35 +393,17 @@ const chart = new Chart(ctx, {
     }
 });
 
-// ── Lógica para cambiar entre línea y barra ──
 const toggleBtn = document.getElementById("chartToggle");
 
 toggleBtn.addEventListener("click", () => {
     chartType = chartType === "line" ? "bar" : "line";
     chart.config.type = chartType;
-
-    // Actualizar datasets (colores de fondo y fill)
     chart.data.datasets = buildDatasets();
-
-    // Ajustar opciones específicas para barras (apiladas o no)
-    if (chartType === "bar") {
-        chart.options.scales.x.stacked = false;
-        chart.options.scales.y.stacked = false;
-        chart.options.plugins.tooltip.mode = "index";
-        chart.options.plugins.tooltip.intersect = false;
-        // Las barras agrupadas por año se ven mejor con más separación
-        chart.options.scales.x.barPercentage = 0.9;
-        chart.options.scales.x.categoryPercentage = 0.8;
-    } else {
-        chart.options.scales.x.stacked = false;
-        chart.options.scales.y.stacked = false;
-        chart.options.plugins.tooltip.mode = "index";
-        chart.options.plugins.tooltip.intersect = false;
-    }
-
+    chart.options.scales.x.stacked = false;
+    chart.options.scales.y.stacked = false;
+    chart.options.plugins.tooltip.mode = "index";
+    chart.options.plugins.tooltip.intersect = false;
     chart.update();
-
-    // Cambiar icono del botón
     toggleBtn.textContent = chartType === "line" ? "📊" : "📈";
     toggleBtn.title = chartType === "line" ? "Cambiar a gráfico de barras" : "Cambiar a gráfico de líneas";
 });
@@ -429,7 +413,6 @@ function redraw() {
     chart.update();
 }
 
-// ── Redimensionado suave ──
 let resizeTimeout;
 window.addEventListener("resize", () => {
     clearTimeout(resizeTimeout);
