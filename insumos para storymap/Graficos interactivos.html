@@ -2,138 +2,197 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparativa Histórica de Emisiones (Transparente)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Comparativa Histórica de Emisiones - Líneas / Barras</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root {
-            --accent: #3498db;
-            --text: #ffffff; /* Texto blanco para fondos oscuros */
-            --text-muted: #e0e0e0;
-        }
-        
-        /* Fondo transparente y adaptable */
-        html, body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: transparent; /* Sin fondo */
-            color: var(--text);
-            height: 100%;
-            width: 100%;
-            overflow-x: hidden;
+        /* Reset total para evitar scroll */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        
+
+        :root {
+            --primary-color: #1a2332;
+            --accent: #3498db;
+            --bg: #f4f6f8;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-muted: #7f8c8d;
+            --radius: 10px;
+            --btn-bg: #ecf0f1;
+            --btn-hover: #dfe6e9;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 10px;
+            align-items: stretch;
+            padding: 8px;
+            height: 100%;
         }
 
-        /* Contenedor transparente */
+        /* ── widget que ocupa todo el contenedor ── */
         .widget {
-            background: transparent; /* Sin fondo de tarjeta */
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 12px rgba(0,0,0,.08);
             width: 100%;
-            max-width: 1000px;
             height: 100%;
-            padding: 10px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            padding: 10px 14px 8px;
+            gap: 6px;
+            overflow: hidden;
         }
 
-        /* Encabezado */
-        .header { text-align: center; }
-        .header h2 {
-            font-size: 1.4rem;
+        /* ── header con botón de cambio ── */
+        .header {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .header-text {
+            flex: 1;
+            text-align: center;
+        }
+        .header-text h2 {
+            font-size: clamp(0.9rem, 2.1vh, 1.2rem);
             font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8); /* Sombra para legibilidad */
-            line-height: 1.3;
+            color: var(--primary-color);
+            line-height: 1.25;
         }
-        .header p {
-            font-size: .85rem;
+        .header-text p {
+            font-size: clamp(0.6rem, 1.4vh, 0.78rem);
             color: var(--text-muted);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-            margin-top: 4px;
+            margin-top: 1px;
         }
 
-        /* Controles (Chips) */
+        /* Botón de cambio de gráfico (minimalista) */
+        .chart-toggle {
+            flex: 0 0 auto;
+            width: clamp(32px, 4.5vh, 40px);
+            height: clamp(32px, 4.5vh, 40px);
+            border: 1.5px solid #dce1e6;
+            background: var(--btn-bg);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 2.2vh, 1.3rem);
+            transition: all 0.2s;
+            user-select: none;
+            color: var(--primary-color);
+        }
+        .chart-toggle:hover {
+            background: var(--btn-hover);
+            transform: scale(1.05);
+        }
+        .chart-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* ── controles (chips) ── */
         .controls {
+            flex: 0 0 auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 4px;
             justify-content: center;
-            padding: 5px;
-            /* Fondo muy sutil para agrupar los botones */
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            backdrop-filter: blur(4px);
+            align-content: flex-start;
+            max-height: 22%;
+            overflow-y: auto;
+            padding: 2px 0;
+            scrollbar-width: thin;
         }
+        .controls::-webkit-scrollbar { height: 4px; width: 4px; }
+        .controls::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
         .chip {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 4px 10px;
+            gap: 4px;
+            padding: 2px 7px;
             border-radius: 20px;
-            font-size: .78rem;
+            font-size: clamp(0.55rem, 1.25vh, 0.72rem);
             cursor: pointer;
-            border: 1.5px solid rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.1);
-            color: #ffffff;
+            border: 1.5px solid #dce1e6;
+            background: #f8f9fb;
             transition: all .2s ease;
             user-select: none;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            white-space: nowrap;
         }
-        .chip:hover { background: rgba(255,255,255,0.2); }
+        .chip:hover { background: #eaecf0; }
         .chip.active {
             border-color: var(--chip-color, var(--accent));
-            background: rgba(255,255,255,0.2);
+            background: color-mix(in srgb, var(--chip-color, var(--accent)) 12%, white);
             font-weight: 600;
-            box-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
         .chip .dot {
-            width: 10px; height: 10px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             background: var(--chip-color, var(--accent));
             flex-shrink: 0;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
         .chip input { display: none; }
 
-        /* Gráfico */
+        /* ── gráfico que ocupa el espacio restante ── */
         .chart-wrap {
+            flex: 1 1 auto;
             position: relative;
             width: 100%;
-            height: 0;
-            padding-bottom: 50%;   /* Aspect ratio */
-            min-height: 280px;
+            min-height: 0;
+            height: 100%;
         }
         .chart-wrap canvas {
             position: absolute;
             inset: 0;
             width: 100% !important;
             height: 100% !important;
+            display: block;
         }
 
-        /* Fuente */
+        /* ── fuente ── */
         .source {
+            flex: 0 0 auto;
             text-align: right;
-            font-size: .7rem;
+            font-size: clamp(0.45rem, 1vh, 0.62rem);
             color: var(--text-muted);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            line-height: 1.2;
         }
-        .source a { color: var(--accent); text-decoration: none; text-shadow: none; }
+        .source a { color: var(--accent); text-decoration: none; }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            body { padding: 5px; }
-            .header h2 { font-size: 1.1rem; }
-            .chip { font-size: .7rem; padding: 3px 8px; }
-            .chart-wrap { padding-bottom: 65%; min-height: 220px; }
-            .controls { padding: 3px; }
+        /* ── ajustes para pantallas muy pequeñas ── */
+        @media (max-width: 520px) {
+            body { padding: 4px; }
+            .widget { padding: 6px 6px 4px; gap: 4px; }
+            .header-text h2 { font-size: clamp(0.8rem, 2.4vh, 0.95rem); }
+            .header-text p { display: none; }
+            .chip { font-size: clamp(0.5rem, 1.4vh, 0.65rem); padding: 2px 5px; }
+        }
+
+        @media (max-height: 400px) {
+            .header-text h2 { font-size: 0.85rem; }
+            .header-text p { display: none; }
+            .controls { max-height: 28%; }
+            .chip { font-size: 0.55rem; padding: 1px 4px; }
+            .chart-toggle { width: 28px; height: 28px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -141,8 +200,11 @@
 
 <div class="widget">
     <div class="header">
-        <h2>Emisiones Históricas de GEI por País (1990 – 2023)</h2>
-        <p>Selecciona los países para comparar sus tendencias · Fuente: Climate Watch · MtCO₂e</p>
+        <div class="header-text">
+            <h2>Emisiones Históricas de GEI por País (1990 – 2023)</h2>
+            <p>Selecciona países para comparar · Fuente: Climate Watch · MtCO₂e</p>
+        </div>
+        <button class="chart-toggle" id="chartToggle" title="Cambiar a gráfico de barras">📊</button>
     </div>
 
     <div class="controls" id="controls"></div>
@@ -165,7 +227,7 @@ const YEARS = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,
 
 const COUNTRIES = {
   "Mundo": {
-    color: "#ffffff", // Blanco para que resalte en el gráfico transparente
+    color: "#636e72",
     data: [33864.7,34012.9,33953.0,34126.0,34392.9,35194.0,35584.2,36968.2,36466.9,36463.4,37124.3,35598.1,36571.9,37583.9,39432.9,40389.8,41871.7,42646.8,42894.6,42835.7,44624.3,45371.6,45884.5,46574.5,47216.1,47082.9,47047.5,47778.0,48853.1,49250.2,47002.2,49353.0,49775.4,50802.9]
   },
   "China": {
@@ -197,7 +259,7 @@ const COUNTRIES = {
     data: [1127.32,1145.0,1158.97,1154.26,1214.72,1235.88,1248.92,1233.83,1182.08,1208.09,1218.49,1114.87,1141.05,1146.7,1132.24,1138.84,1118.62,1152.3,1082.02,1022.68,1079.77,1220.34,1263.47,1278.92,1231.41,1194.51,1196.02,1183.8,1145.18,1109.6,1053.17,1105.26,1080.55,1035.83]
   },
   "Alemania": {
-    color: "#bdc3c7", // Gris claro para contrastar
+    color: "#2d3436",
     data: [1096.59,1071.33,1026.85,1019.35,1010.04,1007.15,1031.7,994.6,972.98,935.0,927.26,978.38,961.62,962.37,944.24,922.31,930.6,901.5,904.37,847.17,878.07,822.03,835.11,850.31,809.5,814.4,872.03,855.33,825.29,774.0,720.02,742.6,732.33,669.68]
   },
   "México": {
@@ -254,45 +316,49 @@ Object.entries(COUNTRIES).forEach(([name, info]) => {
 
 // ── Chart.js ──
 const ctx = document.getElementById("chart").getContext("2d");
-
-// Ajustes globales de Chart.js para fondo transparente
-Chart.defaults.color = '#ffffff'; 
-Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
-Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+let chartType = "line"; // Tipo actual: "line" o "bar"
 
 function buildDatasets() {
     return [...active].map(name => ({
         label: name,
         data: COUNTRIES[name].data,
         borderColor: COUNTRIES[name].color,
-        backgroundColor: COUNTRIES[name].color + "22", // Relleno semitransparente
-        borderWidth: 2.5, // Líneas un poco más gruesas para resaltar
+        backgroundColor: COUNTRIES[name].color + (chartType === "bar" ? "cc" : "22"),
+        borderWidth: 2,
         pointRadius: 0,
-        pointHitRadius: 10,
+        pointHitRadius: 8,
         tension: 0.35,
-        fill: true
+        fill: chartType === "line",
+        // Para barras, agrupamos por año; para líneas, las mostramos como series
+        barPercentage: 0.9,
+        categoryPercentage: 0.8
     }));
 }
 
 const chart = new Chart(ctx, {
-    type: "line",
+    type: chartType,
     data: { labels: YEARS, datasets: buildDatasets() },
     options: {
         responsive: true,
         maintainAspectRatio: false,
+        resizeDelay: 100,
         interaction: { mode: "index", intersect: false },
         plugins: {
             legend: {
-                display: false // Ocultamos la leyenda porque ya usamos los chips
+                display: true,
+                position: "bottom",
+                labels: {
+                    boxWidth: 12,
+                    padding: 8,
+                    font: { size: 10 }
+                }
             },
             tooltip: {
-                backgroundColor: "rgba(20, 30, 40, 0.9)",
-                titleFont: { size: 13, weight: 'bold' },
-                bodyFont: { size: 12 },
-                padding: 12,
-                cornerRadius: 8,
-                borderColor: 'rgba(255,255,255,0.2)',
-                borderWidth: 1,
+                backgroundColor: "rgba(26,35,50,.92)",
+                titleFont: { size: 11 },
+                bodyFont: { size: 10 },
+                padding: 8,
+                cornerRadius: 6,
                 callbacks: {
                     label: ctx => {
                         const v = ctx.parsed.y;
@@ -304,43 +370,73 @@ const chart = new Chart(ctx, {
         scales: {
             y: {
                 beginAtZero: true,
-                grid: { color: "rgba(255, 255, 255, 0.15)" }, // Cuadrícula sutil blanca
-                title: { 
-                    display: true, 
-                    text: "Millones de Toneladas (MtCO₂e)", 
-                    font: { size: 11, weight: 'bold' },
-                    color: '#e0e0e0'
-                },
-                ticks: { 
-                    font: { size: 10 },
-                    color: '#e0e0e0',
-                    callback: v => v >= 1000 ? (v/1000).toFixed(0) + "k" : v 
+                grid: { color: "#ecf0f1" },
+                title: { display: true, text: "MtCO₂e", font: { size: 10 } },
+                ticks: {
+                    font: { size: 9 },
+                    callback: v => v >= 1000 ? (v/1000).toFixed(0) + "k" : v
                 }
             },
             x: {
-                grid: { display: false }, // Sin líneas verticales para limpiar
-                title: { 
-                    display: true, 
-                    text: "Año", 
-                    font: { size: 11, weight: 'bold' },
-                    color: '#e0e0e0'
-                },
+                grid: { display: false },
+                title: { display: true, text: "Año", font: { size: 10 } },
                 ticks: {
-                    font: { size: 10 },
-                    color: '#e0e0e0',
+                    font: { size: 9 },
                     maxRotation: 45,
                     autoSkip: true,
-                    maxTicksLimit: 12
+                    maxTicksLimit: 10
                 }
             }
         }
     }
 });
 
+// ── Lógica para cambiar entre línea y barra ──
+const toggleBtn = document.getElementById("chartToggle");
+
+toggleBtn.addEventListener("click", () => {
+    chartType = chartType === "line" ? "bar" : "line";
+    chart.config.type = chartType;
+
+    // Actualizar datasets (colores de fondo y fill)
+    chart.data.datasets = buildDatasets();
+
+    // Ajustar opciones específicas para barras (apiladas o no)
+    if (chartType === "bar") {
+        chart.options.scales.x.stacked = false;
+        chart.options.scales.y.stacked = false;
+        chart.options.plugins.tooltip.mode = "index";
+        chart.options.plugins.tooltip.intersect = false;
+        // Las barras agrupadas por año se ven mejor con más separación
+        chart.options.scales.x.barPercentage = 0.9;
+        chart.options.scales.x.categoryPercentage = 0.8;
+    } else {
+        chart.options.scales.x.stacked = false;
+        chart.options.scales.y.stacked = false;
+        chart.options.plugins.tooltip.mode = "index";
+        chart.options.plugins.tooltip.intersect = false;
+    }
+
+    chart.update();
+
+    // Cambiar icono del botón
+    toggleBtn.textContent = chartType === "line" ? "📊" : "📈";
+    toggleBtn.title = chartType === "line" ? "Cambiar a gráfico de barras" : "Cambiar a gráfico de líneas";
+});
+
 function redraw() {
     chart.data.datasets = buildDatasets();
     chart.update();
 }
+
+// ── Redimensionado suave ──
+let resizeTimeout;
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        chart.resize();
+    }, 150);
+});
 </script>
 </body>
 </html>
