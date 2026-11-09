@@ -1,407 +1,427 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador del efecto invernadero</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Simulador del efecto invernadero - Simple y animado</title>
 <style>
-  * {
-    box-sizing: border-box;
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #ffffff;
   }
 
-  html,
   body {
-    width: 100%;
-    min-height: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    background-color: transparent !important;
-    color: #FFD046;
-    font-family: Arial, Helvetica, sans-serif;
-    color-scheme: light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 100%;
   }
 
   .simulador {
-    display: block;
     width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0;
-    background: transparent !important;
-    background-color: transparent !important;
-    border: none !important;
-    border-radius: 0;
-    box-shadow: none !important;
-    overflow: visible;
+    max-width: 900px;
+    height: 100%;
+    max-height: 650px;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    position: relative;
   }
 
+  /* ── Área del gráfico (transparente) ── */
   .grafico {
-    padding: 22px 3% 14px;
-    background: transparent !important;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 8px 12px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
   }
 
   svg {
     display: block;
     width: 100%;
-    max-width: 900px;
-    height: auto;
+    height: 100%;
+    max-height: 100%;
     margin: auto;
-    background: transparent !important;
+    overflow: visible;
   }
 
   svg text {
-    font-family: Arial, sans-serif;
-    fill: #FFD046;
-    font-size: 16px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    fill: #ffffff;
+    font-size: 15px;
     font-weight: 700;
-    paint-order: stroke fill;
-    stroke: rgba(20, 45, 65, .85);
-    stroke-width: 3px;
+    paint-order: stroke;
+    stroke: rgba(0, 0, 0, 0.55);
+    stroke-width: 3.5px;
     stroke-linejoin: round;
   }
 
+  /* ── Animaciones ── */
+  @keyframes girarSol {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulsarSol {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.15); opacity: 0.9; }
+  }
+  @keyframes flotar {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes brilloFlecha {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+  @keyframes vibrar {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(1px); }
+    75% { transform: translateX(-1px); }
+    100% { transform: translateX(0); }
+  }
+  @keyframes aparecer {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Aplicar animaciones */
+  .sol-rayos {
+    transform-origin: 180px 58px;
+    animation: girarSol 40s linear infinite;
+  }
+  .sol-halo {
+    transform-origin: 180px 58px;
+    animation: pulsarSol 2.5s ease-in-out infinite alternate;
+  }
+  .molecula {
+    animation: flotar 3s ease-in-out infinite;
+  }
+  .molecula:nth-child(2n) { animation-delay: 0.4s; }
+  .molecula:nth-child(3n) { animation-delay: 0.8s; }
+  .molecula:nth-child(4n) { animation-delay: 1.2s; }
+
+  .flecha-ir {
+    animation: brilloFlecha 2s ease-in-out infinite;
+  }
+  .flecha-retorno {
+    animation: brilloFlecha 2s ease-in-out infinite 0.5s;
+  }
+  .punta-ir, .punta-retorno {
+    animation: vibrar 0.6s ease-in-out infinite;
+  }
+
+  /* ── Panel de control inferior (transparente) ── */
   .control {
+    flex: 0 0 auto;
+    padding: 14px 16px 8px;
     display: flex;
     align-items: center;
+    gap: 12px;
     flex-wrap: wrap;
-    gap: 18px;
-    padding: 22px 18px;
-    border-top: 1px solid rgba(255, 208, 70, .35);
-    background: transparent !important;
+    background: transparent;
   }
 
   .etiqueta {
-    flex: 1 1 300px;
-    line-height: 1.4;
-    font-size: 16px;
-    color: #FFD046;
+    flex: 1 1 240px;
+    line-height: 1.35;
+    font-size: clamp(0.78rem, 1.7vh, 0.92rem);
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  .etiqueta strong {
+    color: #ffd046;
+    font-weight: 700;
   }
 
   .valor {
-    min-width: 28px;
+    min-width: 44px;
     text-align: center;
-    font-size: 15px;
-    color: #FFD046;
+    font-size: clamp(0.9rem, 2vh, 1.1rem);
+    font-weight: 800;
+    color: #ffd046;
+    background: rgba(255, 208, 70, 0.15);
+    border: 1.5px solid rgba(255, 208, 70, 0.4);
+    border-radius: 8px;
+    padding: 4px 8px;
+    transition: all 0.2s;
   }
 
-  input[type="range"] {
-    flex: 2 1 220px;
-    min-width: 150px;
-    accent-color: #FFD046;
+  input[type=range] {
+    flex: 2 1 180px;
+    min-width: 130px;
+    height: 6px;
+    accent-color: #ffd046;
     cursor: pointer;
+    border-radius: 3px;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffd046;
+    box-shadow: 0 2px 8px rgba(255, 208, 70, 0.5);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .btn-reset {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: clamp(0.85rem, 1.8vh, 1.05rem);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-reset:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.05);
+  }
+  .btn-reset:active {
+    transform: scale(0.95);
+  }
+
+  /* ── Estado climático (píldora, sin fondo oscuro) ── */
+  .estado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: clamp(0.72rem, 1.6vh, 0.88rem);
+    font-weight: 700;
+    transition: all 0.4s;
+    margin: 0 auto 2px;
+    width: fit-content;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  }
+  .estado.normal {
+    background: rgba(39, 174, 96, 0.25);
+    color: #7dffb0;
+    border: 1px solid rgba(39, 174, 96, 0.5);
+  }
+  .estado.warm {
+    background: rgba(243, 156, 18, 0.25);
+    color: #ffcf7a;
+    border: 1px solid rgba(243, 156, 18, 0.5);
+  }
+  .estado.hot {
+    background: rgba(231, 76, 60, 0.3);
+    color: #ff8a80;
+    border: 1px solid rgba(231, 76, 60, 0.6);
+    animation: pulseHot 1.2s infinite alternate;
+  }
+  @keyframes pulseHot {
+    0% { box-shadow: 0 0 0 rgba(231, 76, 60, 0.3); }
+    100% { box-shadow: 0 0 16px rgba(231, 76, 60, 0.6); }
   }
 
   .nota {
-    padding: 0 18px 16px;
+    flex: 0 0 auto;
+    padding: 0 12px 6px;
     text-align: center;
-    color: #FFD046;
-    font-size: 12px;
-    line-height: 1.5;
-    background: transparent !important;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: clamp(0.55rem, 1.1vh, 0.7rem);
+    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
 
-  @media (max-width: 520px) {
-    .grafico {
-      padding: 12px 5px 8px;
-    }
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    body { padding: 4px; }
+    .grafico { padding: 4px 4px 2px; }
+    .control { gap: 8px; padding: 10px 8px 6px; }
+    .etiqueta { flex-basis: 100%; font-size: 0.75rem; }
+    input[type=range] { flex: 1 1 100px; }
+    .nota { font-size: 0.55rem; padding: 0 6px 4px; }
+    svg text { font-size: 16px; }
+  }
 
-    .control {
-      gap: 12px;
-      padding: 17px 14px;
-    }
-
-    .etiqueta {
-      flex-basis: 100%;
-    }
-
-    input[type="range"] {
-      flex: 1 1 150px;
-    }
-
-    svg text {
-      font-size: 17px;
-    }
+  @media (max-height: 480px) {
+    .control { padding: 6px 10px 4px; gap: 6px; }
+    .etiqueta { font-size: 0.7rem; }
+    .nota { font-size: 0.5rem; padding: 0 6px 4px; }
+    .estado { padding: 3px 10px; font-size: 0.65rem; }
   }
 </style>
 </head>
-
 <body>
-
 <main class="simulador" aria-label="Simulador interactivo del efecto invernadero">
-
   <div class="grafico">
-
-    <svg viewBox="0 0 760 390" role="img" aria-labelledby="titulo descripcion">
-
+    <svg viewBox="0 0 760 390" role="img" aria-labelledby="titulo descripcion" preserveAspectRatio="xMidYMid meet">
       <title id="titulo">Cómo actúa el efecto invernadero</title>
-
-      <desc id="descripcion">
-        La luz solar atraviesa la atmósfera y calienta la Tierra.
-        La superficie libera radiación infrarroja; parte escapa al espacio
-        y parte regresa debido a los gases de efecto invernadero.
-      </desc>
-
+      <desc id="descripcion">La luz solar atraviesa la atmósfera y calienta la Tierra. La superficie libera radiación infrarroja; parte escapa al espacio y parte regresa debido a los gases de efecto invernadero.</desc>
       <defs>
-
         <linearGradient id="atm" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#4b91bd" stop-opacity=".85"/>
-          <stop offset="1" stop-color="#4b91bd" stop-opacity=".65"/>
+          <stop offset="0" stop-color="#718da5" stop-opacity=".5"/>
+          <stop offset="1" stop-color="#718da5" stop-opacity=".15"/>
         </linearGradient>
-
         <linearGradient id="mar" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0878c9"/>
-          <stop offset="1" stop-color="#064477"/>
+          <stop offset="0" stop-color="#0878c9"/><stop offset="1" stop-color="#064477"/>
         </linearGradient>
-
         <clipPath id="tierraClip">
           <path d="M170 300 Q380 235 590 300 L590 345 L170 345Z"/>
         </clipPath>
-
+        <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffc928" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#ffc928" stop-opacity="0"/>
+        </radialGradient>
       </defs>
 
-      <!-- Sol y radiación solar -->
-
+      <!-- Sol animado -->
+      <circle class="sol-halo" cx="180" cy="58" r="42" fill="url(#sunGlow)"/>
       <circle cx="180" cy="58" r="21" fill="#ffc928"/>
-
-      <g stroke="#ffc928" stroke-width="3">
+      <g class="sol-rayos" stroke="#ffc928" stroke-width="3">
         <path d="M180 25V13 M180 91V103 M147 58H135 M213 58H225"/>
         <path d="M157 35L148 26 M203 81L212 90 M203 35L212 26 M157 81L148 90"/>
       </g>
-
       <g stroke="#c99a00" stroke-width="4" fill="none">
-        <path d="M205 95L270 293"/>
-        <path d="M245 95L305 293"/>
-        <path d="M285 95L340 293"/>
+        <path d="M205 95L270 293"/><path d="M245 95L305 293"/><path d="M285 95L340 293"/>
       </g>
-
       <g fill="#c99a00">
-        <path d="M263 284L270 301L274 282Z"/>
-        <path d="M298 284L305 301L309 282Z"/>
-        <path d="M333 284L340 301L344 282Z"/>
+        <path d="M263 284L270 301L274 282Z"/><path d="M298 284L305 301L309 282Z"/><path d="M333 284L340 301L344 282Z"/>
       </g>
-
       <text x="255" y="75">Luz solar</text>
 
-      <!-- Capa atmosférica -->
-
-      <path
-        d="M185 190 Q380 110 575 190 L562 250 Q380 185 198 250Z"
-        fill="url(#atm)"
-        stroke="#70b7df"
-        stroke-opacity=".95"
-        stroke-width="2.5"
-      />
-
-      <!-- Moléculas de gases de efecto invernadero -->
-
+      <!-- Atmósfera -->
+      <path d="M185 190 Q380 110 575 190 L562 250 Q380 185 198 250Z" fill="url(#atm)"/>
+      <text x="380" y="177" text-anchor="middle">Atmósfera</text>
       <g id="moleculas" fill="#789bb9">
-        <circle cx="220" cy="202" r="6"/>
-        <circle cx="238" cy="195" r="6"/>
-        <circle cx="265" cy="190" r="6"/>
-        <circle cx="292" cy="184" r="6"/>
-        <circle cx="320" cy="179" r="6"/>
-        <circle cx="348" cy="175" r="6"/>
-        <circle cx="380" cy="173" r="6"/>
-        <circle cx="410" cy="176" r="6"/>
-        <circle cx="440" cy="181" r="6"/>
-        <circle cx="468" cy="188" r="6"/>
-        <circle cx="495" cy="195" r="6"/>
-        <circle cx="520" cy="203" r="6"/>
+        <circle class="molecula" cx="220" cy="202" r="6"/><circle class="molecula" cx="238" cy="195" r="6"/>
+        <circle class="molecula" cx="265" cy="190" r="6"/><circle class="molecula" cx="292" cy="184" r="6"/>
+        <circle class="molecula" cx="320" cy="179" r="6"/><circle class="molecula" cx="348" cy="175" r="6"/>
+        <circle class="molecula" cx="380" cy="173" r="6"/><circle class="molecula" cx="410" cy="176" r="6"/>
+        <circle class="molecula" cx="440" cy="181" r="6"/><circle class="molecula" cx="468" cy="188" r="6"/>
+        <circle class="molecula" cx="495" cy="195" r="6"/><circle class="molecula" cx="520" cy="203" r="6"/>
       </g>
 
-      <!-- Superficie terrestre -->
-
-      <path
-        d="M170 300 Q380 235 590 300 L590 345 L170 345Z"
-        fill="url(#mar)"
-        stroke="#168e54"
-        stroke-width="3"
-      />
-
+      <!-- Tierra -->
+      <path d="M170 300 Q380 235 590 300 L590 345 L170 345Z" fill="url(#mar)" stroke="#168e54" stroke-width="3"/>
       <g clip-path="url(#tierraClip)">
-
-        <path d="M170 285L205 265L235 275L250 300L228 315L210 345L170 345Z"
-          fill="#469b55"/>
-
-        <path d="M280 275L310 260L340 280L328 310L300 330L275 305Z"
-          fill="#4b9b52"/>
-
-        <path d="M405 275L440 255L470 267L500 285L485 310L455 305L435 345L405 320Z"
-          fill="#d4b66b"/>
-
-        <path d="M500 295L540 275L590 295L590 345L520 345Z"
-          fill="#4b9b52"/>
-
+        <path d="M170 285L205 265L235 275L250 300L228 315L210 345L170 345Z" fill="#469b55"/>
+        <path d="M280 275L310 260L340 280L328 310L300 330L275 305Z" fill="#4b9b52"/>
+        <path d="M405 275L440 255L470 267L500 285L485 310L455 305L435 345L405 320Z" fill="#d4b66b"/>
+        <path d="M500 295L540 275L590 295L590 345L520 345Z" fill="#4b9b52"/>
       </g>
+      <text x="380" y="330" text-anchor="middle">Tierra</text>
 
-      <!-- Etiqueta de la Tierra en blanco -->
+      <!-- Radiación infrarroja animada -->
+      <path id="flechaEscape" class="flecha-ir" d="M380 290 L380 72" stroke="#ed690e" stroke-width="6" fill="none"/>
+      <path id="puntaEscape" class="punta-ir" d="M371 83L380 65L389 83Z" fill="#ed690e"/>
+      <path id="flechaRetorno" class="flecha-retorno" d="M380 205 Q470 215 535 292" stroke="#e33c36" stroke-width="5" fill="none"/>
+      <path class="punta-retorno" d="M523 282L538 298L539 278Z" fill="#e33c36"/>
 
-      <text
-        x="380"
-        y="330"
-        text-anchor="middle"
-        style="fill:#FFFFFF; stroke:rgba(20,45,65,.85);"
-      >Tierra</text>
-
-      <!-- Radiación infrarroja -->
-
-      <path
-        id="flechaEscape"
-        d="M380 290 L380 72"
-        stroke="#ed690e"
-        stroke-width="6"
-        fill="none"
-      />
-
-      <path
-        id="puntaEscape"
-        d="M371 83L380 65L389 83Z"
-        fill="#ed690e"
-      />
-
-      <path
-        id="flechaRetorno"
-        d="M380 205 Q470 215 535 292"
-        stroke="#e33c36"
-        stroke-width="5"
-        fill="none"
-      />
-
-      <path d="M523 282L538 298L539 278Z" fill="#e33c36"/>
-
-      <!-- Etiquetas de radiación -->
-
-      <text id="textoEscape" x="397" y="58">
-        Radiación que escapa: 60 %
-      </text>
-
-      <text id="textoRetorno" x="397" y="150">
-        Radiación que regresa: 40 %
-      </text>
-
-      <!-- Etiqueta atmosférica -->
-
-      <text
-        x="270"
-        y="238"
-        text-anchor="middle"
-        style="font-size:18px; fill:#FFD046;"
-      >Atmósfera</text>
-
+      <text id="textoEscape" x="397" y="58">Radiación que escapa: 60 %</text>
+      <text id="textoRetorno" x="397" y="150">Radiación que regresa: 40 %</text>
     </svg>
-
   </div>
 
-  <!-- Control interactivo -->
+  <!-- Estado climático -->
+  <div class="estado normal" id="estadoClimatico">
+    <span>✅</span> Clima estable
+  </div>
 
   <div class="control">
-
     <label class="etiqueta" for="nivelGases">
-      Nivel relativo de gases de efecto invernadero
-      (escala del modelo: 0–100)
+      Nivel de <strong>gases de efecto invernadero</strong> (0–100)
     </label>
-
     <output class="valor" id="valorGases" for="nivelGases">55</output>
-
-    <input
-      id="nivelGases"
-      type="range"
-      min="0"
-      max="100"
-      value="55"
-      step="1"
-    >
-
+    <input id="nivelGases" type="range" min="0" max="100" value="55" step="1" aria-label="Nivel de gases de efecto invernadero">
+    <button class="btn-reset" id="resetBtn" title="Reiniciar">⟲</button>
   </div>
 
-  <p class="nota">
-    Modelo ilustrativo con fines educativos. Los valores representan
-    una escala relativa y no mediciones reales de la atmósfera.
-  </p>
-
+  <p class="nota">Modelo educativo. Los valores son relativos, no mediciones reales.</p>
 </main>
 
 <script>
 (() => {
-
   const control = document.getElementById('nivelGases');
   const valor = document.getElementById('valorGases');
-
   const textoEscape = document.getElementById('textoEscape');
   const textoRetorno = document.getElementById('textoRetorno');
-
   const flechaEscape = document.getElementById('flechaEscape');
   const puntaEscape = document.getElementById('puntaEscape');
   const flechaRetorno = document.getElementById('flechaRetorno');
-
   const moleculas = document.getElementById('moleculas');
+  const estadoClimatico = document.getElementById('estadoClimatico');
+  const resetBtn = document.getElementById('resetBtn');
+
+  const VALOR_INICIAL = 55;
 
   const puntos = [
-    [220,202],[238,195],[250,211],[265,190],
-    [280,207],[292,184],[305,205],[320,179],
-    [335,198],[348,175],[365,194],[380,173],
-    [395,195],[410,176],[425,199],[440,181],
-    [455,205],[468,188],[482,211],[495,195],
+    [220,202],[238,195],[250,211],[265,190],[280,207],
+    [292,184],[305,205],[320,179],[335,198],[348,175],
+    [365,194],[380,173],[395,195],[410,176],[425,199],
+    [440,181],[455,205],[468,188],[482,211],[495,195],
     [510,215],[520,203],[300,220],[450,220]
   ];
 
   function actualizar() {
-
     const nivel = Number(control.value);
-
-    // Correspondencia visual didáctica:
-    // con el valor inicial 55, se retiene el 40 %.
-
     const retenida = Math.round(nivel * 40 / 55);
     const escapa = 100 - retenida;
 
     valor.textContent = nivel;
-
-    textoEscape.textContent =
-      `Radiación que escapa: ${escapa} %`;
-
-    textoRetorno.textContent =
-      `Radiación que regresa: ${retenida} %`;
+    textoEscape.textContent = `Radiación que escapa: ${escapa} %`;
+    textoRetorno.textContent = `Radiación que regresa: ${retenida} %`;
 
     const yFinal = 75 + retenida * 0.65;
-
-    flechaEscape.setAttribute(
-      'd',
-      `M380 290 L380 ${yFinal}`
-    );
-
-    puntaEscape.setAttribute(
-      'd',
-      `M371 ${yFinal + 11}L380 ${yFinal - 7}L389 ${yFinal + 11}Z`
-    );
+    flechaEscape.setAttribute('d', `M380 290 L380 ${yFinal}`);
+    puntaEscape.setAttribute('d', `M371 ${yFinal + 11}L380 ${yFinal - 7}L389 ${yFinal + 11}Z`);
 
     const controlY = 185 + retenida * 0.45;
+    flechaRetorno.setAttribute('d', `M380 205 Q${440 + retenida * 0.35} ${controlY} 535 292`);
 
-    flechaRetorno.setAttribute(
-      'd',
-      `M380 205 Q${440 + retenida * 0.35} ${controlY} 535 292`
-    );
+    const cantidad = Math.round(nivel / 100 * puntos.length);
+    moleculas.innerHTML = puntos.slice(0, cantidad)
+      .map(([x,y], i) => `<circle class="molecula" style="animation-delay:${(i%4)*0.3}s" cx="${x}" cy="${y}" r="6"/>`).join('');
 
-    const cantidad = Math.round(
-      nivel / 100 * puntos.length
-    );
-
-    moleculas.innerHTML = puntos
-      .slice(0, cantidad)
-      .map(([x,y]) => `<circle cx="${x}" cy="${y}" r="6"/>`)
-      .join('');
-
+    estadoClimatico.className = 'estado';
+    if (nivel < 40) {
+      estadoClimatico.classList.add('normal');
+      estadoClimatico.innerHTML = '<span>✅</span> Clima estable';
+    } else if (nivel < 70) {
+      estadoClimatico.classList.add('warm');
+      estadoClimatico.innerHTML = '<span>⚠️</span> Calentamiento moderado';
+    } else {
+      estadoClimatico.classList.add('hot');
+      estadoClimatico.innerHTML = '<span>🔥</span> ¡Alerta climática!';
+    }
   }
 
   control.addEventListener('input', actualizar);
 
-  actualizar();
+  resetBtn.addEventListener('click', () => {
+    control.value = VALOR_INICIAL;
+    actualizar();
+  });
 
+  actualizar();
 })();
 </script>
-
 </body>
 </html>
